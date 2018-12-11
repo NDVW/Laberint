@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
-   public GameObject[] points;
+   private GameObject[] points;
     GameObject smellPoints;
     GameObject prev;
     float Distance;
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour {
         isfirstCoroutineStarted = true;
        
         smellPoints.SetActive(true);
-        yield return new WaitForSeconds(7);
+        yield return new WaitForSeconds(5);
         smellPoints.SetActive(false);
         isfirstCoroutineStarted = false;
         }
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour {
         isSecondCoroutineStarted = true;
        
         smellPoints.SetActive(true);
-        yield return new WaitForSeconds(7);
+        yield return new WaitForSeconds(5);
         smellPoints.SetActive(false);
         isSecondCoroutineStarted = false;
     }

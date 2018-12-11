@@ -21,7 +21,7 @@ public class RemoveFirstLine : MonoBehaviour
     RaycastHit hit;
     FIndClosestWall find = new FIndClosestWall();
     // Use this for initialization
-    bool foundwall = false;
+    bool foundFirstWall = false;
     private GameObject EndGate;
     string wallName;
     void Start()
@@ -34,48 +34,63 @@ public class RemoveFirstLine : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        float distance_endgate = Vector3.Distance(target.position, EndGate.transform.position);
-        if (Physics.Raycast(target.position, (EndGate.transform.position - target.position).normalized, out hit))
-        {
-            // Debug.Log(hit.collider.name);
-            wallName = hit.collider.name;
-            wall = GameObject.Find(wallName);
-            Debug.Log("First Line is " + wall);
-            start = wall.transform.position;
-            end = wall.transform.position + Vector3.up * Move_distance;
-
-            distance_player_wall = Vector3.Distance(target.position, wall.transform.position);
-
-            if (!isCoroutineStarted)
+    {   if (!foundFirstWall) { 
+            float distance_endgate = Vector3.Distance(target.position, EndGate.transform.position);
+            if (Physics.Raycast(target.position, (EndGate.transform.position - target.position).normalized, out hit))
             {
-                StartCoroutine(Remove(start, end, wall, 0, 5));
+                // Debug.Log(hit.collider.name);
+                wallName = hit.collider.name;
+                wall = GameObject.Find(wallName);
+                Debug.Log("First Line is " + wall);
+                foundFirstWall = true;
+                start = wall.transform.position;
+                end = wall.transform.position + Vector3.up * Move_distance;
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    currentLerptime += Time.deltaTime;
+                    if (currentLerptime >= lerptime)
+                    {
+                        currentLerptime = lerptime;
+                    }
+                    float perc = currentLerptime / lerptime;
+                    wall.transform.position = Vector3.Lerp(start, end, perc);
+                    if (wall.transform.position == end)
+                    {
+                        foundFirstWall = false;
+                    }
+              //      distance_player_wall = Vector3.Distance(target.position, wall.transform.position);
+
+                }
             }
-            // wallDir = (wall.transform.position - target.position);
-            //  float angle = Vector3.Dot(target.forward, wallDir);
-            //   if (angle > 0.4)
-            //   {
-            //       if (distance_player_wall < 10)
+                //    if (!isCoroutineStarted)
+                //    {
+                //         StartCoroutine(Remove(start, end, wall, 0, 5));
+                //       }
+                // wallDir = (wall.transform.position - target.position);
+                //  float angle = Vector3.Dot(target.forward, wallDir);
+                //   if (angle > 0.4)
+                //   {
+                //       if (distance_player_wall < 10)
 
-            //   {
-            //  currentLerptime += Time.deltaTime; 
-            //  if (currentLerptime >= lerptime)
-            ////          {
-            //             currentLerptime = lerptime;
-            //    float perc = currentLerptime / lerptime;
-            //   wall.transform.position = Vector3.Lerp(start, end, perc);
-            //   }
-            // }
+                //   {
+                //  currentLerptime += Time.deltaTime; 
+                //  if (currentLerptime >= lerptime)
+                ////          {
+                //             currentLerptime = lerptime;
+                //    float perc = currentLerptime / lerptime;
+                //   wall.transform.position = Vector3.Lerp(start, end, perc);
+                //   }
+                // }
+            }
+
+
+
+
+
         }
-        // Debug.Log(h.collider.name);
 
 
-
-
-
-
-
-    }
+    
    IEnumerator Remove(Vector3 start, Vector3 end, GameObject wall, float currentLerptime, float lerptime)
     {
             isCoroutineStarted = true;
