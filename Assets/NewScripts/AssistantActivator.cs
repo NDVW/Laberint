@@ -17,14 +17,14 @@ public class AssistantActivator : MonoBehaviour {
     void Start()
     {
        _Assistant = GetComponent<ExampleStreaming>();
-    //    _Assistant = GetComponent<AssistantAgent>();
+      //  _Assistant = GetComponent<AssistantAgent>();
         _Canvas = GameObject.Find("Canvas");
         _EventSystem = GameObject.Find("EventSystem");
         //  _Assistant.SetActive(false);
         _Canvas.SetActive(false);
         _EventSystem.SetActive(false);
 
-        actions.Add("finish", Activate);
+        actions.Add("Helper", Activate);
         actions.Add("deactivate", Deactivate);
         keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;

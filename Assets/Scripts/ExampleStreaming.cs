@@ -69,7 +69,8 @@ public class ExampleStreaming : MonoBehaviour
     Animator anim;
     GameObject enemy;
     private NavMeshAgent agent;
-    private string _IamAccessToken = "eyJraWQiOiIyMDE3MTAzMC0wMDowMDowMCIsImFsZyI6IlJTMjU2In0.eyJpYW1faWQiOiJpYW0tU2VydmljZUlkLTA0N2MyZTM1LTAyOTEtNDU5MC1iMTBmLWY5MjE1OWU1YjgyZCIsImlkIjoiaWFtLVNlcnZpY2VJZC0wNDdjMmUzNS0wMjkxLTQ1OTAtYjEwZi1mOTIxNTllNWI4MmQiLCJyZWFsbWlkIjoiaWFtIiwiaWRlbnRpZmllciI6IlNlcnZpY2VJZC0wNDdjMmUzNS0wMjkxLTQ1OTAtYjEwZi1mOTIxNTllNWI4MmQiLCJzdWIiOiJTZXJ2aWNlSWQtMDQ3YzJlMzUtMDI5MS00NTkwLWIxMGYtZjkyMTU5ZTViODJkIiwic3ViX3R5cGUiOiJTZXJ2aWNlSWQiLCJ1bmlxdWVfaW5zdGFuY2VfY3JucyI6WyJjcm46djE6Ymx1ZW1peDpwdWJsaWM6c3BlZWNoLXRvLXRleHQ6YXUtc3lkOmEvNDk3OWI2MzkwMjljNDg3ZGJkZjhlYmQ3NjE5NGZjMjU6YTZiNGFiNTMtYjI4Yi00MTdmLWJkYmItMmI3YTEyNWIwMTE1OjoiXSwiYWNjb3VudCI6eyJ2YWxpZCI6dHJ1ZSwiYnNzIjoiNDk3OWI2MzkwMjljNDg3ZGJkZjhlYmQ3NjE5NGZjMjUifSwiaWF0IjoxNTQ0NTQ5NDY5LCJleHAiOjE1NDQ1NTMwNjksImlzcyI6Imh0dHBzOi8vaWFtLmJsdWVtaXgubmV0L2lkZW50aXR5IiwiZ3JhbnRfdHlwZSI6InVybjppYm06cGFyYW1zOm9hdXRoOmdyYW50LXR5cGU6YXBpa2V5Iiwic2NvcGUiOiJpYm0gb3BlbmlkIiwiY2xpZW50X2lkIjoiZGVmYXVsdCIsImFjciI6MSwiYW1yIjpbInB3ZCJdfQ.HUxMI8LmbSXVyxBJ9EnMptJIM2u5tx6TnbfN17pNxEo9csu-55Yp__0riPSsZe2xRD7Vk65lJBbYfbBRV-H4L09d8x0yFe_zhV7W_O4Fo-0k-nYO-un9IJsK4cofynQWCEKRkPMVoOJ-aU-QsyOT9Hzuz75WJcNYMT-rhV9Nlmb-jz68DpqVw4aGxos6UKyNyy0L3mzb0t_PhoJRnhpjtlvUXjwleDg1Q2QL57ptNlhJz0j_oHcJI_Sjri86lHZu1nP4YMg_vrHt11q1OFMqk7Pshj1v2PK--n4O96rV76B66O5zDnUvrhwDeDOAKYzRnNBMHMujECiyDBqgieZG7g";
+    GameObject wall;
+    private string _IamAccessToken = "eyJraWQiOiIyMDE3MTAzMC0wMDowMDowMCIsImFsZyI6IlJTMjU2In0.eyJpYW1faWQiOiJpYW0tU2VydmljZUlkLTA0N2MyZTM1LTAyOTEtNDU5MC1iMTBmLWY5MjE1OWU1YjgyZCIsImlkIjoiaWFtLVNlcnZpY2VJZC0wNDdjMmUzNS0wMjkxLTQ1OTAtYjEwZi1mOTIxNTllNWI4MmQiLCJyZWFsbWlkIjoiaWFtIiwiaWRlbnRpZmllciI6IlNlcnZpY2VJZC0wNDdjMmUzNS0wMjkxLTQ1OTAtYjEwZi1mOTIxNTllNWI4MmQiLCJzdWIiOiJTZXJ2aWNlSWQtMDQ3YzJlMzUtMDI5MS00NTkwLWIxMGYtZjkyMTU5ZTViODJkIiwic3ViX3R5cGUiOiJTZXJ2aWNlSWQiLCJ1bmlxdWVfaW5zdGFuY2VfY3JucyI6WyJjcm46djE6Ymx1ZW1peDpwdWJsaWM6c3BlZWNoLXRvLXRleHQ6YXUtc3lkOmEvNDk3OWI2MzkwMjljNDg3ZGJkZjhlYmQ3NjE5NGZjMjU6YTZiNGFiNTMtYjI4Yi00MTdmLWJkYmItMmI3YTEyNWIwMTE1OjoiXSwiYWNjb3VudCI6eyJ2YWxpZCI6dHJ1ZSwiYnNzIjoiNDk3OWI2MzkwMjljNDg3ZGJkZjhlYmQ3NjE5NGZjMjUifSwiaWF0IjoxNTQ0NjMzMjYxLCJleHAiOjE1NDQ2MzY4NjEsImlzcyI6Imh0dHBzOi8vaWFtLmJsdWVtaXgubmV0L2lkZW50aXR5IiwiZ3JhbnRfdHlwZSI6InVybjppYm06cGFyYW1zOm9hdXRoOmdyYW50LXR5cGU6YXBpa2V5Iiwic2NvcGUiOiJpYm0gb3BlbmlkIiwiY2xpZW50X2lkIjoiZGVmYXVsdCIsImFjciI6MSwiYW1yIjpbInB3ZCJdfQ.aKAWGpPNrl5XcOO6LAIn_wdQkEjgBVwrz_jZB2ix6-uXS8OK-ktgczZS62sqc5hmrS261o5lbZ9ZtlHBUSA2C2ZX53uDWPrfbFYPtx4xSqISzkQfmLQQF3kC6WkNiGodnhLSCs0lVstM9jyalzg6M9iaYD3cFFsi5eLVFKhGB1fFBkQTOJ-5plHbytoJo3lAM886yH57zm3RjFHzRXlXu-MOMvqLTMcZsM2sZfm5RSbfvIZ3rU-tqYhDJV4fMfuyY1aQDh-dz_vfNSZf5p6K2varWjNSnNZaahT803t4Az98xpQdWxI6BabtuR0ZzQVC8P6gBtfH3sXArLDCoJgQpA";
 
     void Start()
     {
@@ -78,6 +79,7 @@ public class ExampleStreaming : MonoBehaviour
         audioData = GetComponents<AudioSource>();
         path = GetComponent<ShowPath>();
         enemy = GameObject.Find("Enemy");
+      //  wall = GameObject.Find(("TwoSided(4)"));
         anim = enemy.GetComponent<Animator>();
         agent = enemy.GetComponent<NavMeshAgent>();
         //     points = GameObject.FindGameObjectsWithTag("floortrack");
@@ -304,7 +306,13 @@ public class ExampleStreaming : MonoBehaviour
                         //   Runnable.Run(Examples());
 
                     }
+                    if (alt.transcript.Contains("xray") && ResultsField.text.Contains("Final")) // needs to be final or ECHO happens
+                    {
+                        
+                        //  _testString = "<speak version=\"1.0\"><express-as type=\"GoodNews\">I love the color of the sky too!</express-as></speak>";
+                        //   Runnable.Run(Examples());
 
+                    }
                     if (alt.transcript.Contains("stop ") && ResultsField.text.Contains("Final")) // needs to be final or ECHO happens
                     
                     { foreach (AudioSource audio in audioData)

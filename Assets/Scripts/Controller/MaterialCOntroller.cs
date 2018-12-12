@@ -18,11 +18,15 @@ public class MaterialCOntroller : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Q))
         {
             rend.sharedMaterial = material[1];
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(false);
         }
         if (Input.GetKeyUp(KeyCode.Q))
        {
             rend.sharedMaterial = material[0];
-       }
+            transform.GetChild(0).gameObject.SetActive(true);
+            transform.GetChild(1).gameObject.SetActive(true);
+        }
         if (Input.GetKeyDown(KeyCode.X))
         {
             rend.sharedMaterial = material[2];

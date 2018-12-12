@@ -30,9 +30,9 @@ public class AssistantAgent : MonoBehaviour {
     private SpeechToText _speechToText;
 
     // TEXT TO SPEECH - BURNER CREDENTIALS FOR PUBLIC DEMO I WILL DELETE AFTER RECORDING
-    private string _iamApikey_TTS = "HHHHHH";// "J_AtYm18caYvM4QFhnPsTBFT7tBOGCPh7ywEgefPp3-C";
-    private string _IamAccessToken_TTS = "eyJraWQiOiIyMDE3MTAzMC0wMDowMDowMCIsImFsZyI6IlJTMjU2In0.eyJpYW1faWQiOiJpYW0tU2VydmljZUlkLTI2YTRkYzlhLTIzZmYtNDUxZC04MDc4LTYwMDQzMmMyY2VjMiIsImlkIjoiaWFtLVNlcnZpY2VJZC0yNmE0ZGM5YS0yM2ZmLTQ1MWQtODA3OC02MDA0MzJjMmNlYzIiLCJyZWFsbWlkIjoiaWFtIiwiaWRlbnRpZmllciI6IlNlcnZpY2VJZC0yNmE0ZGM5YS0yM2ZmLTQ1MWQtODA3OC02MDA0MzJjMmNlYzIiLCJzdWIiOiJTZXJ2aWNlSWQtMjZhNGRjOWEtMjNmZi00NTFkLTgwNzgtNjAwNDMyYzJjZWMyIiwic3ViX3R5cGUiOiJTZXJ2aWNlSWQiLCJ1bmlxdWVfaW5zdGFuY2VfY3JucyI6WyJjcm46djE6Ymx1ZW1peDpwdWJsaWM6dGV4dC10by1zcGVlY2g6YXUtc3lkOmEvNDk3OWI2MzkwMjljNDg3ZGJkZjhlYmQ3NjE5NGZjMjU6NGNhZWVjYjQtMmRhOC00ZDFjLWE3M2QtNDRmZDdkMmYyYmI1OjoiXSwiYWNjb3VudCI6eyJ2YWxpZCI6dHJ1ZSwiYnNzIjoiNDk3OWI2MzkwMjljNDg3ZGJkZjhlYmQ3NjE5NGZjMjUifSwiaWF0IjoxNTQ0NDg3MzkxLCJleHAiOjE1NDQ0OTA5OTEsImlzcyI6Imh0dHBzOi8vaWFtLmJsdWVtaXgubmV0L2lkZW50aXR5IiwiZ3JhbnRfdHlwZSI6InVybjppYm06cGFyYW1zOm9hdXRoOmdyYW50LXR5cGU6YXBpa2V5Iiwic2NvcGUiOiJpYm0gb3BlbmlkIiwiY2xpZW50X2lkIjoiZGVmYXVsdCIsImFjciI6MSwiYW1yIjpbInB3ZCJdfQ.ftUi_nPqR_RYzdbGjzAermf9bCV13QbuMtPS57YM-1GI0krv-2grR9npKyr9KYLPN3oUBuptNPzanJpNiPCwYVige2ci5i8sSfEVq_pwIj3mwKSvc44_-zVfSHGZhqZ1RX8PElnMfMnV4AtgV6eEBrMiFFIL_ggnw6FcWeHltjRrcgpCwKfYf0FXoHDxp-oXUtSl0U5zn_GON1_HRBFDaoTifsPsSvv6e4NepkYd3z-KGu3B4QfcuA49o9VyAEKbp5zXVu-rtNTajPjJUX8NgIcDmbJ0t_S8mFQ54on5kO7QPDklbkmCjjqGwOVJmlJMjScmXWm409fvsa-vR1EFSA";
-    private string _url_TTS = "https://gateway-syd.watsonplatform.net/text-to-speech/api";
+    private string _iamApikey_TTS = "Ty666WwnanxNp7JV5hBjpb89gJdNoKbad4-n2DfZwhSw";// "J_AtYm18caYvM4QFhnPsTBFT7tBOGCPh7ywEgefPp3-C";
+    private string _IamAccessToken_TTS = "eyJraWQiOiIyMDE3MTAzMC0wMDowMDowMCIsImFsZyI6IlJTMjU2In0.eyJpYW1faWQiOiJpYW0tU2VydmljZUlkLTI1OTdjM2E2LWViNWMtNDBhMS04NjFlLTk4OTE3MTc2OTJmNCIsImlkIjoiaWFtLVNlcnZpY2VJZC0yNTk3YzNhNi1lYjVjLTQwYTEtODYxZS05ODkxNzE3NjkyZjQiLCJyZWFsbWlkIjoiaWFtIiwiaWRlbnRpZmllciI6IlNlcnZpY2VJZC0yNTk3YzNhNi1lYjVjLTQwYTEtODYxZS05ODkxNzE3NjkyZjQiLCJzdWIiOiJTZXJ2aWNlSWQtMjU5N2MzYTYtZWI1Yy00MGExLTg2MWUtOTg5MTcxNzY5MmY0Iiwic3ViX3R5cGUiOiJTZXJ2aWNlSWQiLCJ1bmlxdWVfaW5zdGFuY2VfY3JucyI6WyJjcm46djE6Ymx1ZW1peDpwdWJsaWM6dGV4dC10by1zcGVlY2g6ZXUtZGU6YS8xYWZiNzJhMGQ0MTk0ZTliYjY2Nzg0ZDA4MzhmNTU5YjplN2Y3ZmNiYi0wNzMzLTQxMWUtOTE1Yi1lNTJjZmYzZjEyZDA6OiJdLCJhY2NvdW50Ijp7InZhbGlkIjp0cnVlLCJic3MiOiIxYWZiNzJhMGQ0MTk0ZTliYjY2Nzg0ZDA4MzhmNTU5YiJ9LCJpYXQiOjE1NDQ1NTY1NTksImV4cCI6MTU0NDU2MDE1OSwiaXNzIjoiaHR0cHM6Ly9pYW0uYmx1ZW1peC5uZXQvaWRlbnRpdHkiLCJncmFudF90eXBlIjoidXJuOmlibTpwYXJhbXM6b2F1dGg6Z3JhbnQtdHlwZTphcGlrZXkiLCJzY29wZSI6ImlibSBvcGVuaWQiLCJjbGllbnRfaWQiOiJkZWZhdWx0IiwiYWNyIjoxLCJhbXIiOlsicHdkIl19.RuNCS2LByZCMpF5FHN2-opdItnm7HWTuGI6N3VpkbfIJilx-ru4DP-Cc8wMEMw_snUs_-eADgmo-j2ICcwNyMIeaODsG9S8bPneanBPpmucTLQEk5eiHgRr9KhSEHkzWe1xQWeye9k-eoHHjnW49wpbAKjxohFoP_KNf7CL_zvLAa87LjlOjgrNf1-nodXZK5W264j1BtUYF3c7R4eb3nLNVHJKdhrYII06QXf3-WMJH6ATyHadAhiUpHhW7rGJ6vVLnnahdmrr7uIK13vAEv-zjAZ5b4WNlgr-WJxL8V1V9cXJUCUtAhZjQ4Kks0IAqsmgoF9GamdjQi6dR_PcuRQ";
+    private string _url_TTS = "https://stream-fra.watsonplatform.net/text-to-speech/api";
 
     private TextToSpeech _textToSpeech;
 
@@ -264,7 +264,7 @@ public class AssistantAgent : MonoBehaviour {
 
                     if (alt.transcript.Contains("blue") && ResultsField.text.Contains("Final")) // needs to be final or ECHO happens
                     {  
-                        _testString = "<speak version=\"1.0\"><express-as type=\"GoodNews\">I love the color of the sky too!</express-as></speak>";
+                        _testString = "<;;I love the color of the sky too!</express-as></speak>";
                        Runnable.Run(Examples());
 
                     }
