@@ -59,10 +59,10 @@ GameObject:
   - component: {fileID: 23525562593112436}
   - component: {fileID: 65179018215231406}
   - component: {fileID: 64577685935449292}
-  - component: {fileID: 114790795660719322}
+  - component: {fileID: 114239387853806658}
   m_Layer: 0
   m_Name: TwoSided
-  m_TagString: Untagged
+  m_TagString: insidewall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -874,7 +874,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114790795660719322
+--- !u!114 &114239387853806658
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -887,4 +887,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material:
   - {fileID: 2100000, guid: 62dcfdb352d737f4ebff0e1595768571, type: 2}
-  - {fileID: 2100000, guid: 2a2859baeeec7e14785299ea50011ea5, type: 2}
+  - {fileID: 2100000, guid: 336dd93a3ca00bd479ce852456b862e5, type: 2}

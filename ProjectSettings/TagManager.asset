@@ -8,6 +8,7 @@ TagManager:
   - floortrack
   - enemy
   - insidewall
+  - riddle
   layers:
   - Default
   - TransparentFX

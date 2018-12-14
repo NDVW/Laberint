@@ -54,7 +54,7 @@ public class EnemyRoam : MonoBehaviour
         //}
         info = anim.GetCurrentAnimatorStateInfo(0);
         clipInfo = info.IsName("Twist");
-        Debug.Log(clipInfo);
+    //    Debug.Log(clipInfo);
 
         if (clipInfo == false)
         {

@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: _Hologram_Rim_Red
   m_Shader: {fileID: 4800000, guid: 29fed12d8547e354e90be987488147c1, type: 3}
-  m_ShaderKeywords: SCANLINES _GLOW_ON _SCAN_ON
+  m_ShaderKeywords: SCANLINES _GLITCH_ON _SCAN_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -43,7 +43,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FlickerTex:
-        m_Texture: {fileID: 2800000, guid: 39437daa5d1cc554fbcdaf8ddc47e9d1, type: 3}
+        m_Texture: {fileID: 2800000, guid: a0775ddee39477446bcbcedd7ca1bd22, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -79,7 +79,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Alpha: 0.552
+    - _Alpha: 1
     - _Brightness: 6
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -89,21 +89,21 @@ Material:
     - _FlickerSpeed: 0.01
     - _Fold: 35
     - _Glitch: 1
-    - _GlitchIntensity: 0.2
+    - _GlitchIntensity: 0.5
     - _GlitchSpeed: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _GlowSpeed: 7.6
-    - _GlowTiling: 0.092
+    - _GlowTiling: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RimFallness: 0.537
-    - _RimPower: 2.31
+    - _RimPower: 10
     - _RimStrength: 1.54
-    - _ScanSpeed: -1.68
+    - _ScanSpeed: 2
     - _ScanTiling: 10
     - _Scanline: 0
     - _ScanlineSpeed: -0.15
@@ -117,6 +117,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Direction: {r: 0, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MainColor: {r: 0, g: 0.7921569, b: 1, a: 1}
-    - _RimColor: {r: 0, g: 0.7921569, b: 1, a: 1}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _ScanlineColor: {r: 0, g: 0, b: 1, a: 1}
