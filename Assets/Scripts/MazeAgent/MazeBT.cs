@@ -11,11 +11,11 @@ public class MazeBT : MonoBehaviour {
 
     private IBehaviourTreeNode tree;
 	private float enemyKillPlayerDistance = 5f;
-	private float helpTimeInterval = 25f;
+	private float helpTimeInterval = 2f;
     private float playerLostTime = 10f;
 	private float playerAdvancedTime = 0.5f;
 	private float timepassed = 0f;
-	private GameObject EndGate;  // Save EndGate Position
+	private Transform EndGate;  // Save EndGate Position
 	private Transform player1; // Save Player Info
 	private Transform enemy1; // Save Enemy Info
 	private float MoveWallDistance = 5f; //wall will be moved up. Distance of the displacment
@@ -26,15 +26,18 @@ public class MazeBT : MonoBehaviour {
     // Use this for initialization
     void Start () {
 		Debug.Log("MazeBT start");
+		//Debug.Break();
         // Code here, e.g. GetComponent of GO
         // 
 		//var init 
-		this.EndGate = GameObject.Find("End");
+		
 		//this.player1 = PlayerManager.instance.player.transform;
+		GameObject eg = GameObject.Find("End");
 		GameObject pl = GameObject.Find("Player");
 		GameObject en = GameObject.Find("Enemy");
-		player1 = pl.transform;
-		enemy1 = en.transform;
+		this.EndGate = eg.transform;
+		this.player1 = pl.transform;
+		this.enemy1 = en.transform;
 		// Building the tree
         var builder = new BehaviourTreeBuilder();
 
@@ -63,18 +66,69 @@ public class MazeBT : MonoBehaviour {
         }
 	// Update is called once per frame
 	void Update () {
+		Debug.Log("MazeBT update");
+		//Debug.Break();
 		var delta = new TimeData(Time.deltaTime);
 		this.timepassed += delta.deltaTime;
         this.tree.Tick(new TimeData(Time.deltaTime));
 		
 	}
+
+
+
+	/////////    CONDITIONS  ////////
 	bool EnemyIsWithPlayer(){
 		
+
 		if (EnemyPlayerDistance() <= this.enemyKillPlayerDistance){
+			Debug.Log("MazeBT Enemy is with player");
+			Debug.Break();
 			return true;
 		}
+		Debug.Log("MazeBT Enemy is not with player");
+		//Debug.Break();
 		return false;
 	}
+
+	bool IsTimeToHelp(){
+		if (this.timepassed >= this.helpTimeInterval){
+			this.timepassed = 0;
+			Debug.Log("MazeBT it is time to help");
+			Debug.Break();
+			return true; 
+		}
+		Debug.Log("MazeBT it is NOT time to help");
+		//Debug.Break();
+		return false; 
+	}
+
+	bool PlayerIsLost() {
+		// TBD
+		return true; 
+		return false; 
+	}
+	bool PlayerReachingGoalFast(){
+		// TBD
+		return true;
+		return false;
+	}
+
+	bool EnemyIsCloserToPlayer(){
+		if (EnemyPlayerDistance() <= GoalPlayerDistance()){
+			Debug.Log("MazeBT Enemy is closer Enemy   Goal");
+			Debug.Log(EnemyPlayerDistance());
+			Debug.Log(GoalPlayerDistance());
+			Debug.Break();
+			return true; 
+		}
+		Debug.Log("MazeBT Enemy is NOT closer Enemy   Goal");
+		Debug.Log(EnemyPlayerDistance());
+		Debug.Log(GoalPlayerDistance());
+		Debug.Break();
+		return false; 
+
+	}
+
 	// BehaviourTreeStatus EnemyIsWithPlayer(){
 		
 	// 	if (EnemyPlayerDistance() <= this.enemyKillPlayerDistance){
@@ -90,12 +144,6 @@ public class MazeBT : MonoBehaviour {
 	// 	return BehaviourTreeStatus.Failure;
 	// }
 
-	// BehaviourTreeStatus PlayerIsLost() {
-	// 	// TBD
-	// 	return BehaviourTreeStatus.Success;
-	// 	return BehaviourTreeStatus.Failure;
-	// }
-
 	// BehaviourTreeStatus EnemyIsCloserToPlayer(){
 	// 	if (EnemyPlayerDistance() <= GoalPlayerDistance()){
 	// 		return BehaviourTreeStatus.Success;
@@ -104,43 +152,40 @@ public class MazeBT : MonoBehaviour {
 
 	// }
 
-	bool IsTimeToHelp(){
-		if (this.timepassed >= this.helpTimeInterval){
-			this.timepassed = 0;
-			return true; 
-		}
-		return false; 
-	}
+	// BehaviourTreeStatus PlayerIsLost() {
+	// 	// TBD
+	// 	return BehaviourTreeStatus.Success;
+	// 	return BehaviourTreeStatus.Failure;
+	// }
 
-	bool PlayerIsLost() {
-		// TBD
-		return true; 
-		return false; 
-	}
+	// BehaviourTreeStatus PlayerReachingGoalFast(){
+	// 	// TBD
+	// 	return BehaviourTreeStatus.Success;
+	// 	return BehaviourTreeStatus.Failure;
+	// }
 
-	bool EnemyIsCloserToPlayer(){
-		if (EnemyPlayerDistance() <= GoalPlayerDistance()){
-			return true; 
-		}
-		return false; 
+	/////////    ACTIONS  ////////
 
-	}
 	BehaviourTreeStatus KillPlayer(){
 		// Kill player Code  TBD
-		Debug.Log("Kill the player");
+		Debug.Log("MazeBT Kill the player");
+		Debug.Break();
 		return BehaviourTreeStatus.Success;
 	}
 	BehaviourTreeStatus EndGame(){
 		// End Game Code  TBD
-		Debug.Log("End Game");
+		Debug.Log("Maze BT End Game");
+		Debug.Break();
 		return BehaviourTreeStatus.Success; 
 	}
 	BehaviourTreeStatus RemoveWallForPlayer(){
+		Debug.Log("Maze BT Removing Wall");
+		Debug.Break();
 		RaycastHit hit;
 		string wallName;
-		if (Physics.Raycast(this.player1.position, (this.EndGate.transform.position - this.player1.position).normalized, out hit))
+		if (Physics.Raycast(this.player1.position, (this.EndGate.position - this.player1.position).normalized, out hit))
         {
-			Debug.DrawRay(this.player1.position,  (this.EndGate.transform.position - this.player1.position).normalized * hit.distance, Color.red);
+			Debug.DrawRay(this.player1.position,  (this.EndGate.position - this.player1.position).normalized * hit.distance, Color.red);
             Debug.Log("Did Hit");
             Debug.Log(hit.collider.name);
             wallName = hit.collider.name;
@@ -161,11 +206,7 @@ public class MazeBT : MonoBehaviour {
 		return BehaviourTreeStatus.Success;
 
 	}
-	BehaviourTreeStatus PlayerReachingGoalFast(){
-		// TBD
-		return BehaviourTreeStatus.Success;
-		return BehaviourTreeStatus.Failure;
-	}
+
 	BehaviourTreeStatus RemoveWallForEnemy(){
 		RaycastHit hit;
 		string wallName;
@@ -200,7 +241,9 @@ public class MazeBT : MonoBehaviour {
 
 	}
 	float GoalPlayerDistance(){
-		float distance_endgate = Vector3.Distance(this.player1.position, this.EndGate.transform.position);
+		Vector3 distance_endgate11 = this.EndGate.position;
+		Vector3 distance_endgate12 = this.player1.position;
+		float distance_endgate = Vector3.Distance(this.player1.position, this.EndGate.position);
 		return distance_endgate;
 	}
 
