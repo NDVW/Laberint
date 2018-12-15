@@ -11,7 +11,7 @@ public class MazeBT : MonoBehaviour {
 
     private IBehaviourTreeNode tree;
 	private float enemyKillPlayerDistance = 5f;
-	private float helpTimeInterval = 2f;
+	private float helpTimeInterval = 20f;
     private float playerLostTime = 10f;
 	private float playerAdvancedTime = 0.5f;
 	private float timepassed = 0f;
@@ -51,14 +51,16 @@ public class MazeBT : MonoBehaviour {
 				.End()
 				.Sequence("AdaptDifficulty")
 					.Condition("HelpTime", t => IsTimeToHelp())
-					.Sequence("HelpPlayer")
-						//.Condition("PlayerProgressSlow", t => PlayerIsLost())
-						.Condition("EnemyCloserToPlayer", t => EnemyIsCloserToPlayer())             
-						.Do("RemoveWallForPlayer", t => RemoveWallForPlayer())
-					.End()
-					.Sequence("HelpEnemy")
-						//.Condition("PlayerProgressFast", t => PlayerReachingGoalFast())
-						.Do("RemoveWallForEnemy", t => RemoveWallForEnemy())
+					.Selector("WhoToHelp")
+						.Sequence("HelpPlayer")
+							//.Condition("PlayerProgressSlow", t => PlayerIsLost())
+							.Condition("EnemyCloserToPlayer", t => EnemyIsCloserToPlayer())             
+							.Do("RemoveWallForPlayer", t => RemoveWallForPlayer())
+						.End()
+						.Sequence("HelpEnemy")
+							//.Condition("PlayerProgressFast", t => PlayerReachingGoalFast())
+							.Do("RemoveWallForEnemy", t => RemoveWallForEnemy())
+						.End()
 					.End()
 				.End()
             .End()
@@ -82,7 +84,7 @@ public class MazeBT : MonoBehaviour {
 
 		if (EnemyPlayerDistance() <= this.enemyKillPlayerDistance){
 			Debug.Log("MazeBT Enemy is with player");
-			Debug.Break();
+			//Debug.Break();
 			return true;
 		}
 		Debug.Log("MazeBT Enemy is not with player");
@@ -114,16 +116,16 @@ public class MazeBT : MonoBehaviour {
 	}
 
 	bool EnemyIsCloserToPlayer(){
+		float ed = EnemyPlayerDistance();
+		float eg = GoalPlayerDistance();
+		Debug.Log(ed);
+		Debug.Log(eg);
 		if (EnemyPlayerDistance() <= GoalPlayerDistance()){
 			Debug.Log("MazeBT Enemy is closer Enemy   Goal");
-			Debug.Log(EnemyPlayerDistance());
-			Debug.Log(GoalPlayerDistance());
-			Debug.Break();
+			//Debug.Break();
 			return true; 
 		}
 		Debug.Log("MazeBT Enemy is NOT closer Enemy   Goal");
-		Debug.Log(EnemyPlayerDistance());
-		Debug.Log(GoalPlayerDistance());
 		Debug.Break();
 		return false; 
 
@@ -169,28 +171,28 @@ public class MazeBT : MonoBehaviour {
 	BehaviourTreeStatus KillPlayer(){
 		// Kill player Code  TBD
 		Debug.Log("MazeBT Kill the player");
-		Debug.Break();
+		//Debug.Break();
 		return BehaviourTreeStatus.Success;
 	}
 	BehaviourTreeStatus EndGame(){
 		// End Game Code  TBD
 		Debug.Log("Maze BT End Game");
-		Debug.Break();
+		//Debug.Break();
 		return BehaviourTreeStatus.Success; 
 	}
 	BehaviourTreeStatus RemoveWallForPlayer(){
-		Debug.Log("Maze BT Removing Wall");
-		Debug.Break();
+		Debug.Log("Maze BT Removing Wall For player");
+		//Debug.Break();
 		RaycastHit hit;
 		string wallName;
 		if (Physics.Raycast(this.player1.position, (this.EndGate.position - this.player1.position).normalized, out hit))
         {
 			Debug.DrawRay(this.player1.position,  (this.EndGate.position - this.player1.position).normalized * hit.distance, Color.red);
-            Debug.Log("Did Hit");
+            Debug.Log("MazeBT Remove for Player: Did Hit");
             Debug.Log(hit.collider.name);
             wallName = hit.collider.name;
             GameObject wallToOpen = GameObject.Find(wallName);
-            Debug.Log("First Line is " + wallToOpen);
+            Debug.Log("MazeBT First Line is " + wallToOpen);
             var start = wallToOpen.transform.position; //start position of the wall
             var end = wallToOpen.transform.position + Vector3.up * this.MoveWallDistance;  //End position of the wall
 
@@ -208,17 +210,19 @@ public class MazeBT : MonoBehaviour {
 	}
 
 	BehaviourTreeStatus RemoveWallForEnemy(){
+		Debug.Log("Maze BT Removing Wall For enemy");
+		//Debug.Break();
 		RaycastHit hit;
 		string wallName;
 		if (Physics.Raycast(this.enemy1.position, (this.player1.position - this.enemy1.position).normalized, out hit))
         {
 			Debug.DrawRay(this.enemy1.position,  (this.player1.position - this.enemy1.position).normalized * hit.distance, Color.red);
-            Debug.Log("Did Hit");
+            Debug.Log("MazeBT Remove for Enemy : Did Hit");
             Debug.Log(hit.collider.name);
 
             wallName = hit.collider.name;
             GameObject wallToOpen = GameObject.Find(wallName);
-            Debug.Log("First Line is " + wallToOpen);
+            Debug.Log("MazeBT First Line is " + wallToOpen);
 
             var start = wallToOpen.transform.position; //start position of the wall
             var end = wallToOpen.transform.position + Vector3.up * this.MoveWallDistance;  //End position of the wall
@@ -230,7 +234,6 @@ public class MazeBT : MonoBehaviour {
            
         }
         // Debug.Log(h.collider.name);
-		return BehaviourTreeStatus.Success;
 		return BehaviourTreeStatus.Success;
 
 	}
@@ -250,7 +253,7 @@ public class MazeBT : MonoBehaviour {
 	IEnumerator RemoveWall(Vector3 start, Vector3 end, GameObject wall)
     {
             this.isWallCoroutineStarted = true;
-            
+            Debug.Log("MazeBT RemoveWall");
             this.currentWallLerptime += Time.deltaTime;
             if (this.currentWallLerptime >= this.wallLerptime)
             {
@@ -262,6 +265,8 @@ public class MazeBT : MonoBehaviour {
            if (wall.transform.position == end)
            {
               this.isWallCoroutineStarted = false;
+			   Debug.Log("MazeBT RemoveWall: done with routine");
+			   Debug.Break();
            }
 
     }
