@@ -9,6 +9,7 @@ TagManager:
   - enemy
   - insidewall
   - riddle
+  - End
   layers:
   - Default
   - TransparentFX

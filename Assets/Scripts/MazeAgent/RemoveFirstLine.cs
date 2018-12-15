@@ -10,6 +10,8 @@ public class RemoveFirstLine : MonoBehaviour
     private Vector3 wallDir;
     GameObject wall;
     GameObject prev;
+    string planeName;
+    GameObject LightWall;
     private Vector3 start;
     private Vector3 end;
     private float AngleThreshold;
@@ -39,9 +41,11 @@ public class RemoveFirstLine : MonoBehaviour
             if (Physics.Raycast(target.position, (EndGate.transform.position - target.position).normalized, out hit))
             {
                 // Debug.Log(hit.collider.name);
-                wallName = hit.collider.name;
-                wall = GameObject.Find(wallName);
+                planeName = hit.collider.name;
+                LightWall = GameObject.Find(planeName);
+                wall = LightWall.transform.parent.gameObject;
                 Debug.Log("First Line is " + wall);
+
                 foundFirstWall = true;
                 start = wall.transform.position;
                 end = wall.transform.position + Vector3.up * Move_distance;

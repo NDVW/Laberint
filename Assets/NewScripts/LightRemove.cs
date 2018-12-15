@@ -6,7 +6,7 @@ public class LightRemove : MonoBehaviour {
     GameObject player;
     Vector3 start;
     Vector3 end;
-    private float Move_distance = 5f;
+    private float Move_distance = 4f;
     private float lerptime = 3;
     private float currentLerptime = 0;
     private Vector3 wallDir;
