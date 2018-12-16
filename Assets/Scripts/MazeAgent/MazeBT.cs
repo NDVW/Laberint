@@ -190,7 +190,7 @@ public class MazeBT : MonoBehaviour {
 			GameObject wall = GameObject.Find(hit.collider.name);
 			Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!this is the hit.collider object" + wall.name);
 
-			if (hit.collider.name.Contains("Plane")){
+			if (hit.collider.name.Contains("Plane")){  //This is if the collider did not find a wall but a Plane
 				Transform parent1 = hit.transform.parent;
 				Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!change parent1 " + parent1.name);
 				Transform parent2 = parent1.parent;
@@ -229,12 +229,25 @@ public class MazeBT : MonoBehaviour {
 		string wallName;
 		if (Physics.Raycast(this.enemy1.position, (this.player1.position - this.enemy1.position).normalized, out hit))
         {
+			GameObject wall = GameObject.Find(hit.collider.name);
+			Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!this is the hit.collider object" + wall.name);
+
+			if (hit.collider.name.Contains("Plane")){  //This is if the collider did not find a wall but a Plane
+				Transform parent1 = hit.transform.parent;
+				Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!change parent1 " + parent1.name);
+				Transform parent2 = parent1.parent;
+				Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!change parent2 " + parent2.name);
+				wall = parent2.gameObject;
+			}
+
 			Debug.DrawRay(this.enemy1.position,  (this.player1.position - this.enemy1.position).normalized * hit.distance, Color.red);
             Debug.Log("MazeBT Remove for Enemy : Did Hit");
             Debug.Log(hit.collider.name);
 
-            wallName = hit.collider.name;
-            GameObject wallToOpen = GameObject.Find(wallName);
+            wallName = wall.name;
+			Debug.Log(wallName);
+            //GameObject wallToOpen = GameObject.Find(wallName);
+			GameObject wallToOpen = wall;
             Debug.Log("MazeBT First Line is " + wallToOpen);
 
             var start = wallToOpen.transform.position; //start position of the wall
