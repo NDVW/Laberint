@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RemoveFirstWall : MonoBehaviour {
+public class PlaceWallback : MonoBehaviour
+{
     GameObject target;
     //Transform target;
     Transform EndGate;
@@ -23,52 +24,11 @@ public class RemoveFirstWall : MonoBehaviour {
     private float currentLerptime = 0;
     float distance_player_wall;
     bool isCoroutineStarted = false;
-    public bool FoundWall = false;
     Renderer rend;
     GameObject wallToOpen;
     // Use this for initialization
     void Start()
     {
-      
-        FoundWall = false;
-    }
-            // Update is called once per frame
-      void Update () {
-   
-        if (!FoundWall)
-        {
-            FindWall();
-            FoundWall = true;
-        }
-        if(this.wallToOpen.transform.position != end)
-        {
-            MoveWall();
-        }
-        if (this.wallToOpen.transform.position == end)
-        {
-            FoundWall = false;
-            this.enabled = false;
-        }
-
-
-
-    }
-
-    IEnumerator RemoveWall()
-    {
-      
-        this.currentLerptime += Time.deltaTime;
-        if (this.currentLerptime >= this.lerptime)
-        {
-            this.currentLerptime = this.lerptime;
-        }
-        float perc = this.currentLerptime / this.lerptime;
-        this.wallToOpen.transform.position = Vector3.Lerp(this.start, this.end, perc);
-        yield return null;
-    }
-    void FindWall()
-    {
-        this.currentLerptime = 0;
         GameObject eg = GameObject.Find("End");
         GameObject pl = GameObject.Find("Player");
         GameObject en = GameObject.Find("Enemy");
@@ -106,13 +66,13 @@ public class RemoveFirstWall : MonoBehaviour {
             this.wallToOpen = wall;
             Debug.Log("MazeBT First Line is " + wallToOpen);
             start = this.wallToOpen.transform.position; //start position of the wall
-            end = this.wallToOpen.transform.position + Vector3.up * this.MoveWallDistance;
+            end = this.wallToOpen.transform.position + Vector3.down * this.MoveWallDistance;
 
-
-
+       
         }
     }
-    void MoveWall()
+    // Update is called once per frame
+    void Update()
     {
         this.currentLerptime += Time.deltaTime;
         if (this.currentLerptime >= this.lerptime)
@@ -122,4 +82,4 @@ public class RemoveFirstWall : MonoBehaviour {
         float perc = this.currentLerptime / this.lerptime;
         wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
     }
-  }
+}

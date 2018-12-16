@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WallController : MonoBehaviour {
-   
-    RemoveFirstWall remove;
+    public RemoveFirstWall remove;
+ //   RemoveFirstWall remove;
 	// Use this for initialization
 	void Start () {
         remove = GetComponent<RemoveFirstWall>();
