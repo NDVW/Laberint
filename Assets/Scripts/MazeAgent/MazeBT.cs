@@ -126,7 +126,7 @@ public class MazeBT : MonoBehaviour {
 			return true; 
 		}
 		Debug.Log("MazeBT Enemy is NOT closer Enemy   Goal");
-		Debug.Break();
+		// Debug.Break();
 		return false; 
 
 	}
