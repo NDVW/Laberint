@@ -11,7 +11,7 @@ public class MazeBT : MonoBehaviour {
 
     private IBehaviourTreeNode tree;
 	private float enemyKillPlayerDistance = 5f;
-	private float helpTimeInterval = 20f;
+	private float helpTimeInterval = 15f;
     private float playerLostTime = 10f;
 	private float playerAdvancedTime = 0.5f;
 	private float timepassed = 0f;
@@ -95,12 +95,12 @@ public class MazeBT : MonoBehaviour {
 	bool IsTimeToHelp(){
 		if (this.timepassed >= this.helpTimeInterval){
 			this.timepassed = 0;
-			Debug.Log("MazeBT it is time to help");
-			Debug.Break();
+			Debug.Log("MazeBT it is time to help!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			// Debug.Break();
 			return true; 
 		}
 		Debug.Log("MazeBT it is NOT time to help");
-		//Debug.Break();
+		// Debug.Break();
 		return false; 
 	}
 
@@ -122,7 +122,7 @@ public class MazeBT : MonoBehaviour {
 		Debug.Log(eg);
 		if (EnemyPlayerDistance() <= GoalPlayerDistance()){
 			Debug.Log("MazeBT Enemy is closer Enemy   Goal");
-			//Debug.Break();
+			// Debug.Break();
 			return true; 
 		}
 		Debug.Log("MazeBT Enemy is NOT closer Enemy   Goal");
@@ -187,11 +187,24 @@ public class MazeBT : MonoBehaviour {
 		string wallName;
 		if (Physics.Raycast(this.player1.position, (this.EndGate.position - this.player1.position).normalized, out hit))
         {
+			GameObject wall = GameObject.Find(hit.collider.name);
+			Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!this is the hit.collider object" + wall.name);
+
+			if (hit.collider.name.Contains("Plane")){
+				Transform parent1 = hit.transform.parent;
+				Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!change parent1 " + parent1.name);
+				Transform parent2 = parent1.parent;
+				Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!change parent2 " + parent2.name);
+				wall = parent2.gameObject;
+			}
 			Debug.DrawRay(this.player1.position,  (this.EndGate.position - this.player1.position).normalized * hit.distance, Color.red);
             Debug.Log("MazeBT Remove for Player: Did Hit");
             Debug.Log(hit.collider.name);
-            wallName = hit.collider.name;
-            GameObject wallToOpen = GameObject.Find(wallName);
+			
+            wallName = wall.name;
+			Debug.Log(wallName);
+            //GameObject wallToOpen = GameObject.Find(wallName);
+			GameObject wallToOpen = wall;
             Debug.Log("MazeBT First Line is " + wallToOpen);
             var start = wallToOpen.transform.position; //start position of the wall
             var end = wallToOpen.transform.position + Vector3.up * this.MoveWallDistance;  //End position of the wall
@@ -252,22 +265,30 @@ public class MazeBT : MonoBehaviour {
 
 	IEnumerator RemoveWall(Vector3 start, Vector3 end, GameObject wall)
     {
+			
             this.isWallCoroutineStarted = true;
             Debug.Log("MazeBT RemoveWall");
-            this.currentWallLerptime += Time.deltaTime;
-            if (this.currentWallLerptime >= this.wallLerptime)
-            {
-                this.currentWallLerptime = this.wallLerptime;
-            }
-            float perc = this.currentWallLerptime / this.wallLerptime;
-            wall.transform.position = Vector3.Lerp(start, end, perc);
-            yield return null;
-           if (wall.transform.position == end)
-           {
-              this.isWallCoroutineStarted = false;
-			   Debug.Log("MazeBT RemoveWall: done with routine");
-			   Debug.Break();
-           }
+			//Debug.Break();
+			Destroy(wall,0);
+			this.isWallCoroutineStarted = false;
+			Debug.Log("MazeBT RemoveWall: wall destroyed");
+			//Debug.Break();
+			yield return null;
+        //     this.currentWallLerptime += Time.deltaTime;
+        //     if (this.currentWallLerptime >= this.wallLerptime)
+        //     {
+        //         this.currentWallLerptime = this.wallLerptime;
+        //     }
+        //     float perc = this.currentWallLerptime / this.wallLerptime;
+        //     wall.transform.position = Vector3.Lerp(start, end, perc);
+            
+        //    if (wall.transform.position == end)
+        //    {
+        //       this.isWallCoroutineStarted = false;
+		// 	   Debug.Log("MazeBT RemoveWall: done with routine");
+		// 	   Debug.Break();
+        //    }
+		// 	  yield return null;
 
     }
 
