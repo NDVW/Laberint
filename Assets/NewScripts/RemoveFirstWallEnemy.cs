@@ -75,7 +75,7 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
         this.EndGate = eg.transform;
         this.player1 = pl.transform;
         this.enemy1 = en.transform;
-        if (Physics.Raycast(this.player1.position, (this.EndGate.position - this.player1.position).normalized, out hit))
+        if (Physics.Raycast(this.enemy1.position, (this.player1.position - this.enemy1.position).normalized, out hit))
         {
             GameObject wall = GameObject.Find(hit.collider.name);
             Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!this is the hit.collider object" + wall.name);
@@ -94,19 +94,19 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
                 }
                 Transform parent2 = parent1.parent;
                 Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!change parent2 " + parent2.name);
-                wall = parent2.gameObject;
+                this.wall = parent2.gameObject;
             }
-            Debug.DrawRay(this.player1.position, (this.EndGate.position - this.player1.position).normalized * hit.distance, Color.red);
+            Debug.DrawRay(this.enemy1.position, (this.player1.position - this.enemy1.position).normalized * hit.distance, Color.red);
             Debug.Log("MazeBT Remove for Player: Did Hit");
             Debug.Log(hit.collider.name);
 
-            this.wallName = wall.name;
+            this.wallName = this.wall.name;
             Debug.Log(wallName);
             //GameObject wallToOpen = GameObject.Find(wallName);
-            this.wallToOpen = wall;
-            Debug.Log("MazeBT First Line is " + wallToOpen);
-            start = this.wallToOpen.transform.position; //start position of the wall
-            end = this.wallToOpen.transform.position + Vector3.up * this.MoveWallDistance;
+            this.wallToOpen = this.wall;
+            Debug.Log("MazeBT First Line is " + this.wallToOpen);
+            this.start = this.wallToOpen.transform.position; //start position of the wall
+            this.end = this.wallToOpen.transform.position + Vector3.up * this.MoveWallDistance;
 
 
 
@@ -120,6 +120,6 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
             this.currentLerptime = this.lerptime;
         }
         float perc = this.currentLerptime / this.lerptime;
-        wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
+        wallToOpen.transform.position = Vector3.Lerp(this.start, this.end, perc);
     }
   }
