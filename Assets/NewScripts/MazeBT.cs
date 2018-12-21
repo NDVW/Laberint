@@ -23,25 +23,23 @@ public class MazeBT : MonoBehaviour
     private float currentWallLerptime = 0;  // time to control wall movement
     private float wallLerptime = 5; // time to control wall movement
     private bool isWallCoroutineStarted = false;
-    RemoveFirstWall remove;
+    RemoveFirstWall removeForPlayer;
+    RemoveFirstWallEnemy removeForEnemy;
 
     // Use this for initialization
     void Start()
     {
         Debug.Log("MazeBT start");
         //Debug.Break();
-        // Code here, e.g. GetComponent of GO
-        // 
-        //var init 
 
-        //this.player1 = PlayerManager.instance.player.transform;
         GameObject eg = GameObject.Find("End");
         GameObject pl = GameObject.Find("Player");
         GameObject en = GameObject.Find("Enemy");
         this.EndGate = eg.transform;
         this.player1 = pl.transform;
         this.enemy1 = en.transform;
-        remove = GetComponent<RemoveFirstWall>();
+        removeForPlayer = GetComponent<RemoveFirstWall>();
+        removeForEnemy = GetComponent<RemoveFirstWallEnemy>();
         // Building the tree
         var builder = new BehaviourTreeBuilder();
 
@@ -144,40 +142,6 @@ public class MazeBT : MonoBehaviour
 
     }
 
-    // BehaviourTreeStatus EnemyIsWithPlayer(){
-
-    // 	if (EnemyPlayerDistance() <= this.enemyKillPlayerDistance){
-    // 		return BehaviourTreeStatus.Success;
-    // 	}
-    // 	return BehaviourTreeStatus.Failure;
-    // }
-    // BehaviourTreeStatus IsTimeToHelp(){
-    // 	if (this.timepassed >= this.helpTimeInterval){
-    // 		this.timepassed = 0;
-    // 		return BehaviourTreeStatus.Success;
-    // 	}
-    // 	return BehaviourTreeStatus.Failure;
-    // }
-
-    // BehaviourTreeStatus EnemyIsCloserToPlayer(){
-    // 	if (EnemyPlayerDistance() <= GoalPlayerDistance()){
-    // 		return BehaviourTreeStatus.Success;
-    // 	}
-    // 	return BehaviourTreeStatus.Failure;
-
-    // }
-
-    // BehaviourTreeStatus PlayerIsLost() {
-    // 	// TBD
-    // 	return BehaviourTreeStatus.Success;
-    // 	return BehaviourTreeStatus.Failure;
-    // }
-
-    // BehaviourTreeStatus PlayerReachingGoalFast(){
-    // 	// TBD
-    // 	return BehaviourTreeStatus.Success;
-    // 	return BehaviourTreeStatus.Failure;
-    // }
 
     /////////    ACTIONS  ////////
 
@@ -197,23 +161,16 @@ public class MazeBT : MonoBehaviour
     }
     BehaviourTreeStatus RemoveWallForPlayer()
     {
-        Debug.Log("Maze BT Removing Wall For player");
-        //Debug.Break();
-        RaycastHit hit;
-        string wallName;
-
-        //distance_player_wall = Vector3.Distance(target.position, wall.transform.position);  //I think this was not used
-
-           if (!this.isWallCoroutineStarted)
+        Debug.Log("Maze BT Removing Wall For player"); 
+        if (!this.isWallCoroutineStarted)
            {
-           StartCoroutine(RemoveWall());
+           StartCoroutine(RemoveWallP());
           }
         
 
-        //    RemoveWall(start, end, wallToOpen);
         return BehaviourTreeStatus.Success;
     }
-        // Debug.Log(h.collider.name);
+    
      
     
 
@@ -221,42 +178,12 @@ public class MazeBT : MonoBehaviour
     {
         Debug.Log("Maze BT Removing Wall For enemy");
         //Debug.Break();
-        RaycastHit hit;
-        string wallName;
-        if (Physics.Raycast(this.enemy1.position, (this.player1.position - this.enemy1.position).normalized, out hit))
-        {
-            GameObject wall = GameObject.Find(hit.collider.name);
-            Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!this is the hit.collider object" + wall.name);
+        if (!this.isWallCoroutineStarted)
+           {
+           StartCoroutine(RemoveWallE());
+          }
+        
 
-            if (hit.collider.name.Contains("Plane"))
-            {  //This is if the collider did not find a wall but a Plane
-                Transform parent1 = hit.transform.parent;
-                Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!change parent1 " + parent1.name);
-                Transform parent2 = parent1.parent;
-                Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!change parent2 " + parent2.name);
-                wall = parent2.gameObject;
-            }
-
-            Debug.DrawRay(this.enemy1.position, (this.player1.position - this.enemy1.position).normalized * hit.distance, Color.red);
-            Debug.Log("MazeBT Remove for Enemy : Did Hit");
-            Debug.Log(hit.collider.name);
-
-            wallName = wall.name;
-            Debug.Log(wallName);
-            //GameObject wallToOpen = GameObject.Find(wallName);
-            GameObject wallToOpen = wall;
-            Debug.Log("MazeBT First Line is " + wallToOpen);
-
-            var start = wallToOpen.transform.position; //start position of the wall
-            var end = wallToOpen.transform.position + Vector3.up * this.MoveWallDistance;  //End position of the wall
-
-       //     if (!this.isWallCoroutineStarted)
-       //     {
-       //         StartCoroutine(RemoveWall(start, end, wallToOpen));
-       //     }
-
-        }
-        // Debug.Log(h.collider.name);
         return BehaviourTreeStatus.Success;
 
     }
@@ -276,28 +203,31 @@ public class MazeBT : MonoBehaviour
     }
 
     //  IEnumerator 
-    IEnumerator RemoveWall()
+    IEnumerator RemoveWallP()
     {
 
         this.isWallCoroutineStarted = true;
-        remove.enabled = true;
-        //  Debug.Log("MazeBT RemoveWall");
+        removeForPlayer.enabled = true;
+        //  Debug.Log("MazeBT RemoveWallP");
         yield return new WaitForSeconds(10);
         //Debug.Break();
-        //   Destroy(wall, 0);
         this.isWallCoroutineStarted = false;
-     //   Debug.Log("MazeBT RemoveWall: wall destroyed");
+        //Debug.Log("MazeBT RemoveWallP: wall destroyed");
         //Debug.Break();
-        //    yield return null;
-   
 
-            //    if (wall.transform.position == end)
-            //    {
-            //       this.isWallCoroutineStarted = false;
-            // 	   Debug.Log("MazeBT RemoveWall: done with routine");
-            // 	   Debug.Break();
-            //    }
-            // 	  yield return null;
-
-        }
     }
+        //  IEnumerator 
+    IEnumerator RemoveWallE()
+    {
+
+        this.isWallCoroutineStarted = true;
+        removeForEnemy.enabled = true;
+        //  Debug.Log("MazeBT RemoveWallE");
+        yield return new WaitForSeconds(10);
+        //Debug.Break();
+        this.isWallCoroutineStarted = false;
+        //Debug.Log("MazeBT RemoveWallE: wall destroyed");
+        //Debug.Break();
+
+    }
+}
