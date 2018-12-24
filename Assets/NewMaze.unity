@@ -6746,12 +6746,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1170516338}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8b6b16a41155264ea5d36750663ed0b, type: 3}
+  m_Script: {fileID: 11500000, guid: 57e55cf57fe42af47938fd7317c68928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   points:
   - {fileID: 1498540724}
   - {fileID: 1574195942}
+  lookRadius: 10
+  agent: {fileID: 0}
+  Scent: {fileID: 1793112674114568, guid: 5bdce053bc1fc4dc8885d4d4ab034bc6, type: 2}
+  period: 0.1
 --- !u!64 &1170516340
 MeshCollider:
   m_ObjectHideFlags: 0
