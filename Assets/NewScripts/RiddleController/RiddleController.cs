@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RiddleController : MonoBehaviour {
-
-    // Use this for initialization
+public class RiddleController : MonoBehaviour {    
   //  GameObject gos;
     AnimatorStateInfo info;
     Animator anim;
@@ -23,9 +21,7 @@ public class RiddleController : MonoBehaviour {
     private Vector3 wallDir;
     FindClosestRiddle riddleFinder = new FindClosestRiddle();
     void Start () {
-    //    riddle = GameObject.Find("Riddle2");
-       
-        
+    //    riddle = GameObject.Find("Riddle2");           
         riddles = GameObject.FindGameObjectsWithTag("riddle");
         rend = riddles[1].GetComponent<Renderer>();
         defaultMaterial = rend.material;
@@ -60,10 +56,8 @@ public class RiddleController : MonoBehaviour {
                 clipInfo = info.IsName("end");
                 if (clipInfo == true)
                 {
-
                     currentRiddle.transform.GetChild(0).gameObject.SetActive(true);
                 }
-
 
             }
             if (clipInfo == true && distance > 3)
