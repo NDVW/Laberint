@@ -12,6 +12,7 @@ TagManager:
   - End
   - floorarrow
   - portal
+  - checkpoint
   layers:
   - Default
   - TransparentFX
