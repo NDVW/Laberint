@@ -12,8 +12,12 @@ public class PlayerController : MonoBehaviour {
     bool isfirstCoroutineStarted = false;
     bool isSecondCoroutineStarted = false;
     FindSmellPoints findSmell = new FindSmellPoints();
+    public GameObject Scent;
+    public float period;
+
     void Start()
     {
+        InvokeRepeating("DropScent", 0f, period);
         points = GameObject.FindGameObjectsWithTag("PlayerSmell");
         foreach (GameObject go in points)
         {
@@ -64,5 +68,13 @@ public class PlayerController : MonoBehaviour {
         smellPoints.SetActive(false);
         isSecondCoroutineStarted = false;
     }
+
+    void DropScent()
+    {
+        Vector3 position = GameObject.Find("Player").transform.position;
+        Quaternion rotation = Scent.transform.rotation;
+        Instantiate(Scent, position, rotation);
+    }
+
 }
 
