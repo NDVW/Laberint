@@ -76,7 +76,7 @@ public class ExampleStreaming : MonoBehaviour
     GameObject wall;
     GameObject[] riddles;
     GameObject ClosestRiddle;
-    int navigation_help_counter = 3;
+    int navigation_help_counter = 0;
     private TextMeshPro textmesh;
     GameObject[] portals;
     GameObject portal;
