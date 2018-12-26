@@ -10,6 +10,8 @@ TagManager:
   - insidewall
   - riddle
   - End
+  - floorarrow
+  - portal
   layers:
   - Default
   - TransparentFX
