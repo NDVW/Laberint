@@ -23,7 +23,6 @@ public class ShowPath : MonoBehaviour {
     Collider collider2;
     bool FoundCheckPoint = false;
     float distance_player_checkpoint_first;
-    FindClosestRiddle checkPountFinder = new FindClosestRiddle();
     LineRenderer lr; 
     // Use this for initialization
     void Start () {
@@ -81,8 +80,25 @@ public class ShowPath : MonoBehaviour {
 
      void FindNextCheckPoint()
     {
-        checkpoint = checkPountFinder.FindRiddle(checkpoints, transform);
+        checkpoint = FindCheckpoint(transform);
         FoundCheckPoint = true;
+    }
+
+    public GameObject FindCheckpoint(Transform _player_transform)
+    {
+        GameObject closest = null;        
+        Vector3 position = _player_transform.position;
+        float shortestDistance = Mathf.Infinity;
+
+        foreach (GameObject checkpoint in checkpoints)
+        {
+            float distance = (checkpoint.transform.position - position).sqrMagnitude;
+            if (distance < shortestDistance)
+            {
+                closest = checkpoint;
+            }
+        }
+        return closest;
     }
       //  }
     }
