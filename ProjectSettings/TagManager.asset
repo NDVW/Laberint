@@ -12,6 +12,9 @@ TagManager:
   - End
   - floorarrow
   - portal
+  - scent
+  - playerScent
+  - enemyScent
   layers:
   - Default
   - TransparentFX

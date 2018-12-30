@@ -7,9 +7,17 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-
     private FiniteStateMachine<EnemyController> finiteStateMachine;
-    public Transform[] points;
+
+    public FiniteStateMachine<EnemyController> FiniteStateMachine
+    {
+        get
+        {
+            return finiteStateMachine;
+        }
+    }
+
+    public List<Transform> points;
     public float lookRadius = 10f;  // Detection range for player
 
     Transform target;   // Reference to the player
@@ -36,7 +44,7 @@ public class EnemyController : MonoBehaviour
         anim.SetInteger("Condition", 1);
         InvokeRepeating("DropScent", 0f, period);
         finiteStateMachine = new FiniteStateMachine<EnemyController>();
-        finiteStateMachine.Configure(this, new MovingState());
+        finiteStateMachine.Configure(this, MovingState.Instance());
 
         anim.SetInteger("Walk", 1);
         // combat = GetComponent<CharacterCombat>();
@@ -72,7 +80,7 @@ public class EnemyController : MonoBehaviour
 
     void DropScent()
     {
-        Vector3 position = GameObject.Find("Enemy").transform.position;
+        Vector3 position = transform.position;
         Quaternion rotation = Scent.transform.rotation;
         Instantiate(Scent, position, rotation);
     }
@@ -80,6 +88,11 @@ public class EnemyController : MonoBehaviour
     public void ChangeAnimation(string animationDesc, int value)
     {
         anim.SetInteger(animationDesc, value);
+    }
+
+    public void ChangeAnimation(string animationDesc, bool value)
+    {
+        anim.SetBool(animationDesc, value);
     }
 
     public AnimatorStateInfo GetAnimatorStateInfo(int indx)
@@ -103,10 +116,15 @@ public class EnemyController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, lookRadius);
     }
 
+    public void SetPoint(Vector3 position)
+    {
+        agent.destination = position;
+    }
+
     public void GotoNextPoint()
     {
         // Returns if no points have been set up
-        if (points.Length == 0)
+        if (points.Count == 0)
             return;
 
         // Set the agent to go to the currently selected destination.
@@ -114,7 +132,22 @@ public class EnemyController : MonoBehaviour
 
         // Choose the next point in the array as the destination,
         // cycling to the start if necessary.
-        destPoint = (destPoint + 1) % points.Length;
+        destPoint = (destPoint + 1) % points.Count;
+    }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    public Vector3 GetCurrentDestination()
+    {
+        return agent.destination;
+    }
+
+    public void SetSpeed(int speed)
+    {
+        agent.speed = speed;
     }
 
 

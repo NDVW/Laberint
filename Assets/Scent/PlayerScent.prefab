@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114329579757572472}
   m_Layer: 0
   m_Name: PlayerScent
-  m_TagString: Untagged
+  m_TagString: playerScent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,5 +95,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60fc9ccc099548d8a8b318cf7bf995e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intensity: 100
+  intensity: 10
   intensityRate: 5

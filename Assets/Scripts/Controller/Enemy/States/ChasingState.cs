@@ -4,19 +4,46 @@ using UnityEngine;
 
 public class ChasingState : FSMState<EnemyController>
 {
+    AnimatorStateInfo info;
+    bool clipInfo;
+
+    private static ChasingState instance = null;
+    public static ChasingState Instance()
+    {
+        {
+            if (instance == null)
+                instance = new ChasingState();
+
+            return instance;
+        }
+    }
+
+    private ChasingState() { }
+
     public override void Enter(EnemyController entity)
     {
-        throw new System.NotImplementedException();
+        entity.SetSpeed(5);
+        entity.ChangeAnimation("Run", true);
     }
 
     public override void Execute(EnemyController entity)
     {
-        throw new System.NotImplementedException();
+        GameObject nearestSmell = FindSmellPoints.FindSmell(
+            entity.GetPosition(), "playerScent", 30, 
+            entity.GetCurrentDestination());
+        if(nearestSmell == null)
+        {
+            entity.FiniteStateMachine.ChangeState(MovingState.Instance());
+        }
+        else
+        {
+            entity.SetPoint(nearestSmell.transform.position);
+        }
     }
 
     public override void Exit(EnemyController entity)
     {
-        throw new System.NotImplementedException();
+        entity.GotoNextPoint();
     }
 
 }

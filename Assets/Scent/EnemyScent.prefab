@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114800977926358564}
   m_Layer: 0
   m_Name: EnemyScent
-  m_TagString: scent
+  m_TagString: enemyScent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
