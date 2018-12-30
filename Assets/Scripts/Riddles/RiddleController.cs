@@ -90,9 +90,8 @@ public class RiddleController : MonoBehaviour {
         return closestRiddle;
     }
 
-    public string SolveRiddles(Transform _player_transform, string TextQuery) {
-        string response = "";        
+    public string SolveRiddles(Transform _player_transform, string TextQuery) {        
         GameObject closestRiddle = FindClosestRiddle(_player_transform, GameObject.FindGameObjectsWithTag("riddle"));
-        return response; // _ClosestRiddle.solve(TextQuery);        
+        return TextQuery; // _ClosestRiddle.solve(TextQuery);
     }
 }
