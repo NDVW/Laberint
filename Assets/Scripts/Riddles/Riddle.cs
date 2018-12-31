@@ -31,7 +31,7 @@ public class Riddle : MonoBehaviour {
 				solved = true;
 				OnSolved();
             }
-            else if (value == false)
+            else if (value == false && solved == false)
             {
 				// Logic for wrong answer
 				OnWrongAnswer();
