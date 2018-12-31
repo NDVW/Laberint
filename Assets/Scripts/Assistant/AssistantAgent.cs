@@ -15,13 +15,13 @@ public class AssistantAgent : MonoBehaviour {
     void Start()
     {
         _STT_ctrl = new SpeechToTextController(_username_STT, _password_STT, _url_STT);        
-        _riddle_ctrl = new RiddleController();
+        _riddle_ctrl = GetComponent<RiddleController>();
         _STT_ctrl.Start(OnSTTResult);
     }
 
     private void OnSTTResult(string result)
     {
-        string riddleSolution = _riddle_ctrl.SolveRiddles(transform, result);
-        ResultsField.text = riddleSolution;
+        _riddle_ctrl.SolveRiddles(result);
+        ResultsField.text = result;
     }
 }
