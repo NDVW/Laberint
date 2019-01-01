@@ -23,7 +23,7 @@ public class ChasingState : FSMState<EnemyController>
 
     public override void Enter(EnemyController entity)
     {
-        entity.SetSpeed(5);
+        entity.SetSpeed(3);
         entity.ChangeAnimation("Run", 1);
         entity.SetPoint(currentScent.transform.position);
     }
@@ -34,7 +34,7 @@ public class ChasingState : FSMState<EnemyController>
         {
             entity.DestroyScent(currentScent);
             GameObject nearestSmell = FindSmellPoints.FindSmell(entity.GetPosition(), "playerScent", 
-                30,entity.GetCurrentDestination());
+                20,entity.GetCurrentDestination());
             if (nearestSmell == null)
             {
                 entity.FiniteStateMachine.ChangeState(MovingState.Instance());
@@ -45,6 +45,14 @@ public class ChasingState : FSMState<EnemyController>
                 entity.SetPoint(currentScent.transform.position);
             }
 
+        }
+        else
+        {
+            GameObject nearestSmell = FindSmellPoints.FindSmell(entity.GetPosition(), "playerScent",20, entity.GetCurrentDestination());
+            if (nearestSmell == null)
+            {
+                entity.FiniteStateMachine.ChangeState(MovingState.Instance());
+            }
         }
     }
 
