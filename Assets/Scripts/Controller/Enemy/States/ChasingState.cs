@@ -6,38 +6,45 @@ public class ChasingState : FSMState<EnemyController>
 {
     AnimatorStateInfo info;
     bool clipInfo;
+    GameObject currentScent;
 
     private static ChasingState instance = null;
-    public static ChasingState Instance()
+    public static ChasingState Instance(GameObject scent)
     {
         {
             if (instance == null)
                 instance = new ChasingState();
-
+            instance.currentScent = scent;
             return instance;
         }
     }
 
-    private ChasingState() { }
+    private ChasingState(){ }
 
     public override void Enter(EnemyController entity)
     {
         entity.SetSpeed(5);
         entity.ChangeAnimation("Run", 1);
+        entity.SetPoint(currentScent.transform.position);
     }
 
     public override void Execute(EnemyController entity)
     {
-        GameObject nearestSmell = FindSmellPoints.FindSmell(
-            entity.GetPosition(), "playerScent", 30, 
-            entity.GetCurrentDestination());
-        if(nearestSmell == null)
+        if (entity.agent.remainingDistance < 0.5f)
         {
-            entity.FiniteStateMachine.ChangeState(MovingState.Instance());
-        }
-        else
-        {
-            entity.SetPoint(nearestSmell.transform.position);
+            entity.DestroyScent(currentScent);
+            GameObject nearestSmell = FindSmellPoints.FindSmell(entity.GetPosition(), "playerScent", 
+                30,entity.GetCurrentDestination());
+            if (nearestSmell == null)
+            {
+                entity.FiniteStateMachine.ChangeState(MovingState.Instance());
+            }
+            else
+            {
+                currentScent = nearestSmell;
+                entity.SetPoint(currentScent.transform.position);
+            }
+
         }
     }
 

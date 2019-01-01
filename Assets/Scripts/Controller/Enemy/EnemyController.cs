@@ -150,6 +150,11 @@ public class EnemyController : MonoBehaviour
         agent.speed = speed;
     }
 
+    public void DestroyScent(GameObject scent)
+    {
+        Destroy(scent);
+    }
+
 
 
 

@@ -9589,8 +9589,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cac3111b085d4097951ef432f1786aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scent: {fileID: 1355887878767590, guid: a993b3bb7f1174d6d9751a39725e2d26, type: 2}
-  period: 1
+  Scent: {fileID: 1182177841670356, guid: f6acb042ead6b420ebd6d2b2c42da87a, type: 2}
+  period: 0.5
 --- !u!1001 &792989825
 Prefab:
   m_ObjectHideFlags: 0

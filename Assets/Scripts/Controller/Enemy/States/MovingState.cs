@@ -28,20 +28,17 @@ public class MovingState : FSMState<EnemyController>
     public override void Execute(EnemyController entity)
     {
         info = entity.GetAnimatorStateInfo(0);
-        clipInfo = info.IsName("Twist");
-
-        if (clipInfo == false)
-        {
-            if (!entity.agent.pathPending && entity.agent.remainingDistance < 0.5f)
+        if (!entity.agent.pathPending && entity.agent.remainingDistance < 0.5f)
                 entity.GotoNextPoint();
-        }
+
         // Detect player's scent
         GameObject nearestSmell = FindSmellPoints.FindSmell(
         entity.GetPosition(), "playerScent", 30, 
             entity.GetCurrentDestination());
         if (nearestSmell != null)
         {
-            entity.FiniteStateMachine.ChangeState(ChasingState.Instance());
+            entity.FiniteStateMachine.ChangeState(
+                ChasingState.Instance(nearestSmell));
         }
     }
 

@@ -26,4 +26,20 @@ public class FindSmellPoints {
         }
         return closest;
     }
+
+    public static int PointsInRange(Vector3 position, string tag, float radius)
+    {
+        int res = 0;
+        GameObject[] gos = GameObject.FindGameObjectsWithTag(tag);
+        foreach (GameObject go in gos)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance <= radius)
+            {
+                res++;
+            }
+        }
+        return res;
+    }
 }
