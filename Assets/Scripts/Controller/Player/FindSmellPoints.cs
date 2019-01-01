@@ -3,25 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FindSmellPoints {
-    /// Finds the smell closes to the enemy. Smell has to be between the radius.
+    /// Finds the strongest smell closes to the enemy. Smell has to be between the radius.
     public static GameObject FindSmell(Vector3 position, string tag, float radius,
     Vector3 currentDestination)
     {
-        
+
         GameObject[] gos = GameObject.FindGameObjectsWithTag(tag);
-        GameObject closest = null;
-        float distance = Mathf.Infinity;
-        foreach (GameObject go in gos)
+        List<GameObject> scentsInRange = new List<GameObject>();
+        foreach(GameObject go in gos)
         {
-            if(currentDestination != go.transform.position)
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance <= radius)
             {
-                Vector3 diff = go.transform.position - position;
-                float curDistance = diff.sqrMagnitude;
-                if ((curDistance < distance) && (curDistance <= radius))
-                {
-                    closest = go;
-                    distance = curDistance;
-                }
+                scentsInRange.Add(go);
+            }
+        }
+
+
+        GameObject closest = null;
+        float strongest = 0;
+        foreach (GameObject sc in scentsInRange)
+        {
+            float strength = sc.GetComponent<ScentController>().intensity;
+            if (strength > strongest)
+            {
+                closest = sc;
+                strongest = strength;
             }
         }
         return closest;

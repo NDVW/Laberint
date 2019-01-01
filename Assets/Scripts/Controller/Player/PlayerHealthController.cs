@@ -5,11 +5,9 @@ using UnityEngine.PostProcessing;
 
 public class PlayerHealthController : MonoBehaviour {
 
-    public PostProcessingProfile chasedBehaviour;
-    public PostProcessingProfile nearBehaviour;
     public PostProcessingProfile defaultProfile;
     public int chasingDistance;
-    public int nearDistance;
+    private float distanceFromEnemy;
 
 	// Use this for initialization
 	void Start () {
@@ -18,30 +16,28 @@ public class PlayerHealthController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        bool chased = false;
+        distanceFromEnemy = chasingDistance;
         GameObject[] gos = GameObject.FindGameObjectsWithTag("enemy");
-        foreach(GameObject go in gos)
+
+        foreach (GameObject go in gos)
         {
             Vector3 enemyPosition = go.transform.position;
             float dist = Vector3.Distance(enemyPosition, transform.position);
-            if (dist < nearDistance)
+            if (dist < distanceFromEnemy)
             {
-                Camera.main.GetComponent<PostProcessingBehaviour>().profile = nearBehaviour;
-                chased = true;
-                break;
+                distanceFromEnemy = dist;
             }
-            if (dist < chasingDistance)
-            {
-                Camera.main.GetComponent<PostProcessingBehaviour>().profile = chasedBehaviour;
-                chased = true;
-                break;
-            }
-        }
-        if (!chased)
-        { 
-            Camera.main.GetComponent<PostProcessingBehaviour>().profile = defaultProfile;
         }
 
+        ColorGradingModel.Settings set = defaultProfile.colorGrading.settings;
+        float saturation = set.basic.saturation;
+        if (distanceFromEnemy < chasingDistance)
+        {
+            float newSaturation = (distanceFromEnemy/chasingDistance);
+            set.basic.saturation = newSaturation;
+            defaultProfile.colorGrading.settings = set;
+            Camera.main.GetComponent<PostProcessingBehaviour>().profile = defaultProfile;
+        }
 
     }
 }

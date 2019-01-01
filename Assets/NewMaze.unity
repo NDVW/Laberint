@@ -5665,7 +5665,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1.1
+      value: 4.48
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalPosition.y
@@ -5673,7 +5673,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -8.43
+      value: -12.95
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalRotation.x
@@ -9546,11 +9546,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92d249984245446d8b9a473cdce8862f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chasedBehaviour: {fileID: 11400000, guid: c523ae95b8d7646258ce321a0ee45b86, type: 2}
-  nearBehaviour: {fileID: 11400000, guid: c5aabead3570642129a2b4944d6052da, type: 2}
   defaultProfile: {fileID: 11400000, guid: 705ab38146806402197c17ed94e2813d, type: 2}
-  chasingDistance: 10
-  nearDistance: 5
+  chasingDistance: 20
 --- !u!4 &774738939 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0,
