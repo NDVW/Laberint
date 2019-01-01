@@ -22,6 +22,7 @@ public class MovingState : FSMState<EnemyController>
     {
         entity.SetSpeed(1);
         entity.ChangeAnimation("Walk", 1);
+        entity.ChangeAnimation("Run", 0);
     }
 
     public override void Execute(EnemyController entity)

@@ -23,7 +23,7 @@ public class ChasingState : FSMState<EnemyController>
     public override void Enter(EnemyController entity)
     {
         entity.SetSpeed(5);
-        entity.ChangeAnimation("Run", true);
+        entity.ChangeAnimation("Run", 1);
     }
 
     public override void Execute(EnemyController entity)
