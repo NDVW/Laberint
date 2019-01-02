@@ -16,17 +16,31 @@ public class AttackingState : FSMState<EnemyController>
     }
     public override void Enter(EnemyController entity)
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void Execute(EnemyController entity)
     {
-        throw new System.NotImplementedException();
+        if (entity.DistanceToPlayer() > 1)
+        {
+            GameObject nearestSmell = FindSmellPoints.FindSmell(
+                entity.GetPosition(), "playerScent", 30,
+                    entity.GetCurrentDestination());
+            entity.FiniteStateMachine.ChangeState(
+                ChasingState.Instance(nearestSmell));
+        }
+        else
+        {
+            entity.SetSpeed(5);
+            entity.SetPoint(
+                GameObject.FindGameObjectsWithTag("Player")[0].transform.position);
+        }
     }
 
     public override void Exit(EnemyController entity)
     {
-        throw new System.NotImplementedException();
+        entity.ChangeAnimation("Run", 1);
+
     }
 
 }

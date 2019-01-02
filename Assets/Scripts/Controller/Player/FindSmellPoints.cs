@@ -35,6 +35,7 @@ public class FindSmellPoints {
         return closest;
     }
 
+    // Finds the number of points with a specific tag in a range arround another point
     public static int PointsInRange(Vector3 position, string tag, float radius)
     {
         int res = 0;

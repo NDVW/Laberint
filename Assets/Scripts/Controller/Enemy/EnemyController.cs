@@ -155,6 +155,23 @@ public class EnemyController : MonoBehaviour
         Destroy(scent);
     }
 
+    public float DistanceToPlayer()
+    {
+        GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
+        GameObject player = gos[0];
+        return Vector3.Distance(transform.position, player.transform.position);
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Collision", collision.gameObject);
+        if (collision.gameObject.tag == "Player")
+        {
+
+            Application.Quit();
+            
+        }
+    }
 
 
 

@@ -30,6 +30,11 @@ public class ChasingState : FSMState<EnemyController>
 
     public override void Execute(EnemyController entity)
     {
+        if (entity.DistanceToPlayer() < 1)
+        {
+            entity.FiniteStateMachine.ChangeState(AttackingState.Instance());
+        }
+
         if (entity.agent.remainingDistance < 0.5f)
         {
             entity.DestroyScent(currentScent);
