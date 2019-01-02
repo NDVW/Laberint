@@ -8,7 +8,7 @@ public class EnemyRoam : MonoBehaviour
 
     public Transform[] points;
     private int destPoint = 0;
-    public NavMeshAgent agent;
+    private NavMeshAgent agent;
     Animator anim;
     AnimatorStateInfo info;
     bool clipInfo;

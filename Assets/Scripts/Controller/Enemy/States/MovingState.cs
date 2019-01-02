@@ -33,8 +33,7 @@ public class MovingState : FSMState<EnemyController>
 
         // Detect player's scent
         GameObject nearestSmell = FindSmellPoints.FindSmell(
-        entity.GetPosition(), "playerScent", 30, 
-            entity.GetCurrentDestination());
+        entity.GetPosition(), "playerScent", 30);
         if (nearestSmell != null)
         {
             entity.FiniteStateMachine.ChangeState(

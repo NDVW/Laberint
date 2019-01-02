@@ -6,7 +6,7 @@ public class EnemyScentController : MonoBehaviour {
 
     
     // Use this for initialization
-    private GameObject[] points;
+   private GameObject[] points;
     GameObject EnemysmellPoints;
     GameObject prev;
     float Distance;

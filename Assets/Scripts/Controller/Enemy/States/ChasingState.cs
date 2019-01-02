@@ -35,35 +35,27 @@ public class ChasingState : FSMState<EnemyController>
             entity.FiniteStateMachine.ChangeState(AttackingState.Instance());
         }
 
-        if (entity.agent.remainingDistance < 0.5f)
+        if (entity.agent.remainingDistance < 0.1f)
         {
             entity.DestroyScent(currentScent);
-            GameObject nearestSmell = FindSmellPoints.FindSmell(entity.GetPosition(), "playerScent", 
-                20,entity.GetCurrentDestination());
-            if (nearestSmell == null)
-            {
-                entity.FiniteStateMachine.ChangeState(MovingState.Instance());
-            }
-            else
-            {
-                currentScent = nearestSmell;
-                entity.SetPoint(currentScent.transform.position);
-            }
 
+        }
+        GameObject nearestSmell = FindSmellPoints.FindSmell(entity.GetPosition(), "playerScent",
+                30);
+        if (nearestSmell == null)
+        {
+            entity.FiniteStateMachine.ChangeState(MovingState.Instance());
         }
         else
         {
-            GameObject nearestSmell = FindSmellPoints.FindSmell(entity.GetPosition(), "playerScent",20, entity.GetCurrentDestination());
-            if (nearestSmell == null)
-            {
-                entity.FiniteStateMachine.ChangeState(MovingState.Instance());
-            }
+            currentScent = nearestSmell;
+            entity.SetPoint(currentScent.transform.position);
         }
     }
 
     public override void Exit(EnemyController entity)
     {
-        entity.GotoNextPoint();
+
     }
 
 }

@@ -24,8 +24,7 @@ public class AttackingState : FSMState<EnemyController>
         if (entity.DistanceToPlayer() > 1)
         {
             GameObject nearestSmell = FindSmellPoints.FindSmell(
-                entity.GetPosition(), "playerScent", 30,
-                    entity.GetCurrentDestination());
+                entity.GetPosition(), "playerScent", 30);
             entity.FiniteStateMachine.ChangeState(
                 ChasingState.Instance(nearestSmell));
         }

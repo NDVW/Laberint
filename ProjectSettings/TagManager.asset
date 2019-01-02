@@ -12,9 +12,7 @@ TagManager:
   - End
   - floorarrow
   - portal
-  - scent
-  - playerScent
-  - enemyScent
+  - checkpoint
   layers:
   - Default
   - TransparentFX

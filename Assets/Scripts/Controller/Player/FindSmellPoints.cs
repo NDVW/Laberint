@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class FindSmellPoints {
     /// Finds the strongest smell closes to the enemy. Smell has to be between the radius.
-    public static GameObject FindSmell(Vector3 position, string tag, float radius,
-    Vector3 currentDestination)
+    public static GameObject FindSmell(Vector3 position, string tag, float radius)
     {
 
         GameObject[] gos = GameObject.FindGameObjectsWithTag(tag);
