@@ -6,6 +6,7 @@ public class MaterialCOntroller : MonoBehaviour {
 
     public Material[] material;
     Renderer rend;
+    public bool Activate = false ;
 	// Use this for initialization
 	void Start () {
         rend = GetComponent<Renderer>();
@@ -14,26 +15,24 @@ public class MaterialCOntroller : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            rend.sharedMaterial = material[1];
+    IEnumerator XrayVision()
+    {
+        Activate = false;
+        rend.sharedMaterial = material[1];
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(false);
-        }
-        if (Input.GetKeyUp(KeyCode.Q))
-       {
+            yield return new WaitForSeconds(10);
             rend.sharedMaterial = material[0];
             transform.GetChild(0).gameObject.SetActive(true);
             transform.GetChild(1).gameObject.SetActive(true);
-        }
-        if (Input.GetKeyDown(KeyCode.X))
+            
+    }
+	void Update () {
+        if (Activate)
         {
-            rend.sharedMaterial = material[2];
+     
+            StartCoroutine(XrayVision());
         }
-        if (Input.GetKeyUp(KeyCode.X))
-        {
-            rend.sharedMaterial = material[0];
-        }
+
     }
 }
