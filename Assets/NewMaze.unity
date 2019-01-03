@@ -2934,7 +2934,6 @@ GameObject:
   - component: {fileID: 249428193}
   - component: {fileID: 249428192}
   - component: {fileID: 249428194}
-  - component: {fileID: 249428195}
   m_Layer: 0
   m_Name: MazeAgent
   m_TagString: Untagged
@@ -3067,12 +3066,13 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 249428188}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4796025e17612b840a472c7e664266dd, type: 3}
+  m_Script: {fileID: 11500000, guid: 803fdbf2afe6342bc932ad6b5bd6191c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  remove: {fileID: 0}
+  material: {fileID: 0}
+  FoundWall: 0
 --- !u!114 &249428193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3092,23 +3092,11 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 249428188}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ab0db2394191984e9264b6e76cb6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &249428195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 249428188}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48eaca6df9c144749827dae1a8954e30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 21f6bdd82c3832940856a94b1fa34698, type: 2}
 --- !u!1 &253489542
 GameObject:
   m_ObjectHideFlags: 0
@@ -16793,35 +16781,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc69d9eeee99070458b8d57b072c8301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _serviceUrl: https://gateway-lon.watsonplatform.net/speech-to-text/api
-  ResultsField: {fileID: 904840655}
-  _username: 
-  _password: 
-  _iamApikey: PT81yeyE-hCp3TP0nDbibG9GzQzcEEPhssFdGm2vMIQ8
-  _IamAccessToken: 
-  _iamUrl: 
-  _recognizeModel: 
-  _recordingRoutine: 0
-  _microphoneID: 
-  _recording: {fileID: 0}
-  _recordingBufferSize: 1
-  _recordingHZ: 22050
-  audioData: []
-  theme: {fileID: 0}
-  TempAudioSpurce: {fileID: 0}
-  path: {fileID: 0}
-  anim: {fileID: 0}
-  enemy: {fileID: 0}
-  agent: {fileID: 0}
-  wall: {fileID: 0}
-  riddles: []
-  ClosestRiddle: {fileID: 0}
-  navigation_help_counter: 0
-  textmesh: {fileID: 0}
-  portals: []
-  portal: {fileID: 0}
-  end: {fileID: 0}
-  begin: {fileID: 0}
 --- !u!82 &1340583926
 AudioSource:
   m_ObjectHideFlags: 0
@@ -18318,6 +18277,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4095130336975184, guid: 0e24c989d7e3ff049b62f5e9179f7b1e,
     type: 2}
   m_PrefabInternal: {fileID: 1455139881}
+--- !u!1 &1458845885
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1458845886}
+  - component: {fileID: 1458845888}
+  - component: {fileID: 1458845887}
+  m_Layer: 5
+  m_Name: GameOverFader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1458845886
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1458845885}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1814547890}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1458845887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1458845885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.20879315, g: 0.7194068, b: 0.8679245, a: 0.46666667}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1458845888
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1458845885}
+  m_CullTransparentMesh: 0
 --- !u!1001 &1459181260
 Prefab:
   m_ObjectHideFlags: 0
@@ -23087,6 +23115,7 @@ GameObject:
   - component: {fileID: 1814547888}
   - component: {fileID: 1814547887}
   - component: {fileID: 1814547891}
+  - component: {fileID: 1814547892}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -23162,6 +23191,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 2061290947}
+  - {fileID: 1458845886}
+  - {fileID: 2129843722}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -23265,6 +23296,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &1814547892
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1814547886}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 055cc95e17185459c96d0ba3b974a975, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1821826684
 Prefab:
   m_ObjectHideFlags: 0
@@ -27442,6 +27491,81 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &2129843721
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2129843722}
+  - component: {fileID: 2129843724}
+  - component: {fileID: 2129843723}
+  m_Layer: 5
+  m_Name: GameOverText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2129843722
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2129843721}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1814547890}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2129843723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2129843721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.48235294}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 25
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 0
+    m_MaxSize: 60
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 0
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Game Over
+--- !u!222 &2129843724
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2129843721}
+  m_CullTransparentMesh: 0
 --- !u!1001 &2131135923
 Prefab:
   m_ObjectHideFlags: 0
