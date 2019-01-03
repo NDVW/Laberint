@@ -102,20 +102,20 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
                 }
                 Transform parent2 = parent1.parent;
                 Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!change parent2 " + parent2.name);
-                this.wall = parent2.gameObject;
+                wall = parent2.gameObject;
             }
             Debug.DrawRay(this.enemy1.position, (this.player1.position - this.enemy1.position).normalized * hit.distance, Color.red);
             Debug.Log("MazeBT Remove for Player: Did Hit");
             Debug.Log(hit.collider.name);
 
-            this.wallName = this.wall.name;
+            this.wallName = wall.name;
             Debug.Log(wallName);
             //GameObject wallToOpen = GameObject.Find(wallName);
-            this.wallToOpen = this.wall;
+            this.wallToOpen = wall;
             Debug.Log("MazeBT First Line is " + this.wallToOpen);
             this.start = this.wallToOpen.transform.position; //start position of the wall
             this.end = this.wallToOpen.transform.position + Vector3.up * this.MoveWallDistance;
-
+            this.action = 0;
 
 
         }
@@ -135,6 +135,7 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
                 this.action = 1; 
                 this.currentLerptime = 0;
                 Debug.Log("RemoveWall Opening wall for Enemy finished" );
+                //Debug.Break();
             }
         }
         else{ 
