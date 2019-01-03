@@ -26,6 +26,7 @@ public class RemoveFirstWall : MonoBehaviour {
     public bool FoundWall = false;
     Renderer rend;
     GameObject wallToOpen;
+    int action = -1; // -1 none, 0 for removing, 1 for placing it back
     // Use this for initialization
     void Start()
     {
@@ -40,12 +41,19 @@ public class RemoveFirstWall : MonoBehaviour {
             FindWall();
             FoundWall = true;
         }
-        if(this.wallToOpen.transform.position != end)
+        /*if(this.wallToOpen.transform.position != end)
         {
             MoveWall();
         }
         if (this.wallToOpen.transform.position == end)
         {
+            FoundWall = false;
+            this.enabled = false;
+        } */
+        if (this.action != -1){
+             MoveWall();
+        }
+        if (this.action == -1 ){
             FoundWall = false;
             this.enabled = false;
         }
@@ -107,7 +115,7 @@ public class RemoveFirstWall : MonoBehaviour {
             Debug.Log("MazeBT First Line is " + wallToOpen);
             start = this.wallToOpen.transform.position; //start position of the wall
             end = this.wallToOpen.transform.position + Vector3.up * this.MoveWallDistance;
-
+            this.action = 0;
 
 
         }
@@ -120,6 +128,25 @@ public class RemoveFirstWall : MonoBehaviour {
             this.currentLerptime = this.lerptime;
         }
         float perc = this.currentLerptime / this.lerptime;
-        wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
+        if (this.action == 0) {
+            wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
+            Debug.Log("------------------------- RemoveWall Opening wall " + wallToOpen.transform.position);
+            if ( wallToOpen.transform.position == end){  
+                this.action = 1; 
+                this.currentLerptime = 0;
+                Debug.Log("RemoveWall Opening wall finished" );
+            }
+        }
+        else{ 
+            if (this.action == 1) {
+                wallToOpen.transform.position = Vector3.Lerp(start, end, 1 - perc);
+                Debug.Log("------------------------- RemoveWall Closing wall " + wallToOpen.transform.position);
+                if ( wallToOpen.transform.position == start){  
+                    this.action = -1;
+                    Debug.Log("------------------------- RemoveWall Finished closing wall "); 
+                }
+            }
+        }
+        //wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
     }
   }

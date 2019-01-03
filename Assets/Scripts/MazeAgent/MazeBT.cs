@@ -205,12 +205,12 @@ public class MazeBT : MonoBehaviour
         //distance_player_wall = Vector3.Distance(target.position, wall.transform.position);  //I think this was not used
 
            if (!this.isWallCoroutineStarted)
-           {
-           StartCoroutine(RemoveWall());
-          }
+            {
+                StartCoroutine(RemoveWallBT());
+            }
         
 
-        //    RemoveWall(start, end, wallToOpen);
+        //    RemoveWallBT(start, end, wallToOpen);
         return BehaviourTreeStatus.Success;
     }
         // Debug.Log(h.collider.name);
@@ -252,7 +252,7 @@ public class MazeBT : MonoBehaviour
 
        //     if (!this.isWallCoroutineStarted)
        //     {
-       //         StartCoroutine(RemoveWall(start, end, wallToOpen));
+       //         StartCoroutine(RemoveWallBT(start, end, wallToOpen));
        //     }
 
         }
@@ -276,17 +276,17 @@ public class MazeBT : MonoBehaviour
     }
 
     //  IEnumerator 
-    IEnumerator RemoveWall()
+    IEnumerator RemoveWallBT()
     {
 
         this.isWallCoroutineStarted = true;
         remove.enabled = true;
-        //  Debug.Log("MazeBT RemoveWall");
+        Debug.Log("-------------------------    MazeBT RemoveWallBT ENABLED");
         yield return new WaitForSeconds(10);
         //Debug.Break();
         //   Destroy(wall, 0);
         this.isWallCoroutineStarted = false;
-     //   Debug.Log("MazeBT RemoveWall: wall destroyed");
+        Debug.Log("-------  DO I REACH THIS POINT??????  MazeBT RemoveWallBT: wall destroyed");
         //Debug.Break();
         //    yield return null;
    
@@ -294,7 +294,7 @@ public class MazeBT : MonoBehaviour
             //    if (wall.transform.position == end)
             //    {
             //       this.isWallCoroutineStarted = false;
-            // 	   Debug.Log("MazeBT RemoveWall: done with routine");
+            // 	   Debug.Log("MazeBT RemoveWallBT: done with routine");
             // 	   Debug.Break();
             //    }
             // 	  yield return null;

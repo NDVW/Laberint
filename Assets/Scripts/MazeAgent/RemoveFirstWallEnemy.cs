@@ -26,6 +26,7 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
     public bool FoundWall = false;
     Renderer rend;
     GameObject wallToOpen;
+    int action = -1; // -1 none, 0 for removing, 1 for placing it back
     // Use this for initialization
     void Start()
     {
@@ -40,12 +41,19 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
             FindWall();
             FoundWall = true;
         }
-        if(this.wallToOpen.transform.position != end)
+       /*if(this.wallToOpen.transform.position != end)
         {
             MoveWall();
         }
         if (this.wallToOpen.transform.position == end)
         {
+            FoundWall = false;
+            this.enabled = false;
+        } */
+        if (this.action != -1){
+             MoveWall();
+        }
+        if (this.action == -1 ){
             FoundWall = false;
             this.enabled = false;
         }
@@ -120,6 +128,25 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
             this.currentLerptime = this.lerptime;
         }
         float perc = this.currentLerptime / this.lerptime;
-        wallToOpen.transform.position = Vector3.Lerp(this.start, this.end, perc);
+        if (this.action == 0) {
+            wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
+            Debug.Log("------------------------- RemoveWall Opening wall for Enemy" + wallToOpen.transform.position);
+            if ( wallToOpen.transform.position == end){  
+                this.action = 1; 
+                this.currentLerptime = 0;
+                Debug.Log("RemoveWall Opening wall for Enemy finished" );
+            }
+        }
+        else{ 
+            if (this.action == 1) {
+                wallToOpen.transform.position = Vector3.Lerp(start, end, 1 - perc);
+                Debug.Log("------------------------- RemoveWall Closing wall For Enmy" + wallToOpen.transform.position);
+                if ( wallToOpen.transform.position == start){  
+                    this.action = -1;
+                    Debug.Log("------------------------- RemoveWall Finished closing wall Enemy "); 
+                }
+            }
+        }
+        //wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
     }
   }
