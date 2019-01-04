@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 //using UnitySteer.Behaviors;
 
 using FluentBehaviourTree;
@@ -23,6 +24,7 @@ public class MazeBT : MonoBehaviour
     private float currentWallLerptime = 0;  // time to control wall movement
     private float wallLerptime = 5; // time to control wall movement
     private bool isWallCoroutineStarted = false;
+    private float previousposition;
     RemoveFirstWall removeforplayer;
     RemoveFirstWallEnemy removeforenemy;
     GameObject canvas;
@@ -44,10 +46,12 @@ public class MazeBT : MonoBehaviour
 
         this.gameoveranim = this.canvas.GetComponent<Animator>();
 
-        removeforplayer = GetComponent<RemoveFirstWall>();
-        removeforenemy = GetComponent<RemoveFirstWallEnemy>();
-        removeforplayer.enabled = false;
-        removeforenemy.enabled = false;
+        this.removeforplayer = GetComponent<RemoveFirstWall>();
+        this.removeforenemy = GetComponent<RemoveFirstWallEnemy>();
+        this.removeforplayer.enabled = false;
+        this.removeforenemy.enabled = false;
+
+        this.previousposition = GoalPlayerDistance();
         // Building the tree
         var builder = new BehaviourTreeBuilder();
 
@@ -64,12 +68,12 @@ public class MazeBT : MonoBehaviour
                     .Condition("HelpTime", t => IsTimeToHelp())
                     .Selector("WhoToHelp")
                         .Sequence("HelpPlayer")
-                            //.Condition("PlayerProgressSlow", t => PlayerIsLost())
+                            .Condition("PlayerProgressSlow", t => PlayerIsLost())
                             .Condition("EnemyCloserToPlayer", t => EnemyIsCloserToPlayer())
                             .Do("RemoveWallForPlayer", t => RemoveWallForPlayer())
                         .End()
                         .Sequence("HelpEnemy")
-                            //.Condition("PlayerProgressFast", t => PlayerReachingGoalFast())
+                            .Condition("PlayerProgressFast", t => PlayerReachingGoalFast())
                             .Do("RemoveWallForEnemy", t => RemoveWallForEnemy())
                         .End()
                     .End()
@@ -126,14 +130,35 @@ public class MazeBT : MonoBehaviour
 
     bool PlayerIsLost()
     {
-        // TBD
-        return true;
+        Debug.Log("------------------ MazeBT  distance to interval time ratio " + ( this.previousposition - GoalPlayerDistance()) / helpTimeInterval );
+        Debug.Log("------------------ MazeBT Time  " + Time.time );
+        Debug.Log("------------------ MazeBT Distance  " + GoalPlayerDistance()  );
+        Debug.Log("------------------ MazeBT Advanced Distance  " + ( this.previousposition - GoalPlayerDistance()));
+        Debug.Break();
+        if (Time.time > 19 && ( (this.previousposition - GoalPlayerDistance()) < -10 || (Mathf.Abs(this.previousposition-GoalPlayerDistance()) / helpTimeInterval  < 0.15) )) {
+            Debug.Log("------------------ MazeBT Player is lost ");
+            this.previousposition = GoalPlayerDistance();
+            return true;
+        }
+        Debug.Log("------------------ MazeBT Player is NOT lost ");
+        Debug.Break();
         return false;
     }
     bool PlayerReachingGoalFast()
     {
-        // TBD
-        return true;
+        Debug.Log("------------------ MazeBT  distance to interval time ratio " + ( this.previousposition - GoalPlayerDistance()) / helpTimeInterval );
+        Debug.Log("------------------ MazeBT Time  " + Time.time );
+        Debug.Log("------------------ MazeBT Distance  " + GoalPlayerDistance()  );
+        Debug.Log("------------------ MazeBT Advanced Distance  " + ( this.previousposition - GoalPlayerDistance() ) );
+        if ((this.previousposition - GoalPlayerDistance()) / helpTimeInterval  > 1){
+            Debug.Log("------------------ MazeBT Player is moving fast ");
+            this.previousposition = GoalPlayerDistance();
+            Debug.Break();
+            return true;
+        }
+        Debug.Log("------------------ MazeBT Player is NOT moving fast ");
+        this.previousposition = GoalPlayerDistance();
+        Debug.Break();
         return false;
     }
 
@@ -178,7 +203,7 @@ public class MazeBT : MonoBehaviour
     BehaviourTreeStatus RemoveWallForPlayer()
     {
         Debug.Log("------------------- Maze BT Removing Wall For player");
-        
+        Debug.Break();
         if (!this.isWallCoroutineStarted)
             {
                 StartCoroutine(RemoveWallBTPlayer());
@@ -191,7 +216,7 @@ public class MazeBT : MonoBehaviour
     BehaviourTreeStatus RemoveWallForEnemy()
     {
         Debug.Log("------------------- Maze BT Removing Wall For enemy");
-        
+        Debug.Break();
         if (!this.isWallCoroutineStarted)
             {
                 StartCoroutine(RemoveWallBTEnemy());
