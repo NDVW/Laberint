@@ -6077,7 +6077,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 5.75
+      value: 0.71
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalPosition.y
@@ -6085,7 +6085,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -32.6
+      value: -7.12
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalRotation.x
@@ -11323,21 +11323,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 0}
---- !u!114 &774738941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 774738934}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf4798eb821efd3468f2f2a0940e7ce8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _username_STT: 
-  _password_STT: 
-  _url_STT: 
-  ResultsField: {fileID: 0}
 --- !u!114 &774738942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19601,10 +19586,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf4798eb821efd3468f2f2a0940e7ce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _username_STT: 630db3e4-9c69-4aa1-bb7c-6f69410be997
-  _password_STT: ZPjG3vEeSTz6
-  _url_STT: https://stream.watsonplatform.net/speech-to-text/api
-  ResultsField: {fileID: 904840655}
+  usernameSTT: 630db3e4-9c69-4aa1-bb7c-6f69410be997
+  passwordSTT: ZPjG3vEeSTz6
+  urlSTT: https://stream.watsonplatform.net/speech-to-text/api
+  usernameTone: 088bd540-a4a9-412e-a681-3aa558b30c9d
+  passwordTone: XQJDRlN5U4h4
+  urlTone: https://gateway.watsonplatform.net/tone-analyzer/api
+  urlChat: 159.203.118.21/cakechat_api/v1/actions/get_response"
+  resultsField: {fileID: 0}
 --- !u!114 &1340583922
 MonoBehaviour:
   m_ObjectHideFlags: 0

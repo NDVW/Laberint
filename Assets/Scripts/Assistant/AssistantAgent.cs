@@ -6,15 +6,15 @@ using System.Collections.Generic;
 public class AssistantAgent : MonoBehaviour
 {
     // STT Config
-    public string usernameSTT = "630db3e4-9c69-4aa1-bb7c-6f69410be997";
-    public string passwordSTT = "ZPjG3vEeSTz6";
-    public string urlSTT = "https://stream.watsonplatform.net/speech-to-text/api";
+    public string usernameSTT;
+    public string passwordSTT;
+    public string urlSTT;
 
     // Chatbot Config
-    public string usernameTone = "088bd540-a4a9-412e-a681-3aa558b30c9d";
-    public string passwordTone = "XQJDRlN5U4h4";
-    public string urlTone = "https://gateway.watsonplatform.net/tone-analyzer/api";
-    public string urlChat = "159.203.118.21:8000";
+    public string usernameTone;
+    public string passwordTone;
+    public string urlTone;
+    public string urlChat;
 
     // Results display
     public Text resultsField;
@@ -39,14 +39,15 @@ public class AssistantAgent : MonoBehaviour
 
     private void OnSTTResult(string result)
     {                   
-        Debug.Log("STT Result" + result);
-        _chatCtrl.sendMessage(result);
+        Debug.Log("STT Result " + result);
+        resultsField.text = result;
+        _chatCtrl.SendMessage(result);
         
         if (_riddleCtrl.closestRiddle && !_riddleCtrl.closestRiddle.Solved) _riddleCtrl.SolveRiddles(result);
         else _useReward.Use(result);
     }
 
-    private void OnChatbotReply(string reply) {
-        resultsField.text = reply;
+    private void OnChatbotReply(string reply) {        
+        resultsField.text = "..." + reply;
     }
 }
