@@ -134,14 +134,14 @@ public class MazeBT : MonoBehaviour
         Debug.Log("------------------ MazeBT Time  " + Time.time );
         Debug.Log("------------------ MazeBT Distance  " + GoalPlayerDistance()  );
         Debug.Log("------------------ MazeBT Advanced Distance  " + ( this.previousposition - GoalPlayerDistance()));
-        Debug.Break();
+        //Debug.Break();
         if (Time.time > 19 && ( (this.previousposition - GoalPlayerDistance()) < -10 || (Mathf.Abs(this.previousposition-GoalPlayerDistance()) / helpTimeInterval  < 0.15) )) {
             Debug.Log("------------------ MazeBT Player is lost ");
             this.previousposition = GoalPlayerDistance();
             return true;
         }
         Debug.Log("------------------ MazeBT Player is NOT lost ");
-        Debug.Break();
+        //Debug.Break();
         return false;
     }
     bool PlayerReachingGoalFast()
@@ -153,12 +153,12 @@ public class MazeBT : MonoBehaviour
         if ((this.previousposition - GoalPlayerDistance()) / helpTimeInterval  > 1){
             Debug.Log("------------------ MazeBT Player is moving fast ");
             this.previousposition = GoalPlayerDistance();
-            Debug.Break();
+            //Debug.Break();
             return true;
         }
         Debug.Log("------------------ MazeBT Player is NOT moving fast ");
         this.previousposition = GoalPlayerDistance();
-        Debug.Break();
+        //Debug.Break();
         return false;
     }
 
@@ -203,7 +203,7 @@ public class MazeBT : MonoBehaviour
     BehaviourTreeStatus RemoveWallForPlayer()
     {
         Debug.Log("------------------- Maze BT Removing Wall For player");
-        Debug.Break();
+        //Debug.Break();
         if (!this.isWallCoroutineStarted)
             {
                 StartCoroutine(RemoveWallBTPlayer());
@@ -216,7 +216,7 @@ public class MazeBT : MonoBehaviour
     BehaviourTreeStatus RemoveWallForEnemy()
     {
         Debug.Log("------------------- Maze BT Removing Wall For enemy");
-        Debug.Break();
+        //Debug.Break();
         if (!this.isWallCoroutineStarted)
             {
                 StartCoroutine(RemoveWallBTEnemy());
