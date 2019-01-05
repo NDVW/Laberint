@@ -30,14 +30,14 @@ public class UseReward : MonoBehaviour {
             if (navigationhelpCounter > 0)
             {
                 //  StartCoroutine(LowerThemeVolume(audioData[2]));
-                audioData[2].Play();
+                audioData[1].Play();
                 path.enabled = true;
                 navigationhelpCounter = navigationhelpCounter - 1;
             }
             else
             {
                 //StartCoroutine(LowerThemeVolume(audioData[6]));
-                audioData[6].Play();
+                audioData[2].Play();
             }
         }
         if (playerQuery.ToLower().Contains("vision"))  // See through walls or Xray walls help

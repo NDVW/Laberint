@@ -3,49 +3,85 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class RiddleController : MonoBehaviour {    
+public class RiddleController : MonoBehaviour
+{
     public float maxRiddleDistance = 10.0f;
-    public int _RiddleDistanceThreshold = 3;
+    public float _RiddleDistanceThreshold = 3.0f;
     public Material material;
-    Renderer rend;
+
+    private GameObject closestRiddleObject;
+    private Renderer rend;
     private GameObject[] riddles;
 
-    void Start () {
+    void Start()
+    {
         riddles = GameObject.FindGameObjectsWithTag("riddle");
-        
     }
-	
-	void Update () {  
-        GameObject closestRiddle = FindClosestRiddle(transform, riddles);
-        if (closestRiddle != null) AnimateRiddle(closestRiddle, transform);
+
+    void Update()
+    {
+        closestRiddleObject = FindClosestRiddle(transform, riddles);
+        if (closestRiddleObject != null) AnimateRiddle(closestRiddleObject, transform);
+    }
+
+    private float CalcRiddleDistance(GameObject riddle, Transform _transform)
+    {
+        return (riddle.transform.position - _transform.position).sqrMagnitude;
+    }
+
+    public Riddle closestRiddle
+    {
+        get
+        {
+            if (closestRiddleObject && CalcRiddleDistance(closestRiddleObject, transform) <= _RiddleDistanceThreshold)
+            {
+                return closestRiddleObject.GetComponent<Riddle>();
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
+
+    public float getClosestRiddleDistance()
+    {
+        return Vector3.Distance(transform.position, closestRiddleObject.transform.position);
+    }
+
+    public bool closestRiddleSolved()
+    {
+        return closestRiddle.Solved;
     }
 
     public GameObject FindClosestRiddle(Transform _player_transform, GameObject[] riddles)
     {
         float riddleDistance;
-        float closestRiddleDistance = Mathf.Infinity;
         GameObject closestRiddle = null;
-        
-        foreach (GameObject riddle in riddles) {
-            riddleDistance = (riddle.transform.position - _player_transform.position).sqrMagnitude;
-            
-            if (riddleDistance < closestRiddleDistance)
+        float _closestRiddleDistance = Mathf.Infinity;
+
+        foreach (GameObject riddle in riddles)
+        {
+            riddleDistance = CalcRiddleDistance(riddle, _player_transform);
+
+            if (riddleDistance < _closestRiddleDistance)
             {
-                closestRiddleDistance = riddleDistance;
+                _closestRiddleDistance = riddleDistance;
                 closestRiddle = riddle;
             }
         }
         return closestRiddle;
     }
- // Aniamte the riddles when the player is close to them.
+    // Aniamte the riddles when the player is close to them.
 
-    void AnimateRiddle (GameObject riddle, Transform _playerTransform) {
+    void AnimateRiddle(GameObject riddle, Transform _playerTransform)
+    {
         Animator anim = riddle.GetComponent<Animator>();
         rend = riddle.GetComponent<Renderer>();
-        AnimatorStateInfo info = anim.GetCurrentAnimatorStateInfo(0); 
-        float distance = Vector3.Distance(riddle.transform.position, _playerTransform.position);
-        Vector3 wallDir = (riddle.transform.position - _playerTransform.position);        
-    
+        AnimatorStateInfo info = anim.GetCurrentAnimatorStateInfo(0);
+        float distance = CalcRiddleDistance(riddle, _playerTransform);
+        Vector3 wallDir = (riddle.transform.position - _playerTransform.position);
+
         if (distance < _RiddleDistanceThreshold)
         {
             anim.SetInteger("moveback", 0);
@@ -60,25 +96,27 @@ public class RiddleController : MonoBehaviour {
         if (info.IsName("end") == true && distance > _RiddleDistanceThreshold)
         {
             anim.SetInteger("moveback", 1);
-            anim.SetInteger("appear", 0);                
+            anim.SetInteger("appear", 0);
             DisplayRiddleText(riddle, false);
         }
-	}
+    }
 
-    void DisplayRiddleText(GameObject riddle, bool active) {
+    void DisplayRiddleText(GameObject riddle, bool active)
+    {
         riddle.transform.GetChild(0).gameObject.SetActive(active);
     }
     // Solve riddles by matching the player voice input to the riddle answers. If Correct, make the rewards available for the player.
-    public void SolveRiddles(string PlayerQuery) {
-        GameObject closestRiddle = FindClosestRiddle(transform, riddles);
-        
-        if (closestRiddle != null) {
-            Riddle riddle = closestRiddle.GetComponent<Riddle>();
-
-            if (PlayerQuery.ToLower().Contains(riddle.answer.ToLower())) {
-                riddle.Solved = true;
-            } else {
-                riddle.Solved = false;
+    public void SolveRiddles(string PlayerQuery)
+    {
+        if (closestRiddle != null)
+        {
+            if (PlayerQuery.ToLower().Contains(closestRiddle.answer.ToLower()))
+            {
+                closestRiddle.Solved = true;
+            }
+            else
+            {
+                closestRiddle.Solved = false;
             }
         }
     }

@@ -177,12 +177,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937f73525a51045e4b9457743095b607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  riddleText: What can never be observed, but its presence prevents everything from
-    being seen?
-  answer: darkness
-  rewardText: Congratulation! You have reached the end point
+  riddleText: 
+  answer: Darkness
+  rewardText: Congratulation! You have reached the End Point
   solved: 0
-  color: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
   BangersSDF: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   BangersSDFMaterial: {fileID: 2100000, guid: f2dcf029949142e28b974630369c8b4e, type: 2}
 --- !u!64 &80171
@@ -3255,12 +3254,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937f73525a51045e4b9457743095b607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  riddleText: The more you take of me, the more you leave behind. What am I?
+  riddleText: 
   answer: window
-  rewardText: 'You have unlocked 10 seconds of  xray vision!                             keyword
-    for use : "vision"'
+  rewardText: 'You have unlocked xRay vision for 10 seconds!      Keyword : "vision"'
   solved: 0
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
   BangersSDF: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   BangersSDFMaterial: {fileID: 2100000, guid: f2dcf029949142e28b974630369c8b4e, type: 2}
 --- !u!95 &219745180
@@ -3707,7 +3705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6e9ad8ee3e6bd4dbc537e63ade7ca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: c0bb028252bdc814ba4808a57d71bf27, type: 2}
+  material: {fileID: 0}
   FoundWall: 0
 --- !u!114 &249428194
 MonoBehaviour:
@@ -3731,7 +3729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48eaca6df9c144749827dae1a8954e30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 21f6bdd82c3832940856a94b1fa34698, type: 2}
+  material: {fileID: 0}
 --- !u!1 &253489542
 GameObject:
   m_ObjectHideFlags: 0
@@ -4350,9 +4348,9 @@ MonoBehaviour:
   riddleText: 'I am a portal to another world which you cannot enter. Only you can
     see me but I can''t see you. What am I?  '
   answer: television
-  rewardText: You Have Unlocked a portal!
+  rewardText: You have unlocked a portal!
   solved: 0
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
   BangersSDF: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   BangersSDFMaterial: {fileID: 2100000, guid: f2dcf029949142e28b974630369c8b4e, type: 2}
 --- !u!1 &288840124
@@ -4477,7 +4475,7 @@ MonoBehaviour:
   answer: 
   rewardText: 
   solved: 0
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
   BangersSDF: {fileID: 0}
   BangersSDFMaterial: {fileID: 0}
 --- !u!1 &303554858
@@ -6079,7 +6077,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.28
+      value: 5.75
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalPosition.y
@@ -6087,7 +6085,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -1.06
+      value: -32.6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalRotation.x
@@ -6375,7 +6373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: c938b0c9df33ddd48a08dd4cdfb973a3, type: 2}
+  profile: {fileID: 0}
 --- !u!114 &391931392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6398,7 +6396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6e9ad8ee3e6bd4dbc537e63ade7ca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 632ac948c13b6984d9e1693e1771c023, type: 2}
+  material: {fileID: 0}
   FoundWall: 0
 --- !u!1001 &392741040
 Prefab:
@@ -8502,7 +8500,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 3f0270b7489360b4c9b2dcb95a0bca4e, type: 2}
+  m_NavMeshData: {fileID: 0}
 --- !u!4 &627441888
 Transform:
   m_ObjectHideFlags: 0
@@ -11185,6 +11183,15 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: -0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 114016884912088038, guid: d66e02a29245bcd4785f9a21b0f3b949,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950404040679692, guid: d66e02a29245bcd4785f9a21b0f3b949, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d66e02a29245bcd4785f9a21b0f3b949, type: 2}
   m_IsPrefabAsset: 0
@@ -11329,7 +11336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _username_STT: 
   _password_STT: 
-  _url_STT: https://gateway-syd.watsonplatform.net/speech-to-text/api
+  _url_STT: 
   ResultsField: {fileID: 0}
 --- !u!114 &774738942
 MonoBehaviour:
@@ -11342,7 +11349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279d9221908cb774bbec8aa554a5dbef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 391931386}
 --- !u!1 &787940111
 GameObject:
   m_ObjectHideFlags: 0
@@ -14606,7 +14613,7 @@ MonoBehaviour:
   answer: 
   rewardText: 
   solved: 0
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
   BangersSDF: {fileID: 0}
   BangersSDFMaterial: {fileID: 0}
 --- !u!1001 &1042018037
@@ -16719,14 +16726,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937f73525a51045e4b9457743095b607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  riddleText: The more you take of me, the more you leave behind. What am I?
-  answer: window
-  rewardText: 'You have unlocked 10 seconds of  xray vision!                             keyword
-    for use : "vision"'
+  riddleText: 
+  answer: 
+  rewardText: 
   solved: 0
-  color: {r: 0, g: 0, b: 0, a: 0}
-  BangersSDF: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  BangersSDFMaterial: {fileID: 2100000, guid: f2dcf029949142e28b974630369c8b4e, type: 2}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  BangersSDF: {fileID: 0}
+  BangersSDFMaterial: {fileID: 0}
 --- !u!4 &1170516343 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4799060155631114, guid: 5f4815b6503ed394badfa027501437e5,
@@ -19553,20 +19559,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1340583920}
-  - component: {fileID: 1340583922}
   - component: {fileID: 1340583926}
   - component: {fileID: 1340583927}
-  - component: {fileID: 1340583930}
-  - component: {fileID: 1340583929}
-  - component: {fileID: 1340583928}
   - component: {fileID: 1340583924}
-  - component: {fileID: 1340583931}
+  - component: {fileID: 1340583922}
   - component: {fileID: 1340583932}
-  - component: {fileID: 1340583921}
   - component: {fileID: 1340583934}
   - component: {fileID: 1340583923}
   - component: {fileID: 1340583925}
   - component: {fileID: 1340583935}
+  - component: {fileID: 1340583921}
   m_Layer: 0
   m_Name: Assistant
   m_TagString: helper
@@ -19581,7 +19583,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1340583919}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 0, z: -0.01}
+  m_LocalPosition: {x: -0.2, y: 0, z: 0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 332091451}
@@ -19603,101 +19605,17 @@ MonoBehaviour:
   _password_STT: ZPjG3vEeSTz6
   _url_STT: https://stream.watsonplatform.net/speech-to-text/api
   ResultsField: {fileID: 904840655}
---- !u!82 &1340583922
-AudioSource:
+--- !u!114 &1340583922
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1340583919}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8663392482f78a04da5f6016d5b9530a, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57094d3709adcf642b73eeb12bd7de4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &1340583923
 AudioSource:
   m_ObjectHideFlags: 0
@@ -20092,302 +20010,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!82 &1340583928
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1340583919}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c36cceb317df2384fabdaad435346e50, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!82 &1340583929
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1340583919}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: abafcb975d41a85409d5e36f1e047ed2, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!82 &1340583930
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1340583919}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f7620e9ec6c68ed4da2a43476a171688, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &1340583931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1340583919}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57094d3709adcf642b73eeb12bd7de4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!64 &1340583932
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -20731,7 +20353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1366605807
 Transform:
   m_ObjectHideFlags: 0
@@ -20855,7 +20477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1382873773
 Transform:
   m_ObjectHideFlags: 0
@@ -21006,7 +20628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1401504842
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32667,12 +32289,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937f73525a51045e4b9457743095b607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  riddleText: Transparent I can be Sometimes only one side can see  Multiple of me
-    on a screen to play or work  A reflector for a smirk
+  riddleText: The more you take of me, the more you leave behind. What am I?
   answer: steps
-  rewardText: You have unlocked a navigation hint!        keyword :"navigate"
+  rewardText: 'You have unlocked a navigation hint!       keyword : "navigate"    '
   solved: 0
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
   BangersSDF: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   BangersSDFMaterial: {fileID: 2100000, guid: f2dcf029949142e28b974630369c8b4e, type: 2}
 --- !u!1001 &2131135923
