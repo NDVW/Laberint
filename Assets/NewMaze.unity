@@ -6077,7 +6077,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 5.75
+      value: -5.8
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalPosition.y
@@ -6085,7 +6085,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -32.6
+      value: -7.7
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalRotation.x
@@ -8500,7 +8500,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: e0c6fec32567f094289bfcf8ec28d359, type: 2}
 --- !u!4 &627441888
 Transform:
   m_ObjectHideFlags: 0
@@ -11323,21 +11323,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 0}
---- !u!114 &774738941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 774738934}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf4798eb821efd3468f2f2a0940e7ce8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _username_STT: 
-  _password_STT: 
-  _url_STT: 
-  ResultsField: {fileID: 0}
 --- !u!114 &774738942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13448,7 +13433,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4095130336975184, guid: 0e24c989d7e3ff049b62f5e9179f7b1e, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -22.23
+      value: -22.07
       objectReference: {fileID: 0}
     - target: {fileID: 4095130336975184, guid: 0e24c989d7e3ff049b62f5e9179f7b1e, type: 2}
       propertyPath: m_LocalRotation.x
@@ -13480,7 +13465,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4095130336975184, guid: 0e24c989d7e3ff049b62f5e9179f7b1e, type: 2}
       propertyPath: m_LocalScale.z
-      value: 7.3324323
+      value: 7.6997867
       objectReference: {fileID: 0}
     - target: {fileID: 1409630822779028, guid: 0e24c989d7e3ff049b62f5e9179f7b1e, type: 2}
       propertyPath: m_Name

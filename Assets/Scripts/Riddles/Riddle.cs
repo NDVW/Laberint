@@ -11,20 +11,30 @@ public class Riddle : MonoBehaviour {
     GameObject Assistant;
     UseReward referenceScript;
     public Color color = Color.white;
+    TMP_FontAsset defaultFont;
     public TMP_FontAsset BangersSDF;
+   // public TMP_FontAsset Anton;
     public Material BangersSDFMaterial;
+    private Material DefaultFontMaterial;
+    private float defaultFontSize;
     GameObject[] portals;
     Vector3 start;
+    TypeTextEffect tt;
     Vector3 end;
     bool timetoMove = false;
     private float lerptime = 4;
     private float currentLerptime = 0;
     private float MoveWallDistance = 3f;
     private  GameObject wall;
-
-
+    private string Riddle_question;
+    TextMeshPro _TextMesh;
     void Start() {
-		ResetRiddleText();
+         this._TextMesh = transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
+        this.defaultFont = this._TextMesh.font;
+        this.DefaultFontMaterial = this._TextMesh.fontSharedMaterial;
+        this.Riddle_question = this._TextMesh.text;
+        this.defaultFontSize = this._TextMesh.fontSize;
+        ResetRiddleText();
         if (this.name == "portal")
         {
             portals = GameObject.FindGameObjectsWithTag("portal");
@@ -76,8 +86,9 @@ public class Riddle : MonoBehaviour {
             }
             else if (value == false && solved == false)
             {
-				// Logic for wrong answer
-				OnWrongAnswer();
+                // Logic for wrong answer
+                StartCoroutine(OnWrongAnswer());
+                
             }
         }
     }
@@ -90,22 +101,20 @@ public class Riddle : MonoBehaviour {
         
 	}
 
-	public void OnWrongAnswer() {
-		SetRiddleText("InCorrect!");
-	}
-
-	public void SetRiddleText(string text) {
-		TextMeshPro _TextMesh = transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
+      IEnumerator OnWrongAnswer() {
+		SetRiddleText("InCorrect!  Please try Again", BangersSDF, BangersSDFMaterial,10);
+        yield return new WaitForSeconds(2);
+        SetRiddleText(Riddle_question,defaultFont,DefaultFontMaterial,defaultFontSize);
         
-        _TextMesh.text = text;
+    }
 
-        _TextMesh.fontSize = 10;
-        _TextMesh.font = BangersSDF;
-      /// if (this.name == "door")
-     //  {
-    //   _TextMesh.color = color;
-     //  }
-        _TextMesh.fontSharedMaterial = BangersSDFMaterial;
+	public void SetRiddleText(string text, TMP_FontAsset font, Material fontMaterial,float fontSize) {
+        //	TextMeshPro _TextMesh = transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
+
+        _TextMesh.text = text;
+        _TextMesh.fontSize = fontSize;
+        _TextMesh.font = font;
+        _TextMesh.fontSharedMaterial = fontMaterial;
     }
     public void generateReward(string riddleType)
     {
@@ -133,14 +142,14 @@ public class Riddle : MonoBehaviour {
     }
     IEnumerator ToggleSolvedRiddle()
     {
-        SetRiddleText(rewardText);
+        SetRiddleText(rewardText,BangersSDF, BangersSDFMaterial,10);
         yield return new WaitForSeconds(10);
-        SetRiddleText("Solved");
+        SetRiddleText("Solved",BangersSDF, BangersSDFMaterial,10);
     }
     IEnumerator WallremoveBonus()
     {  if (wall.transform.position != end)
         {
-            Debug.Log("here");
+  
             MoveWall();
             yield return new WaitForSeconds(0);
         }

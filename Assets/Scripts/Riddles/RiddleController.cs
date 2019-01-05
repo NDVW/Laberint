@@ -103,7 +103,9 @@ public class RiddleController : MonoBehaviour
 
     void DisplayRiddleText(GameObject riddle, bool active)
     {
+        riddle.transform.GetChild(0).gameObject.GetComponent<TypeTextEffect>().enabled = active;
         riddle.transform.GetChild(0).gameObject.SetActive(active);
+
     }
     // Solve riddles by matching the player voice input to the riddle answers. If Correct, make the rewards available for the player.
     public void SolveRiddles(string PlayerQuery)

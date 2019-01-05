@@ -49,7 +49,7 @@ public class LightRemove : MonoBehaviour {
                     currentLerptime = lerptime;
                 }
                 float perc = currentLerptime / lerptime;
-                transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.forward * Move_distance, perc);
+                transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.left * Move_distance, perc);
 
                 //   }
             

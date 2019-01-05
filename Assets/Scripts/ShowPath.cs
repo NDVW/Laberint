@@ -12,16 +12,9 @@ public class ShowPath : MonoBehaviour
     private Color c = Color.white;
     GameObject[] checkpoints;
     GameObject checkpoint;
-
-    FindFloorTrack findtrack = new FindFloorTrack();
-    GameObject track;
     GameObject[] points;
     Renderer rend;
-    Vector3 surfacePoint1;
-    Vector3 surfacePoint2;
     float len;
-    Collider collider1;
-    Collider collider2;
     bool FoundCheckPoint = false;
     float distance_player_checkpoint_first;
     LineRenderer lr;
@@ -30,11 +23,8 @@ public class ShowPath : MonoBehaviour
     {
         path = new NavMeshPath();
         // agent = GetComponent<NavMeshAgent>();
-        collider1 = GetComponent<Collider>();
         checkpoints = GameObject.FindGameObjectsWithTag("checkpoint");
         lr = GetComponent<LineRenderer>();
-
-
 
         lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
         lr.startColor = Color.white;
@@ -46,7 +36,7 @@ public class ShowPath : MonoBehaviour
         len = path.corners.Length;
         //   distance_player_checkpoint_first = Vector3.Distance(transform.position, checkpoint.transform.position);
 
-        Debug.Log(path.corners.Length);
+        
     }
 
     // Update is called once per frames
@@ -71,6 +61,7 @@ public class ShowPath : MonoBehaviour
         //  if (path.corners.Length <= len )//&& distance_player_checkpoint <= distance_player_checkpoint_first)
         // {
         Vector3[] positions = new Vector3[path.corners.Length];
+        Debug.Log(path.corners.Length);
         for (int i = 0; i < path.corners.Length; i++)
         {
             positions[i] = path.corners[i];
