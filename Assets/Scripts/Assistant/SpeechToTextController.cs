@@ -8,14 +8,11 @@ using IBM.Watson.DeveloperCloud.DataTypes;
 
 public class SpeechToTextController 
 {
-    public string _username_STT;
-    public string _password_STT;
-    public string _url_STT;
-    public float _confidenceThreshold = 0.5f;
-	public delegate void ResultHandler(string result);
-
-	private SpeechToText _speechToText;	
+    public delegate void ResultHandler(string result);
+    
+	private SpeechToText _speechToText;	    	
 	private ResultHandler _result_handler;
+    private float _confidenceThreshold = 0.5f;
     private int _recordingRoutine = 0;
     private string _microphoneID = null;
     private AudioClip _recording = null;
@@ -87,7 +84,7 @@ public class SpeechToTextController
     {
         Log.Debug("ExampleStreaming.RecordingHandler()", "devices: {0}", Microphone.devices);
         _recording = Microphone.Start(_microphoneID, true, _recordingBufferSize, _recordingHZ);    
-        yield return null;      // let _recordingRoutine get set..
+        yield return null;      
         if (_recording == null)
         {
             StopRecording();
@@ -103,32 +100,24 @@ public class SpeechToTextController
             if (writePos > _recording.samples || !Microphone.IsRecording(_microphoneID))
             {
                 Log.Error("ExampleStreaming.RecordingHandler()", "Microphone disconnected.");
-
                 StopRecording();
                 yield break;
             }
             if ((bFirstBlock && writePos >= midPoint) || (!bFirstBlock && writePos < midPoint))
-            {
-                // front block is recorded, make a RecordClip and pass it onto our callback.
+            {                
                 samples = new float[midPoint];
                 _recording.GetData(samples, bFirstBlock ? 0 : midPoint);
-
                 AudioData record = new AudioData();
                 record.MaxLevel = Mathf.Max(Mathf.Abs(Mathf.Min(samples)), Mathf.Max(samples));
                 record.Clip = AudioClip.Create("Recording", midPoint, _recording.channels, _recordingHZ, false);
                 record.Clip.SetData(samples, 0);
-
                 _speechToText.OnListen(record);
-
                 bFirstBlock = !bFirstBlock;
             }
             else
             {
-                // calculate the number of samples remaining until we ready for a block of audio, 
-                // and wait that amount of time it will take to record.
                 int remaining = bFirstBlock ? (midPoint - writePos) : (_recording.samples - writePos);
                 float timeRemaining = (float)remaining / (float)_recordingHZ;
-
                 yield return new WaitForSeconds(timeRemaining);
             }
         }
