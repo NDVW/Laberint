@@ -19592,8 +19592,8 @@ MonoBehaviour:
   usernameTone: 088bd540-a4a9-412e-a681-3aa558b30c9d
   passwordTone: XQJDRlN5U4h4
   urlTone: https://gateway.watsonplatform.net/tone-analyzer/api
-  urlChat: 159.203.118.21/cakechat_api/v1/actions/get_response"
-  resultsField: {fileID: 0}
+  urlChat: 159.203.118.21/cakechat_api/v1/actions/get_response
+  resultsField: {fileID: 904840655}
 --- !u!114 &1340583922
 MonoBehaviour:
   m_ObjectHideFlags: 0
