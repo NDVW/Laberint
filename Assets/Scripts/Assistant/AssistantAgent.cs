@@ -26,6 +26,8 @@ public class AssistantAgent : MonoBehaviour
     private UseReward _useReward;
     private ChatBotController _chatCtrl;
 
+    private string[] _helpWords = {"tell me more", "help"};
+
     public TextMeshProUGUI ResultsField;
     GameObject panel;
     HelperTextTyping chatText;
@@ -49,22 +51,48 @@ public class AssistantAgent : MonoBehaviour
     private void OnSTTResult(string result)
     {                   
         Debug.Log("STT Result " + result);
-        setResultFieldText(result)
-        _chatCtrl.SendMessage(result);
+        SetResultFieldText(result);
 
-        if (_riddleCtrl.closestRiddle && !_riddleCtrl.closestRiddle.Solved && !result.ToLower().Contains("tell me more")) 
+        if (_riddleCtrl.closestRiddle && ArrayContains(result, _helpWords))
+        {               
+            Debug.Log("Launching Hint");
+            SetResultFieldText(_riddleCtrl.closestRiddle.hint);
+        } 
+        else if (_riddleCtrl.closestRiddle && !_riddleCtrl.closestRiddle.Solved)
         {
-            _riddleCtrl.SolveRiddles(result);        
+            Debug.Log("Solving Riddles");
+            _riddleCtrl.SolveRiddles(result);
+        } 
+        else if (ArrayContains(result, _useReward.keyWords))
+        {
+            Debug.Log("Using Reward");
+            _useReward.Use(result);
+        }     
+        else
+        {               
+            Debug.Log("Sending to chat");
+            _chatCtrl.SendMessage(result);
         }        
-        else _useReward.Use(result);
+    }
+
+    private bool ArrayContains(string result, string[] array) 
+    {
+        bool contains = false;
+        
+        foreach (var word in array)
+        {
+            if (result.ToLower().Contains(word)) contains = true;
+        }
+
+        return contains;
     }
 
     private void OnChatbotReply(string reply) 
     {        
-        setResultFieldText("..." + reply)
+        SetResultFieldText("..." + reply);
     }
 
-    public void setResultFieldText(string text)
+    public void SetResultFieldText(string text)
     {
         ResultsField.text = text;
         chatText.enabled = true;

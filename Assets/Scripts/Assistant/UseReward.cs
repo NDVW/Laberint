@@ -17,8 +17,15 @@ public class UseReward : MonoBehaviour {
     GameObject[] TwoSidedWall;
     AssistantAgent Assistant;
     MaterialCOntroller _materialController;
+    
+    public string navigateKeyword = "navigate";
+    public string xRayKeyword = "x. ray";
+    public string distanceKeyword = "distance";
+    public string[] keyWords;
+
     // Use this for initialization
     void Start () {
+        keyWords = new string[] { navigateKeyword, xRayKeyword, distanceKeyword };
         audioData = GetComponents<AudioSource>();
         riddles = GameObject.FindGameObjectsWithTag("riddle");
         path = GetComponent<ShowPath>();
@@ -33,7 +40,7 @@ public class UseReward : MonoBehaviour {
     }
     public void Use(string playerQuery)
     {
-        if (playerQuery.ToLower().Contains("navigate")) // Navigation help 
+        if (playerQuery.ToLower().Contains(navigateKeyword)) // Navigation help 
         {
             if (navigationhelpCounter > 0)
             {
@@ -48,7 +55,7 @@ public class UseReward : MonoBehaviour {
                 audioData[2].Play();
             }
         }
-        if (playerQuery.ToLower().Contains("x. ray"))  // See through walls or Xray walls help
+        if (playerQuery.ToLower().Contains(xRayKeyword))  // See through walls or Xray walls help
         {
             if (XrayhelpCounter > 0)
                 foreach (GameObject gos in TwoSidedWall)
@@ -57,33 +64,17 @@ public class UseReward : MonoBehaviour {
                     _materialController.Activate = true;
                     XrayhelpCounter = XrayhelpCounter - 1;
                 }
-            else Assistant.setResultFieldText("No X-Ray vision help available");
-        }
-        if (playerQuery.ToLower().Contains("tell me more") || playerQuery.ToLower().Contains("help"))
-        {
-            
-            riddle = _riddle_ctrl.closestRiddle;
-            string tip = riddle.hint;
-            //  Assistant.ResultsField.text = tip;
-            Assistant.setResultFieldText(tip);
-
-        }
-        if (playerQuery.ToLower().Contains("distance"))
+            else Assistant.SetResultFieldText("No X-Ray vision help available");
+        }        
+        if (playerQuery.ToLower().Contains(distanceKeyword))
         {
             string distance_to_goal = Vector3.Distance(transform.position, end.transform.position).ToString();
             string distance_to_begin = Vector3.Distance(transform.position, begin.transform.position).ToString() ;
             string distance_text = "Distance to goal : " + distance_to_goal + "       Distance Covered : " + distance_to_begin;
             //   Assistant.ResultsField.text = distance_text;
-            Assistant.setResultFieldText(distance_text);
+            Assistant.SetResultFieldText(distance_text);
         }
-
-
-
     }
-	// Update is called once per frame
-	void Update () {
-		
-	}
     IEnumerator LowerThemeVolume(AudioSource audio)
      {
          AudioClip clip = audio.clip;

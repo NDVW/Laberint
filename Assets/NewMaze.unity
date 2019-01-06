@@ -184,7 +184,7 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   BangersSDF: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   BangersSDFMaterial: {fileID: 2100000, guid: f2dcf029949142e28b974630369c8b4e, type: 2}
-  hint: Hello ___, my old friend...
+  hint: 
 --- !u!64 &80171
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2951,7 +2951,7 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   BangersSDF: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   BangersSDFMaterial: {fileID: 2100000, guid: f2dcf029949142e28b974630369c8b4e, type: 2}
-  hint: 'Hint : It gives view of Sun and flowers, also a nerd with billion dollars.'
+  hint: 
 --- !u!95 &219745180
 Animator:
   serializedVersion: 3
@@ -3977,7 +3977,7 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   BangersSDF: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   BangersSDFMaterial: {fileID: 2100000, guid: f2dcf029949142e28b974630369c8b4e, type: 2}
-  hint: 'Hint : Where does an idiot keep his essential?'
+  hint: 
 --- !u!1 &288840124
 GameObject:
   m_ObjectHideFlags: 0
@@ -17033,6 +17033,7 @@ MonoBehaviour:
   passwordTone: XQJDRlN5U4h4
   urlTone: https://gateway.watsonplatform.net/tone-analyzer/api
   urlChat: 159.203.118.21/cakechat_api/v1/actions/get_response
+  resultsField: {fileID: 0}
   ResultsField: {fileID: 0}
 --- !u!114 &1340583922
 MonoBehaviour:
@@ -17540,7 +17541,7 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1340583919}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 29c15f13dafac1844895e77d256b3e24, type: 3}
@@ -17748,6 +17749,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navigationhelpCounter: 0
   XrayhelpCounter: 0
+  navigateKeyword: navigate
+  xRayKeyword: x. ray
+  distanceKeyword: distance
+  keyWords: []
 --- !u!1 &1348649263
 GameObject:
   m_ObjectHideFlags: 0
@@ -18074,7 +18079,11 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: You good?
+  m_text: 'Welcome to Laberint...
+
+    you are not alone
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
@@ -18142,12 +18151,12 @@ MonoBehaviour:
   m_margin: {x: 8.914812, y: 0, z: 10.270317, w: 0}
   m_textInfo:
     textComponent: {fileID: 1380231469}
-    characterCount: 9
+    characterCount: 41
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 7
+    wordCount: 7
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0
@@ -28431,7 +28440,7 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   BangersSDF: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   BangersSDFMaterial: {fileID: 2100000, guid: f2dcf029949142e28b974630369c8b4e, type: 2}
-  hint: 'Hint : You used it to come here to me?'
+  hint: Feet
 --- !u!1001 &2134483903
 Prefab:
   m_ObjectHideFlags: 0

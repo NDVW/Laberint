@@ -8,8 +8,7 @@ public class RiddleController : MonoBehaviour
     public float maxRiddleDistance = 10.0f;
     public float _RiddleDistanceThreshold = 3.0f;
     public Material material;
-
-    private GameObject closestRiddleObject;
+    
     private Renderer rend;
     private GameObject[] riddles;
 
@@ -20,13 +19,20 @@ public class RiddleController : MonoBehaviour
 
     void Update()
     {
-        closestRiddleObject = FindClosestRiddle(transform, riddles);
         if (closestRiddleObject != null) AnimateRiddle(closestRiddleObject, transform);
     }
 
     private float CalcRiddleDistance(GameObject riddle, Transform _transform)
     {
         return (riddle.transform.position - _transform.position).sqrMagnitude;
+    }
+
+    private GameObject closestRiddleObject 
+    {
+        get 
+        {
+            return FindClosestRiddle(transform, riddles);
+        }
     }
 
     public Riddle closestRiddle
