@@ -11,7 +11,11 @@ public class UseReward : MonoBehaviour {
     GameObject enemy;
     ShowPath path;
     GameObject end;
+    GameObject begin;
+    private RiddleController _riddle_ctrl;
+    Riddle riddle;
     GameObject[] TwoSidedWall;
+    AssistantAgent Assistant;
     MaterialCOntroller _materialController;
     // Use this for initialization
     void Start () {
@@ -20,7 +24,11 @@ public class UseReward : MonoBehaviour {
         path = GetComponent<ShowPath>();
         enemy = GameObject.Find("Enemy");
         end = GameObject.Find("End");
+        begin = GameObject.Find("Begin");
+        _riddle_ctrl = GetComponent<RiddleController>();
+        Assistant = GetComponent<AssistantAgent>();
         TwoSidedWall = GameObject.FindGameObjectsWithTag("insidewall");
+
 
     }
     public void Use(string playerQuery)
@@ -40,16 +48,36 @@ public class UseReward : MonoBehaviour {
                 audioData[2].Play();
             }
         }
-        if (playerQuery.ToLower().Contains("vision"))  // See through walls or Xray walls help
+        if (playerQuery.ToLower().Contains("x. ray"))  // See through walls or Xray walls help
         {
             if (XrayhelpCounter > 0)
                 foreach (GameObject gos in TwoSidedWall)
                 {
                     _materialController = gos.GetComponent<MaterialCOntroller>();
                     _materialController.Activate = true;
+                    XrayhelpCounter = XrayhelpCounter - 1;
                 }
+            else Assistant.setResultFieldText("No X-Ray vision help available");
         }
-                
+        if (playerQuery.ToLower().Contains("tell me more") || playerQuery.ToLower().Contains("help"))
+        {
+            
+            riddle = _riddle_ctrl.closestRiddle;
+            string tip = riddle.hint;
+            //  Assistant.ResultsField.text = tip;
+            Assistant.setResultFieldText(tip);
+
+        }
+        if (playerQuery.ToLower().Contains("distance"))
+        {
+            string distance_to_goal = Vector3.Distance(transform.position, end.transform.position).ToString();
+            string distance_to_begin = Vector3.Distance(transform.position, begin.transform.position).ToString() ;
+            string distance_text = "Distance to goal : " + distance_to_goal + "       Distance Covered : " + distance_to_begin;
+            //   Assistant.ResultsField.text = distance_text;
+            Assistant.setResultFieldText(distance_text);
+        }
+
+
 
     }
 	// Update is called once per frame

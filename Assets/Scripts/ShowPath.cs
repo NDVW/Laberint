@@ -15,6 +15,7 @@ public class ShowPath : MonoBehaviour
     GameObject[] points;
     Renderer rend;
     float len;
+    GameObject begin;
     bool FoundCheckPoint = false;
     float distance_player_checkpoint_first;
     LineRenderer lr;
@@ -24,6 +25,7 @@ public class ShowPath : MonoBehaviour
         path = new NavMeshPath();
         // agent = GetComponent<NavMeshAgent>();
         checkpoints = GameObject.FindGameObjectsWithTag("checkpoint");
+        begin = GameObject.Find("Begin");
         lr = GetComponent<LineRenderer>();
 
         lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
@@ -87,9 +89,15 @@ public class ShowPath : MonoBehaviour
         foreach (GameObject checkpoint in checkpoints)
         {
             float distance = (checkpoint.transform.position - position).sqrMagnitude;
+            float distance_Checkpoint_begin = Vector3.Distance(checkpoint.transform.position, begin.transform.position);
+            float distance_player_begin = Vector3.Distance(begin.transform.position, position);
             if (distance < shortestDistance)
             {
-                closest = checkpoint;
+                if(distance_Checkpoint_begin< distance_player_begin)
+                {
+                    continue;
+                }
+                else closest = checkpoint;
             }
         }
         return closest;

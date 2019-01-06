@@ -28,6 +28,7 @@ public class Riddle : MonoBehaviour {
     private  GameObject wall;
     private string Riddle_question;
     TextMeshPro _TextMesh;
+    public string hint;
     void Start() {
          this._TextMesh = transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
         this.defaultFont = this._TextMesh.font;
