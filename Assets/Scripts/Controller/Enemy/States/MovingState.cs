@@ -27,6 +27,11 @@ public class MovingState : FSMState<EnemyController>
 
     public override void Execute(EnemyController entity)
     {
+        if (entity.wallIsRemoved)
+        {
+            entity.SetPoint(entity.wallRemovedId.transform.position);
+            entity.wallIsRemoved = false;
+        }
         info = entity.GetAnimatorStateInfo(0);
         if (!entity.agent.pathPending && entity.agent.remainingDistance < 0.5f)
                 entity.GotoNextPoint();

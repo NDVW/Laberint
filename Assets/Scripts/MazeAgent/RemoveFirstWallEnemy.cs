@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RemoveFirstWallEnemy : MonoBehaviour {
     GameObject target;
@@ -134,8 +135,8 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
         }
         float perc = this.currentLerptime / this.lerptime;
         if (this.action == 0) {
-           
-            wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
+            wallToOpen.GetComponent<OffMeshLink>().enabled = true;
+            //wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
             Debug.Log("------------------------- RemoveWall Opening wall for Enemy" + wallToOpen.transform.position);
             if ( wallToOpen.transform.position == end){  
                 this.action = 1; 
@@ -146,7 +147,7 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
         }
         else{ 
             if (this.action == 1) {
-                wallToOpen.transform.position = Vector3.Lerp(start, end, 1 - perc);
+                //wallToOpen.transform.position = Vector3.Lerp(start, end, 1 - perc);
                 Debug.Log("------------------------- RemoveWall Closing wall For Enmy" + wallToOpen.transform.position);
                 if ( wallToOpen.transform.position == start){  
                     this.action = -1;
