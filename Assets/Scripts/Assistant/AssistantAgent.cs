@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 public class AssistantAgent : MonoBehaviour
 {
@@ -25,6 +26,10 @@ public class AssistantAgent : MonoBehaviour
     private UseReward _useReward;
     private ChatBotController _chatCtrl;
 
+    public TextMeshProUGUI ResultsField;
+    GameObject panel;
+    HelperTextTyping chatText;
+
     void Start()
     {
         _sttCtrl = new SpeechToTextController(usernameSTT, passwordSTT, urlSTT);
@@ -34,20 +39,34 @@ public class AssistantAgent : MonoBehaviour
         _chatCtrl.Start(OnChatbotReply);
         
         _riddleCtrl = GetComponent<RiddleController>();
+
+        panel = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
+        ResultsField = panel.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+        chatText = panel.transform.GetChild(0).gameObject.GetComponent<HelperTextTyping>();
         _useReward = GetComponent<UseReward>();
     }
 
     private void OnSTTResult(string result)
     {                   
         Debug.Log("STT Result " + result);
-        resultsField.text = result;
+        setResultFieldText(result)
         _chatCtrl.SendMessage(result);
-        
-        if (_riddleCtrl.closestRiddle && !_riddleCtrl.closestRiddle.Solved) _riddleCtrl.SolveRiddles(result);
+
+        if (_riddleCtrl.closestRiddle && !_riddleCtrl.closestRiddle.Solved && !result.ToLower().Contains("tell me more")) 
+        {
+            _riddleCtrl.SolveRiddles(result);        
+        }        
         else _useReward.Use(result);
     }
 
-    private void OnChatbotReply(string reply) {        
-        resultsField.text = "..." + reply;
+    private void OnChatbotReply(string reply) 
+    {        
+        setResultFieldText("..." + reply)
+    }
+
+    public void setResultFieldText(string text)
+    {
+        ResultsField.text = text;
+        chatText.enabled = true;
     }
 }

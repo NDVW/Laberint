@@ -3,22 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 public class TypeTextEffect : MonoBehaviour {
-
+    private bool isCoroutineStarted;
+    AudioSource[] sounds;
+    AudioSource typingSoundEffect;
+    GameObject Assistant;
+    int visibleCount;
     // Use this for initialization
     private TextMeshPro textmesh;
     int counter = 0;
     void Start()
-    {   
-        StartCoroutine(type());
+    {
+        Assistant = GameObject.Find("Assistant");
+
+        sounds = Assistant.GetComponents<AudioSource>();
+        typingSoundEffect = sounds[3];
+    }
+    void Update()
+    {
+        if (!isCoroutineStarted)
+        {
+            StartCoroutine(type());
+        }
+    }
+    void OnDisable()
+    {
+        isCoroutineStarted = false;
+        counter = 0;
+        visibleCount = 0;
+        textmesh.maxVisibleCharacters = 0;
+        if (typingSoundEffect != null)
+        {
+            if (typingSoundEffect.isPlaying)
+            {
+                typingSoundEffect.Stop();
+            }
+        }
     }
 	IEnumerator type () {
-
+        typingSoundEffect.Play();
+        isCoroutineStarted = true;
         textmesh = GetComponent<TextMeshPro>();
+
         int totalVisibleCharacter = textmesh.textInfo.characterCount;
     //    int counter = 0;
         while (true)
         {
-            int visibleCount = counter % (totalVisibleCharacter + 1);
+            visibleCount = counter % (totalVisibleCharacter + 1);
             textmesh.maxVisibleCharacters = visibleCount;
            if(visibleCount == totalVisibleCharacter)
             {
@@ -27,8 +57,8 @@ public class TypeTextEffect : MonoBehaviour {
             counter += 1;
             yield return new WaitForSeconds(0.04f);
         }
-	}
-	
-	// Update is called once per frame
+        typingSoundEffect.Stop();
 
+    }
+	
 }
