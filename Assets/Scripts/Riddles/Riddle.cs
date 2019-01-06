@@ -7,59 +7,58 @@ public class Riddle : MonoBehaviour {
 	public string riddleText;
 	public string answer;
     public string rewardText;
-	public bool solved = false;
-    GameObject Assistant;
-    UseReward referenceScript;
-    public Color color = Color.white;
-    TMP_FontAsset defaultFont;
-    public TMP_FontAsset BangersSDF;
-   // public TMP_FontAsset Anton;
-    public Material BangersSDFMaterial;
+    public string hint;
+    public bool solved = false;
+    public string riddleType;
+
+    private UseReward referenceScript;    
+    private TMP_FontAsset defaultFont;
     private Material DefaultFontMaterial;
     private float defaultFontSize;
-    GameObject[] portals;
-    Vector3 start;
-    TypeTextEffect tt;
-    Vector3 end;
-    bool timetoMove = false;
+    private GameObject[] portals;
+    private Vector3 start;
+    private TypeTextEffect tt;
+    private Vector3 end;
+    private bool timetoMove = false;    
+    private GameObject Assistant;
     private float lerptime = 4;
     private float currentLerptime = 0;
     private float MoveWallDistance = 3f;
     private  GameObject wall;
     private string Riddle_question;
-    TextMeshPro _TextMesh;
-    public string hint;
+    private TextMeshPro _TextMesh;    
+    
     void Start() {
-         this._TextMesh = transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
-        this.defaultFont = this._TextMesh.font;
-        this.DefaultFontMaterial = this._TextMesh.fontSharedMaterial;
-        this.Riddle_question = this._TextMesh.text;
-        this.defaultFontSize = this._TextMesh.fontSize;
-        ResetRiddleText();
-        if (this.name == "portal")
-        {
-            portals = GameObject.FindGameObjectsWithTag("portal");
-            foreach (GameObject gos in portals)
-            {
-                gos.SetActive(false);
-            }
-        }
-        if (this.name == "navigation" || this.name == "xray")
+        riddleType = this.name;
+        _TextMesh = transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
+        defaultFont = _TextMesh.font;
+        DefaultFontMaterial = _TextMesh.fontSharedMaterial;
+        Riddle_question = _TextMesh.text;
+        defaultFontSize = _TextMesh.fontSize;        
+
+        // if (riddleType == "portal")
+        // {
+        //     portals = GameObject.FindGameObjectsWithTag("portal");
+        //     foreach (GameObject gos in portals)
+        //     {
+        //         gos.SetActive(false);
+        //     }
+        // }
+
+        if (riddleType == "navigation" || riddleType == "xray")
         {
             Assistant = GameObject.Find("Assistant");
             referenceScript = Assistant.GetComponent<UseReward>();
         }
-        if(this.name == "door")
-        {
-           // this.wall = GameObject.Find("riddleWall");
+
+        if(riddleType == "door")
+        {           
             this.start = transform.position;
             this.end = transform.position + Vector3.up * this.MoveWallDistance;
         }
-
     }
 
-    void Update() {
-		ResetRiddleText();
+    void Update() {		
         if (timetoMove)
         {   
             MoveWall();
@@ -68,10 +67,6 @@ public class Riddle : MonoBehaviour {
                 timetoMove = false;
             }
         }
-	}
-
-	void ResetRiddleText() {
-		// SetRiddleText(riddleText);
 	}
 
 	public bool Solved
@@ -95,39 +90,30 @@ public class Riddle : MonoBehaviour {
     }
 
 	public void OnSolved() {
-
-        StartCoroutine(ToggleSolvedRiddle());
-        string riddleType = this.name;
-        generateReward(riddleType);
-        
+        StartCoroutine(ToggleSolvedRiddle());        
+        generateReward(riddleType);        
 	}
 
-      IEnumerator OnWrongAnswer() {
-		SetRiddleText("InCorrect!  Please try Again", BangersSDF, BangersSDFMaterial,10);
+    IEnumerator OnWrongAnswer() {
+		SetRiddleText("InCorrect!  Please try Again", 10);
         yield return new WaitForSeconds(2);
-        SetRiddleText(Riddle_question,defaultFont,DefaultFontMaterial,defaultFontSize);
-        
+        SetRiddleText(Riddle_question, defaultFontSize);        
     }
 
-	public void SetRiddleText(string text, TMP_FontAsset font, Material fontMaterial,float fontSize) {
-        //	TextMeshPro _TextMesh = transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
-
+	public void SetRiddleText(string text, float fontSize) {        
         _TextMesh.text = text;
         _TextMesh.fontSize = fontSize;
-        _TextMesh.font = font;
-        _TextMesh.fontSharedMaterial = fontMaterial;
+        _TextMesh.font = this.defaultFont;
+        _TextMesh.fontSharedMaterial = this.DefaultFontMaterial;
     }
+
     public void generateReward(string riddleType)
     {
         switch (riddleType)
         {
             case "portal":
-                foreach (GameObject gos in portals)
-                         {
-                              gos.SetActive(true);
-                                                       
-                         }
-                    break;
+                activatePortals();
+                break;
             case "navigation":
                 referenceScript.navigationhelpCounter = referenceScript.navigationhelpCounter + 1;
                 break;
@@ -136,25 +122,34 @@ public class Riddle : MonoBehaviour {
                 break;
             case "door":
                 timetoMove = true;  
-             //   StartCoroutine(WallremoveBonus());
-             
+             //   StartCoroutine(WallremoveBonus());             
                 break;
         }
     }
+
+    public void  activatePortals() 
+    {
+        GameObject portal = GameObject.FindGameObjectsWithTag("portal")[0];
+        portal.transform.GetChild(0).gameObject.SetActive(true);
+        portal.transform.GetChild(3).gameObject.SetActive(true);
+    }
+
     IEnumerator ToggleSolvedRiddle()
     {
-        SetRiddleText(rewardText,BangersSDF, BangersSDFMaterial,10);
+        SetRiddleText(rewardText, 10);
         yield return new WaitForSeconds(10);
-        SetRiddleText("Solved",BangersSDF, BangersSDFMaterial,10);
+        SetRiddleText("Solved", 10);
     }
+
     IEnumerator WallremoveBonus()
-    {  if (wall.transform.position != end)
+    {  
+        if (wall.transform.position != end)
         {
-  
             MoveWall();
             yield return new WaitForSeconds(0);
         }
     }
+
     void MoveWall()
     {
         this.currentLerptime += Time.deltaTime;

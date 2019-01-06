@@ -6,23 +6,23 @@ using UnityEngine;
 public class UseReward : MonoBehaviour {
     public int navigationhelpCounter = 0;
     public int XrayhelpCounter = 0;
-    AudioSource[] audioData;
-    GameObject[] riddles;
-    GameObject enemy;
-    ShowPath path;
-    GameObject end;
-    GameObject begin;
-    private RiddleController _riddle_ctrl;
-    Riddle riddle;
-    GameObject[] TwoSidedWall;
-    AssistantAgent Assistant;
-    MaterialCOntroller _materialController;
-    
     public string navigateKeyword = "navigate";
     public string xRayKeyword = "x. ray";
     public string distanceKeyword = "distance";
     public string[] keyWords;
-
+    
+    private AudioSource[] audioData;
+    private GameObject[] riddles;
+    private GameObject enemy;
+    private ShowPath path;
+    private GameObject end;
+    private GameObject begin;
+    private RiddleController _riddle_ctrl;
+    private Riddle riddle;
+    private GameObject[] TwoSidedWall;
+    private AssistantAgent Assistant;
+    private MaterialCOntroller _materialController;
+    
     // Use this for initialization
     void Start () {
         keyWords = new string[] { navigateKeyword, xRayKeyword, distanceKeyword };
@@ -35,9 +35,8 @@ public class UseReward : MonoBehaviour {
         _riddle_ctrl = GetComponent<RiddleController>();
         Assistant = GetComponent<AssistantAgent>();
         TwoSidedWall = GameObject.FindGameObjectsWithTag("insidewall");
-
-
     }
+
     public void Use(string playerQuery)
     {
         if (playerQuery.ToLower().Contains(navigateKeyword)) // Navigation help 
