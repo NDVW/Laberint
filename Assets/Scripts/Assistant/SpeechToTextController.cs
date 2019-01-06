@@ -78,12 +78,12 @@ public class SpeechToTextController
     {
         _speechToText.StopListening();
         StopRecording();
-        Log.Debug("ExampleStreaming.OnError()", "Error! {0}", error);
+        Debug.Log("ExampleStreaming.OnError()" + "Error! {0}" + error);
     }
 
     private IEnumerator RecordingHandler()
     {
-        Log.Debug("ExampleStreaming.RecordingHandler()", "devices: {0}", Microphone.devices);
+        Debug.Log("ExampleStreaming.RecordingHandler()" + "devices: {0}" + Microphone.devices);
         _recording = Microphone.Start(_microphoneID, true, _recordingBufferSize, _recordingHZ);    
         yield return null;      
         if (_recording == null)
@@ -100,23 +100,25 @@ public class SpeechToTextController
             int writePos = Microphone.GetPosition(_microphoneID);
             if (writePos > _recording.samples || !Microphone.IsRecording(_microphoneID))
             {
-                Log.Error("ExampleStreaming.RecordingHandler()", "Microphone disconnected.");
+                Debug.Log("ExampleStreaming.RecordingHandler()" + "Microphone disconnected.");
                 StopRecording();
                 yield break;
             }
             if ((bFirstBlock && writePos >= midPoint) || (!bFirstBlock && writePos < midPoint))
             {                
+                Debug.Log("Creating audio");
                 samples = new float[midPoint];
                 _recording.GetData(samples, bFirstBlock ? 0 : midPoint);
                 AudioData record = new AudioData();
                 record.MaxLevel = Mathf.Max(Mathf.Abs(Mathf.Min(samples)), Mathf.Max(samples));
                 record.Clip = AudioClip.Create("Recording", midPoint, _recording.channels, _recordingHZ, false);
-                record.Clip.SetData(samples, 0);
+                record.Clip.SetData(samples, 0);                
                 _speechToText.OnListen(record);
                 bFirstBlock = !bFirstBlock;
             }
             else
             {
+                Debug.Log("Waiting");
                 int remaining = bFirstBlock ? (midPoint - writePos) : (_recording.samples - writePos);
                 float timeRemaining = (float)remaining / (float)_recordingHZ;
                 yield return new WaitForSeconds(timeRemaining);
@@ -127,6 +129,7 @@ public class SpeechToTextController
 
 	private void OnListen(SpeechRecognitionEvent recognitionEvent, Dictionary<string, object> customData )
     {
+        Debug.Log("STT On Listen");
         if (recognitionEvent != null && recognitionEvent.HasFinalResult())
         {
             foreach (var result in recognitionEvent.results)

@@ -22,6 +22,7 @@ public class UseReward : MonoBehaviour {
     private GameObject[] TwoSidedWall;
     private AssistantAgent Assistant;
     private MaterialCOntroller _materialController;
+    private GameObject[] portals;
     
     // Use this for initialization
     void Start () {
@@ -35,6 +36,32 @@ public class UseReward : MonoBehaviour {
         _riddle_ctrl = GetComponent<RiddleController>();
         Assistant = GetComponent<AssistantAgent>();
         TwoSidedWall = GameObject.FindGameObjectsWithTag("insidewall");
+    }
+
+    public void GenerateReward(Riddle riddle)
+    {
+        switch (riddle.riddleType)
+        {
+            case "portal":                
+                activatePortals();
+                break;
+            case "navigation":                         
+                navigationhelpCounter = navigationhelpCounter + 1;
+                break;
+            case "xray":                
+                XrayhelpCounter = XrayhelpCounter + 1;
+                break;
+            case "door":
+                riddle.timetoMove = true;
+                break;
+        }
+    }
+
+    public void  activatePortals()
+    {
+        GameObject portal = GameObject.FindGameObjectsWithTag("portal")[0];
+        portal.transform.GetChild(0).gameObject.SetActive(true);
+        portal.transform.GetChild(3).gameObject.SetActive(true);
     }
 
     public void Use(string playerQuery)

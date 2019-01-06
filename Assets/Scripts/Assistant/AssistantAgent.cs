@@ -51,22 +51,32 @@ public class AssistantAgent : MonoBehaviour
     private void OnSTTResult(string result)
     {                   
         Debug.Log("STT Result " + result);
+        Riddle closestRiddle = _riddleCtrl.closestRiddle;
+        string displayText = null;
 
-        if (_riddleCtrl.closestRiddle && ArrayContains(result, _helpWords))
+        if (closestRiddle && ArrayContains(result, _helpWords))
         {               
             Debug.Log("Launching Hint");
-            SetResultFieldText(_riddleCtrl.closestRiddle.hint);
+            displayText = closestRiddle.hint;            
         } 
-        else if (_riddleCtrl.closestRiddle && !_riddleCtrl.closestRiddle.Solved)
+        else if (closestRiddle && _riddleCtrl.SolveClosestRiddle(result))
         {
-            Debug.Log("Solving Riddles");
-            _riddleCtrl.SolveRiddles(result);
+            Debug.Log("Solved Riddle");                        
+            _useReward.GenerateReward(closestRiddle);
+            displayText = closestRiddle.rewardText;            
         } 
         else if (ArrayContains(result, _useReward.keyWords))
         {
             Debug.Log("Using Reward");
             _useReward.Use(result);
-        }     
+            displayText = "This should come in handy";
+        }
+        
+        if (displayText != null) 
+        {
+            Debug.Log("Displaying text");
+            SetResultFieldText(displayText);  
+        }        
         else
         {               
             Debug.Log("Sending to chat");

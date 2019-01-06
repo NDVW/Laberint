@@ -111,18 +111,15 @@ public class RiddleController : MonoBehaviour
         riddle.transform.GetChild(0).gameObject.SetActive(active);
     }
     // Solve riddles by matching the player voice input to the riddle answers. If Correct, make the rewards available for the player.
-    public void SolveRiddles(string PlayerQuery)
-    {
-        if (closestRiddle != null)
+    public bool SolveClosestRiddle(string userAnswer)
+    {             
+        bool justSolved = false;
+        if (closestRiddle && closestRiddle.Solved == false && 
+            userAnswer.ToLower().Contains(closestRiddle.answer.ToLower())) 
         {
-            if (PlayerQuery.ToLower().Contains(closestRiddle.answer.ToLower()))
-            {
-                closestRiddle.Solved = true;
-            }
-            else
-            {
-                closestRiddle.Solved = false;
-            }
-        }
+            closestRiddle.Solved = true;
+            justSolved = true;
+        }         
+        return justSolved;
     }
 }

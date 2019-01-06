@@ -40,7 +40,7 @@ public class TypeTextEffect : MonoBehaviour {
         }
     }
 	IEnumerator type () {
-        typingSoundEffect.Play();
+        // typingSoundEffect.Play();
         isCoroutineStarted = true;
         textmesh = GetComponent<TextMeshPro>();
 
