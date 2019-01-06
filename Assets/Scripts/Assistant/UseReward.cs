@@ -70,8 +70,7 @@ public class UseReward : MonoBehaviour {
         {
             string distance_to_goal = Vector3.Distance(transform.position, end.transform.position).ToString();
             string distance_to_begin = Vector3.Distance(transform.position, begin.transform.position).ToString() ;
-            string distance_text = "Distance to goal : " + distance_to_goal + "       Distance Covered : " + distance_to_begin;
-            //   Assistant.ResultsField.text = distance_text;
+            string distance_text = "Distance to goal : " + distance_to_goal + "       Distance Covered : " + distance_to_begin;            
             Assistant.SetResultFieldText(distance_text);
         }
     }

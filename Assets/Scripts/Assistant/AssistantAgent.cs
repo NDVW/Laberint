@@ -51,7 +51,6 @@ public class AssistantAgent : MonoBehaviour
     private void OnSTTResult(string result)
     {                   
         Debug.Log("STT Result " + result);
-        SetResultFieldText(result);
 
         if (_riddleCtrl.closestRiddle && ArrayContains(result, _helpWords))
         {               

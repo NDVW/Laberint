@@ -58,6 +58,7 @@ public class SpeechToTextController
     {
         if (_recordingRoutine == 0)
         {
+            Debug.Log("STARTING RECORDING");
             UnityObjectUtil.StartDestroyQueue();
             _recordingRoutine = Runnable.Run(RecordingHandler());
         }
