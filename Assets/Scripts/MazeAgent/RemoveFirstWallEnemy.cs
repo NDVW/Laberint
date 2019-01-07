@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RemoveFirstWallEnemy : MonoBehaviour {
     GameObject target;
     //Transform target;
+    EnemyController enemy1control;
     Transform EndGate;
     Transform enemy1;
     Transform player1;
@@ -32,6 +34,7 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
     {
       
         FoundWall = false;
+        
     }
             // Update is called once per frame
       void Update () {
@@ -80,6 +83,7 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
         GameObject eg = GameObject.Find("End");
         GameObject pl = GameObject.Find("Player");
         GameObject en = GameObject.Find("Enemy");
+        this.enemy1control =  en.GetComponent<EnemyController>();
         this.EndGate = eg.transform;
         this.player1 = pl.transform;
         this.enemy1 = en.transform;
@@ -116,7 +120,9 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
             this.start = this.wallToOpen.transform.position; //start position of the wall
             this.end = this.wallToOpen.transform.position + Vector3.up * this.MoveWallDistance;
             this.action = 0;
-
+            this.enemy1control.wallIsRemoved = true;
+            this.enemy1control.wallRemovedId = this.wallToOpen;
+            //Debug.Break();
 
         }
     }
@@ -129,7 +135,8 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
         }
         float perc = this.currentLerptime / this.lerptime;
         if (this.action == 0) {
-            wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
+            wallToOpen.GetComponent<OffMeshLink>().enabled = true;
+            //wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
             Debug.Log("------------------------- RemoveWall Opening wall for Enemy" + wallToOpen.transform.position);
             if ( wallToOpen.transform.position == end){  
                 this.action = 1; 
@@ -140,10 +147,13 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
         }
         else{ 
             if (this.action == 1) {
-                wallToOpen.transform.position = Vector3.Lerp(start, end, 1 - perc);
+                //wallToOpen.transform.position = Vector3.Lerp(start, end, 1 - perc);
                 Debug.Log("------------------------- RemoveWall Closing wall For Enmy" + wallToOpen.transform.position);
                 if ( wallToOpen.transform.position == start){  
                     this.action = -1;
+                    this.enemy1control.wallIsRemoved = false;
+
+                    //this.enemy1control.wallRemovedId = Null;
                     Debug.Log("------------------------- RemoveWall Finished closing wall Enemy "); 
                 }
             }

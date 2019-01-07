@@ -2,53 +2,76 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+// Riddle class for the riddles. 
 public class Riddle : MonoBehaviour {		
 	public string riddleText;
 	public string answer;
-	public bool solved = false;	
+    public string rewardText;
+    public string hint;    
+    public string riddleType;    
+    public bool timetoMove = false;    
 
-	void Start() {
-		ResetRiddleText();
-	}
+    private bool solved = false;
+    private TMP_FontAsset defaultFont;
+    private Material DefaultFontMaterial;
+    private float defaultFontSize;
+    private Vector3 start;    
+    private Vector3 end;    
+    private float lerptime = 4;
+    private float currentLerptime = 0;
+    private float MoveWallDistance = 3f;        
+    private TextMeshPro _TextMesh;    
+    
+    void Start() {
+        riddleType = this.name;
+        _TextMesh = transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
+        defaultFont = _TextMesh.font;
+        DefaultFontMaterial = _TextMesh.fontSharedMaterial;
+        defaultFontSize = _TextMesh.fontSize;        
+    }
 
-	void Update() {
-		ResetRiddleText();
-	}
-
-	void ResetRiddleText() {
-		// SetRiddleText(riddleText);
-	}
-
-	public bool Solved
-    {
-        get { return solved; }
-        set
-        {
-            if (value == true && solved == false)
-            {	
-				// Logic for a riddle being solved
-				solved = true;
-				OnSolved();
-            }
-            else if (value == false && solved == false)
+    void Update() {		
+        if (timetoMove)
+        {   
+            MoveRiddleWall();
+            if (transform.position == end)
             {
-				// Logic for wrong answer
-				OnWrongAnswer();
+                timetoMove = false;
             }
+        }
+	}
+
+    public bool Solved
+    {
+        get 
+        {
+            return solved;
+        }
+        set 
+        {
+            solved = value;
+            SetRiddleText("Solved", 10);
         }
     }
 
-	public void OnSolved() {
-		SetRiddleText("Correct");
-	}
+	public void SetRiddleText(string text, float fontSize) {
+        _TextMesh.text = text;
+        _TextMesh.fontSize = fontSize;
+        _TextMesh.font = defaultFont;
+        _TextMesh.fontSharedMaterial = DefaultFontMaterial;
+    }
 
-	public void OnWrongAnswer() {
-		SetRiddleText("InCorrect!");
-	}
-
-	public void SetRiddleText(string text) {
-		TextMeshPro _TextMesh = transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
-		_TextMesh.text = text;
-	}
+    private void MoveRiddleWall()
+    {
+        currentLerptime += Time.deltaTime;        
+        if (currentLerptime >= lerptime)
+        {
+            currentLerptime = lerptime;
+        }
+        transform.position = Vector3.Lerp(
+            transform.position, 
+            transform.position + Vector3.up * MoveWallDistance, 
+            currentLerptime / lerptime
+        );
+    }
 }

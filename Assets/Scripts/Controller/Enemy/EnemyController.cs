@@ -19,6 +19,8 @@ public class EnemyController : MonoBehaviour
 
     public List<Transform> points;
     public float lookRadius = 10f;  // Detection range for player
+    public bool wallIsRemoved = false;
+    public GameObject wallRemovedId;
 
     Transform target;   // Reference to the player
     public NavMeshAgent agent; // Reference to the NavMeshAgent
