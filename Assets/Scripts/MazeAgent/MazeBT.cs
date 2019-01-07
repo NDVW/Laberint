@@ -10,7 +10,7 @@ using FluentBehaviourTree;
 
 public class MazeBT : MonoBehaviour
 {
-
+    private bool verbose = false;
     private IBehaviourTreeNode tree;
     private float enemyKillPlayerDistance = 1f;
     private float helpTimeInterval = 10f;
@@ -29,22 +29,25 @@ public class MazeBT : MonoBehaviour
     RemoveFirstWallEnemy removeforenemy;
     GameObject canvas;
     Animator gameoveranim;
+    restartButton rbutton;
     bool gameisover = false;
 
     // Use this for initialization
     void Start()
     {
-        Debug.Log("MazeBT start");
+        if (this.verbose) Debug.Log("MazeBT start");
         //Debug.Break();
         GameObject eg = GameObject.Find("End");
         GameObject pl = GameObject.Find("Player");
-        GameObject en1 = GameObject.Find("Enemy");
+        GameObject en = GameObject.Find("Enemy");
         this.EndGate = eg.transform;
         this.player1 = pl.transform;
-        this.enemy1 = en1.transform;
+        this.enemy1 = en.transform;
         this.canvas = GameObject.Find("Canvas");
+        GameObject restart_b = GameObject.Find("RestartButton");
+        //this.rbutton = restart_b.GetComponent<restartButton>();
 
-        this.gameoveranim = this.canvas.GetComponent<Animator>();
+        //this.gameoveranim = this.canvas.GetComponent<Animator>();
 
         this.removeforplayer = GetComponent<RemoveFirstWall>();
         this.removeforenemy = GetComponent<RemoveFirstWallEnemy>();
@@ -85,7 +88,7 @@ public class MazeBT : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("MazeBT update");
+         if (this.verbose) Debug.Log("MazeBT update");
         //Debug.Break();
         var delta = new TimeData(Time.deltaTime);
         this.timepassed += delta.deltaTime;
@@ -97,19 +100,18 @@ public class MazeBT : MonoBehaviour
 
     /////////    CONDITIONS  ////////
     bool IsGameON(){
+        //Debug.Log("Is the game on " + !this.gameisover); 
         return !this.gameisover;
     }
     bool EnemyIsWithPlayer()
     {
-
-
         if (EnemyPlayerDistance() <= this.enemyKillPlayerDistance)
         {
-            Debug.Log("------------------- MazeBT Enemy is with player " + EnemyPlayerDistance()) ;
+             if (this.verbose) Debug.Log("------------------- MazeBT Enemy is with player " + EnemyPlayerDistance()) ;
             //Debug.Break();
             return true;
         }
-        Debug.Log("------------------- MazeBT Enemy is not with player " + EnemyPlayerDistance());
+         if (this.verbose) Debug.Log("------------------- MazeBT Enemy is not with player " + EnemyPlayerDistance());
         //Debug.Break();
         return false;
     }
@@ -119,46 +121,44 @@ public class MazeBT : MonoBehaviour
         if (this.timepassed >= this.helpTimeInterval)
         {
             this.timepassed = 0;
-            Debug.Log("------------------- MazeBT it is time to help");
+             if (this.verbose) Debug.Log("------------------- MazeBT it is time to help");
             // Debug.Break();
             return true;
         }
-        Debug.Log("-------------------  MazeBT it is NOT time to help");
+         if (this.verbose) Debug.Log("-------------------  MazeBT it is NOT time to help");
         // Debug.Break();
         return false;
     }
 
     bool PlayerIsLost()
     {
-        Debug.Log("------------------ MazeBT  distance to interval time ratio " + ( this.previousposition - GoalPlayerDistance()) / helpTimeInterval );
-        Debug.Log("------------------ MazeBT Time  " + Time.time );
-        Debug.Log("------------------ MazeBT Distance  " + GoalPlayerDistance()  );
-        Debug.Log("------------------ MazeBT Advanced Distance  " + ( this.previousposition - GoalPlayerDistance()));
+        if (this.verbose) Debug.Log("------------------ MazeBT  distance to interval time ratio " + ( this.previousposition - GoalPlayerDistance()) / helpTimeInterval );
+        if (this.verbose) Debug.Log("------------------ MazeBT Time  " + Time.time );
+        if (this.verbose) Debug.Log("------------------ MazeBT Distance  " + GoalPlayerDistance()  );
+        if (this.verbose) Debug.Log("------------------ MazeBT Advanced Distance  " + ( this.previousposition - GoalPlayerDistance()));
         //Debug.Break();
         if (Time.time > 19 && ( (this.previousposition - GoalPlayerDistance()) < -10 || (Mathf.Abs(this.previousposition-GoalPlayerDistance()) / helpTimeInterval  < 0.15) )) {
-            Debug.Log("------------------ MazeBT Player is lost ");
+            if (this.verbose) Debug.Log("------------------ MazeBT Player is lost ");
             this.previousposition = GoalPlayerDistance();
             return true;
         }
-        Debug.Log("------------------ MazeBT Player is NOT lost ");
+        if (this.verbose) Debug.Log("------------------ MazeBT Player is NOT lost ");
         //Debug.Break();
         return false;
     }
     bool PlayerReachingGoalFast()
     {
-        // For debug purposes  TODO: REMOVE!!!!!!!!!!!!!!!!!!!
-        return true;
-        Debug.Log("------------------ MazeBT  distance to interval time ratio " + ( this.previousposition - GoalPlayerDistance()) / helpTimeInterval );
-        Debug.Log("------------------ MazeBT Time  " + Time.time );
-        Debug.Log("------------------ MazeBT Distance  " + GoalPlayerDistance()  );
-        Debug.Log("------------------ MazeBT Advanced Distance  " + ( this.previousposition - GoalPlayerDistance() ) );
+        if (this.verbose) Debug.Log("------------------ MazeBT  distance to interval time ratio " + ( this.previousposition - GoalPlayerDistance()) / helpTimeInterval );
+        if (this.verbose) Debug.Log("------------------ MazeBT Time  " + Time.time );
+        if (this.verbose) Debug.Log("------------------ MazeBT Distance  " + GoalPlayerDistance()  );
+        if (this.verbose) Debug.Log("------------------ MazeBT Advanced Distance  " + ( this.previousposition - GoalPlayerDistance() ) );
         if ((this.previousposition - GoalPlayerDistance()) / helpTimeInterval  > 1){
-            Debug.Log("------------------ MazeBT Player is moving fast ");
+            if (this.verbose) Debug.Log("------------------ MazeBT Player is moving fast ");
             this.previousposition = GoalPlayerDistance();
             //Debug.Break();
             return true;
         }
-        Debug.Log("------------------ MazeBT Player is NOT moving fast ");
+        if (this.verbose) Debug.Log("------------------ MazeBT Player is NOT moving fast ");
         this.previousposition = GoalPlayerDistance();
         //Debug.Break();
         return false;
@@ -168,15 +168,15 @@ public class MazeBT : MonoBehaviour
     {
         float ed = EnemyPlayerDistance();
         float eg = GoalPlayerDistance();
-        Debug.Log(ed);
-        Debug.Log(eg);
+        if (this.verbose) Debug.Log(ed);
+        if (this.verbose) Debug.Log(eg);
         if (EnemyPlayerDistance() <= GoalPlayerDistance())
         {
-            Debug.Log("------------------- MazeBT Enemy is closer Enemy   Goal");
+            if (this.verbose) Debug.Log("------------------- MazeBT Enemy is closer Enemy   Goal");
             // Debug.Break();
             return true;
         }
-        Debug.Log("------------------- MazeBT Enemy is NOT closer Enemy   Goal");
+        if (this.verbose) Debug.Log("------------------- MazeBT Enemy is NOT closer Enemy   Goal");
         //     Debug.Break();
         return false;
 
@@ -187,24 +187,26 @@ public class MazeBT : MonoBehaviour
 
     BehaviourTreeStatus KillPlayer()
     {
-        // Kill player Code  TBD
-        Debug.Log("------------------- MazeBT Kill the player");
-        //Debug.Break();
+        // Kill player Code 
+        if (this.verbose) Debug.Log("------------------- MazeBT Kill the player");
+        //Destroy(GameObject.Find("Player"));
+        //Destroy(GameObject.Find("Enemy"));
+
         return BehaviourTreeStatus.Success;
     }
     BehaviourTreeStatus EndGame()
     {
-        // End Game Code  TBD
-        Debug.Log("Maze BT End Game");
-        gameoveranim.enabled = true;
+        // End Game Code 
+        if (this.verbose) Debug.Log("Maze BT End Game");
+        //gameoveranim.enabled = true;
         this.gameisover = true;
+        //this.rbutton.restartGame("NewMaze");
 
-        //Debug.Break();
         return BehaviourTreeStatus.Success;
     }
     BehaviourTreeStatus RemoveWallForPlayer()
     {
-        Debug.Log("------------------- Maze BT Removing Wall For player");
+        if (this.verbose) Debug.Log("------------------- Maze BT Removing Wall For player");
         //Debug.Break();
         if (!this.isWallCoroutineStarted)
             {
@@ -217,7 +219,7 @@ public class MazeBT : MonoBehaviour
 
     BehaviourTreeStatus RemoveWallForEnemy()
     {
-        Debug.Log("------------------- Maze BT Removing Wall For enemy");
+        if (this.verbose) Debug.Log("------------------- Maze BT Removing Wall For enemy");
         //Debug.Break();
         if (!this.isWallCoroutineStarted)
             {
@@ -248,11 +250,11 @@ public class MazeBT : MonoBehaviour
 
         this.isWallCoroutineStarted = true;
         removeforplayer.enabled = true;
-        Debug.Log("-------------------------    MazeBT RemoveWallBTPlayer ENABLED");
+        if (this.verbose) Debug.Log("-------------------------    MazeBT RemoveWallBTPlayer ENABLED");
         yield return new WaitForSeconds(10);
         //Debug.Break();
         this.isWallCoroutineStarted = false;
-        Debug.Log("-------  DO I REACH THIS POINT??????  MazeBT RemoveWallBTPlayer: wall destroyed");
+        if (this.verbose) Debug.Log("-------  DO I REACH THIS POINT??????  MazeBT RemoveWallBTPlayer: wall destroyed");
 
         }
 
@@ -261,12 +263,12 @@ public class MazeBT : MonoBehaviour
 
         this.isWallCoroutineStarted = true;
         removeforenemy.enabled = true;
-        Debug.Log("-------------------------    MazeBT RemoveWallBTEnemy ENABLED");
+        if (this.verbose) Debug.Log("-------------------------    MazeBT RemoveWallBTEnemy ENABLED");
         //Debug.Break();
         yield return new WaitForSeconds(10);
         //Debug.Break();
         this.isWallCoroutineStarted = false;
-        Debug.Log("-------  DO I REACH THIS POINT??????  MazeBT RemoveWallBTEnemy: wall destroyed");
+        if (this.verbose) Debug.Log("-------  DO I REACH THIS POINT??????  MazeBT RemoveWallBTEnemy: wall destroyed");
 
     }
 }
