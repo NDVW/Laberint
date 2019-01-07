@@ -78,7 +78,7 @@ public class SpeechToTextController
     {
         _speechToText.StopListening();
         StopRecording();
-        Debug.Log("ExampleStreaming.OnError()" + "Error! {0}" + error);
+        Debug.Log("ExampleStreaming.OnError(): " + error);
     }
 
     private IEnumerator RecordingHandler()

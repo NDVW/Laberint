@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class TypeTextEffect : MonoBehaviour {
-    private bool isCoroutineStarted;
-    AudioSource[] sounds;
-    AudioSource typingSoundEffect;
-    GameObject Assistant;
+
+public class TypeTextEffect : MonoBehaviour 
+{    
+    public AudioSource typingSoundEffect;
+    
     int visibleCount;
-    // Use this for initialization
-    private TextMeshPro textmesh;
     int counter = 0;
+    
+    private bool isCoroutineStarted;
+    private TextMeshPro textmesh;
+    
     void Start()
     {
-        Assistant = GameObject.Find("Assistant");
-
-        sounds = Assistant.GetComponents<AudioSource>();
-        typingSoundEffect = sounds[3];
+        typingSoundEffect = this.GetComponent<AudioSource>();
+        textmesh = this.GetComponent<TextMeshPro>();
     }
+
     void Update()
     {
         if (!isCoroutineStarted)
