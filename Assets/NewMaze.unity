@@ -3184,10 +3184,9 @@ GameObject:
   - component: {fileID: 249428189}
   - component: {fileID: 249428191}
   - component: {fileID: 249428193}
-  - component: {fileID: 249428192}
   - component: {fileID: 249428194}
-  - component: {fileID: 249428195}
   - component: {fileID: 249428190}
+  - component: {fileID: 249428192}
   m_Layer: 0
   m_Name: MazeAgent
   m_TagString: Untagged
@@ -3322,10 +3321,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 249428188}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4796025e17612b840a472c7e664266dd, type: 3}
+  m_Script: {fileID: 11500000, guid: 803fdbf2afe6342bc932ad6b5bd6191c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  remove: {fileID: 0}
+  material: {fileID: 0}
+  FoundWall: 0
 --- !u!114 &249428193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3350,18 +3350,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ab0db2394191984e9264b6e76cb6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &249428195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 249428188}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48eaca6df9c144749827dae1a8954e30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  material: {fileID: 0}
 --- !u!1 &253489542
 GameObject:
   m_ObjectHideFlags: 0
