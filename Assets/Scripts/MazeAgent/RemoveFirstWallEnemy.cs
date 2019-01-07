@@ -122,7 +122,7 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
             this.action = 0;
             this.enemy1control.wallIsRemoved = true;
             this.enemy1control.wallRemovedId = this.wallToOpen;
-            Debug.Break();
+            //Debug.Break();
 
         }
     }
@@ -152,6 +152,7 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
                 if ( wallToOpen.transform.position == start){  
                     this.action = -1;
                     this.enemy1control.wallIsRemoved = false;
+
                     //this.enemy1control.wallRemovedId = Null;
                     Debug.Log("------------------------- RemoveWall Finished closing wall Enemy "); 
                 }
