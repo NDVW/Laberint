@@ -14,7 +14,7 @@ public class LightRemove : MonoBehaviour {
     void Start () {
         player = GameObject.Find("Player");
         start = transform.position;
-        end  = transform.position + Vector3.back * Move_distance;
+        end  = transform.position + Vector3.right * Move_distance;
     }
 
     // Update is called once per frame
@@ -49,7 +49,7 @@ public class LightRemove : MonoBehaviour {
                     currentLerptime = lerptime;
                 }
                 float perc = currentLerptime / lerptime;
-                transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.forward * Move_distance, perc);
+                transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.left * Move_distance, perc);
 
                 //   }
             
