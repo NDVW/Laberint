@@ -45,9 +45,9 @@ public class MazeBT : MonoBehaviour
         this.enemy1 = en.transform;
         this.canvas = GameObject.Find("Canvas");
         GameObject restart_b = GameObject.Find("RestartButton");
-        //this.rbutton = restart_b.GetComponent<restartButton>();
+        this.rbutton = restart_b.GetComponent<restartButton>();
 
-        //this.gameoveranim = this.canvas.GetComponent<Animator>();
+        this.gameoveranim = this.canvas.GetComponent<Animator>();
 
         this.removeforplayer = GetComponent<RemoveFirstWall>();
         this.removeforenemy = GetComponent<RemoveFirstWallEnemy>();
