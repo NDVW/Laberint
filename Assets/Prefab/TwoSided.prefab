@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 65179018215231406}
   - component: {fileID: 64577685935449292}
   - component: {fileID: 114239387853806658}
+  - component: {fileID: 208111288930996402}
   m_Layer: 8
   m_Name: TwoSided
   m_TagString: insidewall
@@ -889,3 +890,18 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 62dcfdb352d737f4ebff0e1595768571, type: 2}
   - {fileID: 2100000, guid: 336dd93a3ca00bd479ce852456b862e5, type: 2}
   Activate: 0
+--- !u!208 &208111288930996402
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409630822779028}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
