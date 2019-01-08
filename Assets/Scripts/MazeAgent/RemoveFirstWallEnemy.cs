@@ -135,29 +135,27 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
         }
         float perc = this.currentLerptime / this.lerptime;
         if (this.action == 0) {
-            wallToOpen.GetComponent<OffMeshLink>().enabled = true;
-            //wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
+            wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
             Debug.Log("------------------------- RemoveWall Opening wall for Enemy" + wallToOpen.transform.position);
             if ( wallToOpen.transform.position == end){  
                 this.action = 1; 
                 this.currentLerptime = 0;
                 Debug.Log("RemoveWall Opening wall for Enemy finished" );
-                //Debug.Break();
+                Debug.Break();
             }
         }
         else{ 
             if (this.action == 1) {
-                //wallToOpen.transform.position = Vector3.Lerp(start, end, 1 - perc);
+                wallToOpen.transform.position = Vector3.Lerp(start, end, 1 - perc);
                 Debug.Log("------------------------- RemoveWall Closing wall For Enmy" + wallToOpen.transform.position);
                 if ( wallToOpen.transform.position == start){  
                     this.action = -1;
                     this.enemy1control.wallIsRemoved = false;
-
-                    //this.enemy1control.wallRemovedId = Null;
+                    this.enemy1control.wallRemovedId = null;
                     Debug.Log("------------------------- RemoveWall Finished closing wall Enemy "); 
                 }
             }
         }
-        //wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
+        wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
     }
   }
