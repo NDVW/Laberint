@@ -188,7 +188,8 @@ public class MazeBT : MonoBehaviour
     BehaviourTreeStatus KillPlayer()
     {
         // Kill player Code 
-        if (this.verbose) Debug.Log("------------------- MazeBT Kill the player");
+        //if (this.verbose) 
+        Debug.Log("------------------- MazeBT Kill the player");
         //Destroy(GameObject.Find("Player"));
         //Destroy(GameObject.Find("Enemy"));
 
@@ -197,8 +198,9 @@ public class MazeBT : MonoBehaviour
     BehaviourTreeStatus EndGame()
     {
         // End Game Code 
-        if (this.verbose) Debug.Log("Maze BT End Game");
-        //gameoveranim.enabled = true;
+        //if (this.verbose) 
+        Debug.Log("Maze BT End Game");
+        gameoveranim.enabled = true;
         this.gameisover = true;
         //this.rbutton.restartGame("NewMaze");
 
