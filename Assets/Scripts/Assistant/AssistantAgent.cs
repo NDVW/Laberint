@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,16 +18,17 @@ public class AssistantAgent : MonoBehaviour
     public string urlTone;
     public string urlChat;
 
-    // Results display
-    public Text resultsField;
-    
+    public string communicatingResponse = "....communicating....awaiting connection from shuttle....";
+
     // Internal variables
     private RiddleController _riddleCtrl;
     private SpeechToTextController _sttCtrl;
     private UseReward _useReward;
     private ChatBotController _chatCtrl;
-
-    private string[] _helpWords = {"tell me more", "help"};
+    private AudioClip recording;
+    private float startRecordingTime;
+    private string[] _helpWords = { "tell me more", "help" };
+    private bool awaitingResponse = false;
 
     public TextMeshProUGUI ResultsField;
     GameObject panel;
@@ -39,7 +41,7 @@ public class AssistantAgent : MonoBehaviour
 
         _chatCtrl = new ChatBotController(usernameTone, passwordTone, urlTone, urlChat);
         _chatCtrl.Start(OnChatbotReply);
-        
+
         _riddleCtrl = GetComponent<RiddleController>();
 
         panel = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
@@ -48,46 +50,101 @@ public class AssistantAgent : MonoBehaviour
         _useReward = GetComponent<UseReward>();
     }
 
+    void Update()
+    {
+        if (awaitingResponse == true) SetResultFieldText(communicatingResponse);
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            SetResultFieldText(communicatingResponse);
+            awaitingResponse = true;
+            StartRecording();
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift)) StopRecording();
+    }
+
+    public void StopRecording()
+    {
+        //End the recording when the mouse comes back up, then play it
+        Microphone.End("");
+        Debug.Log("Microphone end");
+        //Trim the audioclip by the length of the recording
+        float timeelapsed = Time.time - startRecordingTime;
+        if (timeelapsed > 1.0f)
+        {
+            Debug.Log("Creating audio clip from mic");
+            AudioClip recordingNew = AudioClip.Create(recording.name, (int)((Time.time - startRecordingTime) * recording.frequency), recording.channels, recording.frequency, false);
+            float[] data = new float[(int)((Time.time - startRecordingTime) * recording.frequency)];
+            recording.GetData(data, 0);
+            recordingNew.SetData(data, 0);
+            Debug.Log("Processing audio");
+            _sttCtrl.ProcessAudio(recordingNew);
+        }
+        else
+        {
+            SetResultFieldText("...");
+            awaitingResponse = false;
+        }
+    }
+
+    public void StartRecording()
+    {
+        Debug.Log("Recording audio");
+        //Get the max frequency of a microphone, if it's less than 44100 record at the max frequency, else record at 44100
+        int minFreq;
+        int maxFreq;
+        int freq = 44100;
+        Microphone.GetDeviceCaps("", out minFreq, out maxFreq);
+
+        if (maxFreq < 44100) freq = maxFreq;
+
+        //Start the recording, the length of 300 gives it a cap of 5 minutes
+        recording = Microphone.Start("", false, 300, 44100);
+        startRecordingTime = Time.time;
+    }
+
     private void OnSTTResult(string result)
-    {                   
-        Debug.Log("STT Result " + result);
+    {
+        Debug.Log("Handling STT Result " + result);
+        awaitingResponse = false;
         Riddle closestRiddle = _riddleCtrl.closestRiddle;
         string displayText = null;
 
         if (closestRiddle && ArrayContains(result, _helpWords))
-        {               
+        {
             Debug.Log("Launching Hint");
-            displayText = closestRiddle.hint;            
-        } 
+            displayText = closestRiddle.hint;
+        }
         else if (closestRiddle && _riddleCtrl.SolveClosestRiddle(result))
         {
-            Debug.Log("Solved Riddle");                        
+            Debug.Log("Solved Riddle");
             _useReward.GenerateReward(closestRiddle);
-            displayText = closestRiddle.rewardText;            
-        } 
+            displayText = closestRiddle.rewardText;
+        }
         else if (ArrayContains(result, _useReward.keyWords))
         {
             Debug.Log("Using Reward");
             _useReward.Use(result);
             displayText = "This should come in handy";
         }
-        
-        if (displayText != null) 
+
+        if (displayText != null)
         {
             Debug.Log("Displaying text");
-            SetResultFieldText(displayText);  
-        }        
+            SetResultFieldText(displayText);
+        }
         else
-        {               
+        {
             Debug.Log("Sending to chat");
             _chatCtrl.SendMessage(result);
-        }        
+        }
     }
 
-    private bool ArrayContains(string result, string[] array) 
+    private bool ArrayContains(string result, string[] array)
     {
         bool contains = false;
-        
+
         foreach (var word in array)
         {
             if (result.ToLower().Contains(word)) contains = true;
@@ -96,8 +153,8 @@ public class AssistantAgent : MonoBehaviour
         return contains;
     }
 
-    private void OnChatbotReply(string reply) 
-    {        
+    private void OnChatbotReply(string reply)
+    {
         SetResultFieldText("..." + reply);
     }
 
