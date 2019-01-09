@@ -6,19 +6,27 @@ using UnityEngine;
 public class UseReward : MonoBehaviour {
     public int navigationhelpCounter = 0;
     public int XrayhelpCounter = 0;
-    AudioSource[] audioData;
-    GameObject[] riddles;
-    GameObject enemy;
-    ShowPath path;
-    GameObject end;
-    GameObject begin;
+    public string navigateKeyword = "navigate";
+    public string xRayKeyword = "x. ray";
+    public string distanceKeyword = "distance";
+    public string[] keyWords;
+    
+    private AudioSource[] audioData;
+    private GameObject[] riddles;
+    private GameObject enemy;
+    private ShowPath path;
+    private GameObject end;
+    private GameObject begin;
     private RiddleController _riddle_ctrl;
-    Riddle riddle;
-    GameObject[] TwoSidedWall;
-    AssistantAgent Assistant;
-    MaterialCOntroller _materialController;
+    private Riddle riddle;
+    private GameObject[] TwoSidedWall;
+    private AssistantAgent Assistant;
+    private MaterialCOntroller _materialController;
+    private GameObject[] portals;
+    
     // Use this for initialization
     void Start () {
+        keyWords = new string[] { navigateKeyword, xRayKeyword, distanceKeyword };
         audioData = GetComponents<AudioSource>();
         riddles = GameObject.FindGameObjectsWithTag("riddle");
         path = GetComponent<ShowPath>();
@@ -28,12 +36,37 @@ public class UseReward : MonoBehaviour {
         _riddle_ctrl = GetComponent<RiddleController>();
         Assistant = GetComponent<AssistantAgent>();
         TwoSidedWall = GameObject.FindGameObjectsWithTag("insidewall");
-
-
     }
+
+    public void GenerateReward(Riddle riddle)
+    {
+        switch (riddle.riddleType)
+        {
+            case "portal":                
+                activatePortals();
+                break;
+            case "navigation":                         
+                navigationhelpCounter = navigationhelpCounter + 1;
+                break;
+            case "xray":                
+                XrayhelpCounter = XrayhelpCounter + 1;
+                break;
+            case "door":
+                riddle.timetoMove = true;
+                break;
+        }
+    }
+
+    public void  activatePortals()
+    {
+        GameObject portal = GameObject.FindGameObjectsWithTag("portal")[0];
+        portal.transform.GetChild(0).gameObject.SetActive(true);
+        portal.transform.GetChild(3).gameObject.SetActive(true);
+    }
+
     public void Use(string playerQuery)
     {
-        if (playerQuery.ToLower().Contains("navigate")) // Navigation help 
+        if (playerQuery.ToLower().Contains(navigateKeyword)) // Navigation help 
         {
             if (navigationhelpCounter > 0)
             {
@@ -48,7 +81,7 @@ public class UseReward : MonoBehaviour {
                 audioData[2].Play();
             }
         }
-        if (playerQuery.ToLower().Contains("x. ray"))  // See through walls or Xray walls help
+        if (playerQuery.ToLower().Contains(xRayKeyword))  // See through walls or Xray walls help
         {
             if (XrayhelpCounter > 0)
                 foreach (GameObject gos in TwoSidedWall)
@@ -57,33 +90,16 @@ public class UseReward : MonoBehaviour {
                     _materialController.Activate = true;
                     XrayhelpCounter = XrayhelpCounter - 1;
                 }
-            else Assistant.setResultFieldText("No X-Ray vision help available");
-        }
-        if (playerQuery.ToLower().Contains("tell me more") || playerQuery.ToLower().Contains("help"))
-        {
-            
-            riddle = _riddle_ctrl.closestRiddle;
-            string tip = riddle.hint;
-            //  Assistant.ResultsField.text = tip;
-            Assistant.setResultFieldText(tip);
-
-        }
-        if (playerQuery.ToLower().Contains("distance"))
+            else Assistant.SetResultFieldText("No X-Ray vision help available");
+        }        
+        if (playerQuery.ToLower().Contains(distanceKeyword))
         {
             string distance_to_goal = Vector3.Distance(transform.position, end.transform.position).ToString();
             string distance_to_begin = Vector3.Distance(transform.position, begin.transform.position).ToString() ;
-            string distance_text = "Distance to goal : " + distance_to_goal + "       Distance Covered : " + distance_to_begin;
-            //   Assistant.ResultsField.text = distance_text;
-            Assistant.setResultFieldText(distance_text);
+            string distance_text = "Distance to goal : " + distance_to_goal + "       Distance Covered : " + distance_to_begin;            
+            Assistant.SetResultFieldText(distance_text);
         }
-
-
-
     }
-	// Update is called once per frame
-	void Update () {
-		
-	}
     IEnumerator LowerThemeVolume(AudioSource audio)
      {
          AudioClip clip = audio.clip;

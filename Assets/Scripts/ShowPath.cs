@@ -4,77 +4,81 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class ShowPath : MonoBehaviour
-{
-    //  private NavMeshAgent agent;
+public class ShowPath : MonoBehaviour {
+  //  private NavMeshAgent agent;
     private NavMeshPath path;
     private float elapsed = 0.0f;
     private Color c = Color.white;
     GameObject[] checkpoints;
     GameObject checkpoint;
+
+    FindFloorTrack findtrack = new FindFloorTrack();
+    GameObject track;
     GameObject[] points;
     Renderer rend;
+    Vector3 surfacePoint1;
+    Vector3 surfacePoint2;
     float len;
-    GameObject begin;
+    Collider collider1;
+    Collider collider2;
     bool FoundCheckPoint = false;
     float distance_player_checkpoint_first;
-    LineRenderer lr;
+    LineRenderer lr; 
     // Use this for initialization
-    void Start()
-    {
-        path = new NavMeshPath();
-        // agent = GetComponent<NavMeshAgent>();
-        checkpoints = GameObject.FindGameObjectsWithTag("checkpoint");
-        begin = GameObject.Find("Begin");
-        lr = GetComponent<LineRenderer>();
+    void Start () {
+    path = new NavMeshPath();
+    // agent = GetComponent<NavMeshAgent>();
+    collider1 = GetComponent<Collider>();
+    checkpoints = GameObject.FindGameObjectsWithTag("checkpoint");
+    lr = GetComponent<LineRenderer>();
+    
+    
+       
+    lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+    lr.startColor = Color.white;
+    lr.endColor = Color.white;
+    lr.startWidth = 0.2f;
+    lr.endWidth = 0.2f;
 
-        lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
-        lr.startColor = Color.white;
-        lr.endColor = Color.white;
-        lr.startWidth = 0.2f;
-        lr.endWidth = 0.2f;
-
-        //   NavMesh.CalculatePath(transform.position, checkpoint.transform.position, NavMesh.AllAreas, path);
-        len = path.corners.Length;
-        //   distance_player_checkpoint_first = Vector3.Distance(transform.position, checkpoint.transform.position);
-
-        
+  //   NavMesh.CalculatePath(transform.position, checkpoint.transform.position, NavMesh.AllAreas, path);
+     len = path.corners.Length;
+  //   distance_player_checkpoint_first = Vector3.Distance(transform.position, checkpoint.transform.position);
+   
+     Debug.Log(path.corners.Length);
     }
 
     // Update is called once per frames
     void Update()
-    {
-        if (!FoundCheckPoint)
+    {   if (!FoundCheckPoint)
         {
             FindNextCheckPoint();
 
         }
         lr.enabled = true;
         float distance_player_checkpoint = Vector3.Distance(transform.position, checkpoint.transform.position);
-        if (distance_player_checkpoint < 1)
+       if(distance_player_checkpoint < 1)
         {
-
-            this.enabled = false;
-            lr.enabled = false;
-            FoundCheckPoint = false;
-            //  Destroy(checkpoint);
+   
+           this.enabled = false;
+           lr.enabled = false;
+           FoundCheckPoint = false;
+         //  Destroy(checkpoint);
         }
         NavMesh.CalculatePath(transform.position, checkpoint.transform.position, NavMesh.AllAreas, path);
         //  if (path.corners.Length <= len )//&& distance_player_checkpoint <= distance_player_checkpoint_first)
         // {
         Vector3[] positions = new Vector3[path.corners.Length];
-        Debug.Log(path.corners.Length);
-        for (int i = 0; i < path.corners.Length; i++)
-        {
+           for (int i = 0; i < path.corners.Length ; i++)
+            {
             positions[i] = path.corners[i];
 
-        }
+                } 
         lr.positionCount = positions.Length;
         lr.SetPositions(positions);
     }
 
 
-    void FindNextCheckPoint()
+     void FindNextCheckPoint()
     {
         checkpoint = FindCheckpoint(transform);
         FoundCheckPoint = true;
@@ -82,28 +86,22 @@ public class ShowPath : MonoBehaviour
 
     public GameObject FindCheckpoint(Transform _player_transform)
     {
-        GameObject closest = null;
+        GameObject closest = null;        
         Vector3 position = _player_transform.position;
         float shortestDistance = Mathf.Infinity;
 
         foreach (GameObject checkpoint in checkpoints)
         {
             float distance = (checkpoint.transform.position - position).sqrMagnitude;
-            float distance_Checkpoint_begin = Vector3.Distance(checkpoint.transform.position, begin.transform.position);
-            float distance_player_begin = Vector3.Distance(begin.transform.position, position);
             if (distance < shortestDistance)
             {
-                if(distance_Checkpoint_begin< distance_player_begin)
-                {
-                    continue;
-                }
-                else closest = checkpoint;
+                closest = checkpoint;
             }
         }
         return closest;
     }
-    //  }
-}
+      //  }
+    }
 
 
 

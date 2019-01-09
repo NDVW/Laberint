@@ -3,16 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - helper
-  - floortrack
-  - enemy
-  - insidewall
-  - riddle
-  - End
-  - floorarrow
-  - portal
-  - checkpoint
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -22,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
+  - 
   - 
   - 
   - 
