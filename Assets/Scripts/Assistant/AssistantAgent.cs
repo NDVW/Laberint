@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -20,12 +21,14 @@ public class AssistantAgent : MonoBehaviour
     // Results display
     public Text resultsField;
     
+    
     // Internal variables
     private RiddleController _riddleCtrl;
     private SpeechToTextController _sttCtrl;
     private UseReward _useReward;
     private ChatBotController _chatCtrl;
-
+    private AudioClip recording;
+    private float startRecordingTime;
     private string[] _helpWords = {"tell me more", "help"};
 
     public TextMeshProUGUI ResultsField;
@@ -48,9 +51,51 @@ public class AssistantAgent : MonoBehaviour
         _useReward = GetComponent<UseReward>();
     }
 
+    void Update() 
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift)) StartRecording();
+
+        if (Input.GetKeyUp(KeyCode.LeftShift)) StopRecording();
+    }
+
+    public void StopRecording()
+    {
+        //End the recording when the mouse comes back up, then play it
+        Microphone.End("");
+        Debug.Log("Microphone end");
+        //Trim the audioclip by the length of the recording
+        float timeelapsed = Time.time - startRecordingTime;
+        if (timeelapsed > 1.0f) 
+        {   
+            Debug.Log("Creating audio clip from mic");
+            AudioClip recordingNew = AudioClip.Create(recording.name, (int)((Time.time - startRecordingTime) * recording.frequency), recording.channels, recording.frequency, false);
+            float[] data = new float[(int)((Time.time - startRecordingTime) * recording.frequency)];
+            recording.GetData(data, 0);
+            recordingNew.SetData(data, 0);
+            Debug.Log("Processing audio");
+            _sttCtrl.ProcessAudio(recordingNew);
+        }        
+    }
+
+    public void StartRecording()
+    {
+        Debug.Log("Recording audio");
+        //Get the max frequency of a microphone, if it's less than 44100 record at the max frequency, else record at 44100
+        int minFreq;
+        int maxFreq;
+        int freq = 44100;
+        Microphone.GetDeviceCaps("", out minFreq, out maxFreq);
+        
+        if (maxFreq < 44100) freq = maxFreq;
+                
+        //Start the recording, the length of 300 gives it a cap of 5 minutes
+        recording = Microphone.Start("", false, 300, 44100);
+        startRecordingTime = Time.time;
+    }
+
     private void OnSTTResult(string result)
     {                   
-        Debug.Log("STT Result " + result);
+        Debug.Log("Handling STT Result " + result);
         Riddle closestRiddle = _riddleCtrl.closestRiddle;
         string displayText = null;
 
