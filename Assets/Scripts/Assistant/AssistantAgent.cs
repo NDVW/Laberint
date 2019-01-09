@@ -16,11 +16,9 @@ public class AssistantAgent : MonoBehaviour
     public string usernameTone;
     public string passwordTone;
     public string urlTone;
-    public string urlChat;
-
-    // Results display
-    public Text resultsField;
+    public string urlChat;    
     
+    public string communicatingResponse = "....communicating....awaiting connection from shuttle....";
     
     // Internal variables
     private RiddleController _riddleCtrl;
@@ -30,6 +28,7 @@ public class AssistantAgent : MonoBehaviour
     private AudioClip recording;
     private float startRecordingTime;
     private string[] _helpWords = {"tell me more", "help"};
+    private bool awaitingResponse = false;
 
     public TextMeshProUGUI ResultsField;
     GameObject panel;
@@ -53,7 +52,14 @@ public class AssistantAgent : MonoBehaviour
 
     void Update() 
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift)) StartRecording();
+        if (awaitingResponse == true) SetResultFieldText(communicatingResponse);
+
+        if (Input.GetKeyDown(KeyCode.LeftShift)) 
+        {
+            SetResultFieldText(communicatingResponse);
+            awaitingResponse = true;
+            StartRecording();
+        }
 
         if (Input.GetKeyUp(KeyCode.LeftShift)) StopRecording();
     }
@@ -74,7 +80,11 @@ public class AssistantAgent : MonoBehaviour
             recordingNew.SetData(data, 0);
             Debug.Log("Processing audio");
             _sttCtrl.ProcessAudio(recordingNew);
-        }        
+        } else 
+        {
+            SetResultFieldText("...");
+            awaitingResponse = false;
+        }       
     }
 
     public void StartRecording()
@@ -87,7 +97,7 @@ public class AssistantAgent : MonoBehaviour
         Microphone.GetDeviceCaps("", out minFreq, out maxFreq);
         
         if (maxFreq < 44100) freq = maxFreq;
-                
+
         //Start the recording, the length of 300 gives it a cap of 5 minutes
         recording = Microphone.Start("", false, 300, 44100);
         startRecordingTime = Time.time;
@@ -96,6 +106,7 @@ public class AssistantAgent : MonoBehaviour
     private void OnSTTResult(string result)
     {                   
         Debug.Log("Handling STT Result " + result);
+        awaitingResponse = false;
         Riddle closestRiddle = _riddleCtrl.closestRiddle;
         string displayText = null;
 
