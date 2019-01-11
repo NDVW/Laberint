@@ -32,6 +32,8 @@ public class MazeBT : MonoBehaviour
     Animator gameoveranim;
     restartButton rbutton;
     bool gameisover = false;
+    public GameObject pauseMenu;
+    public GameObject Chat; 
 
     // Use this for initialization
     void Start()
@@ -96,7 +98,6 @@ public class MazeBT : MonoBehaviour
         var delta = new TimeData(Time.deltaTime);
         this.timepassed += delta.deltaTime;
         this.tree.Tick(new TimeData(Time.deltaTime));
-
     }
 
 

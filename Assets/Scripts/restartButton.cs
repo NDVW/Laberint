@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class restartButton : MonoBehaviour {
     public GameObject LoadingScreen;
     public Slider slider;
+    public GameObject Chat;
 	public void restartGame() {
 			Debug.Log("Restarting");
         //Debug.Break();
@@ -38,6 +39,11 @@ public class restartButton : MonoBehaviour {
     public void BacktoMain()
     {
         SceneManager.LoadScene(0);
+    }
+    public void Resume()
+    {
+        this.gameObject.SetActive(false);
+        Chat.SetActive(true);
     }
     IEnumerator loadGame()
     {

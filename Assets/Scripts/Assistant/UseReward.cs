@@ -84,13 +84,17 @@ public class UseReward : MonoBehaviour {
         if (playerQuery.ToLower().Contains(xRayKeyword))  // See through walls or Xray walls help
         {
             if (XrayhelpCounter > 0)
+            { 
                 foreach (GameObject gos in TwoSidedWall)
                 {
                     _materialController = gos.GetComponent<MaterialCOntroller>();
                     _materialController.Activate = true;
                     XrayhelpCounter = XrayhelpCounter - 1;
+                    
                 }
-            else Assistant.SetResultFieldText("No X-Ray vision help available");
+            Assistant.SetResultFieldText("This should come in handy");
+        }
+        else Assistant.SetResultFieldText("No X-Ray vision help available");
         }        
         if (playerQuery.ToLower().Contains(distanceKeyword))
         {
