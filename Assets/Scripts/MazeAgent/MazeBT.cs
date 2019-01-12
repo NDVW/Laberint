@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 //using UnitySteer.Behaviors;
@@ -31,6 +32,10 @@ public class MazeBT : MonoBehaviour
     Animator gameoveranim;
     restartButton rbutton;
     bool gameisover = false;
+    string name = "EndMenu";
+    
+        
+
 
     // Use this for initialization
     void Start()
@@ -53,6 +58,9 @@ public class MazeBT : MonoBehaviour
         this.removeforenemy = GetComponent<RemoveFirstWallEnemy>();
         this.removeforplayer.enabled = false;
         this.removeforenemy.enabled = false;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         this.previousposition = GoalPlayerDistance();
         // Building the tree
@@ -199,8 +207,12 @@ public class MazeBT : MonoBehaviour
     {
         // End Game Code 
         //if (this.verbose) 
-        Debug.Log("Maze BT End Game");
-        gameoveranim.enabled = true;
+        Debug.Log("--------------------- Maze BT End Game");
+        //gameoveranim.enabled = true;
+
+        SceneManager.LoadScene(name);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         this.gameisover = true;
         //this.rbutton.restartGame("NewMaze");
 
