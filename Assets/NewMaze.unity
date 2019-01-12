@@ -3218,6 +3218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecbec3fbcf73f49c6a23ae21809b5cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadingScreen: {fileID: 0}
+  slider: {fileID: 0}
+  Chat: {fileID: 0}
 --- !u!82 &249428191
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5665,7 +5668,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.02
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalPosition.y
@@ -5673,7 +5676,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -7.73
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_LocalRotation.x
@@ -6185,6 +6188,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecbec3fbcf73f49c6a23ae21809b5cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadingScreen: {fileID: 0}
+  slider: {fileID: 0}
+  Chat: {fileID: 0}
 --- !u!1001 &402690346
 Prefab:
   m_ObjectHideFlags: 0
