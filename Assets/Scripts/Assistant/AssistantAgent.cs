@@ -48,20 +48,22 @@ public class AssistantAgent : MonoBehaviour
         ResultsField = panel.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
         chatText = panel.transform.GetChild(0).gameObject.GetComponent<HelperTextTyping>();
         _useReward = GetComponent<UseReward>();
+
+        SetResultFieldText("...hello...can you hear me?...hold down left control and speak into the mic to answer...");
     }
 
     void Update() 
     {
         if (awaitingResponse == true) SetResultFieldText(communicatingResponse);
 
-        if (Input.GetKeyDown(KeyCode.LeftShift)) 
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             SetResultFieldText(communicatingResponse);
             awaitingResponse = true;
             StartRecording();
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftShift)) StopRecording();
+        if (Input.GetKeyUp(KeyCode.LeftControl)) StopRecording();
     }
 
     public void StopRecording()
@@ -80,7 +82,8 @@ public class AssistantAgent : MonoBehaviour
             recordingNew.SetData(data, 0);
             Debug.Log("Processing audio");
             _sttCtrl.ProcessAudio(recordingNew);
-        } else 
+        } 
+        else 
         {
             SetResultFieldText("...");
             awaitingResponse = false;

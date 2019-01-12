@@ -29,7 +29,7 @@ public class HelperTextTyping : MonoBehaviour
     }
 
 	IEnumerator type () {
-        typingSoundEffect.Play();
+        // typingSoundEffect.Play();
         isCoroutineStarted = true;
         
         while (true)
