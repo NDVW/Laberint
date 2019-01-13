@@ -27,6 +27,8 @@ public class RemoveFirstWall : MonoBehaviour {
     public bool FoundWall = false;
     Renderer rend;
     GameObject wallToOpen;
+    int openTime = 200;
+    int waitTime = 0;
     int action = -1; // -1 none, 0 for removing, 1 for placing it back
     // Use this for initialization
     void Start()
@@ -128,17 +130,28 @@ public class RemoveFirstWall : MonoBehaviour {
         {
             this.currentLerptime = this.lerptime;
         }
-        float perc = this.currentLerptime / this.lerptime;
+        float perc = 0;
+        if (this.action != 2) perc = this.currentLerptime / this.lerptime;
         if (this.action == 0) {
             wallToOpen.transform.position = Vector3.Lerp(start, end, perc);
             if (this.verbose) Debug.Log("------------------------- RemoveWall Opening wall " + wallToOpen.transform.position);
             if ( wallToOpen.transform.position == end){  
-                this.action = 1; 
+                this.action = 2;
+                this.waitTime = 0; 
                 this.currentLerptime = 0;
                 if (this.verbose) Debug.Log("RemoveWall Opening wall finished" );
             }
         }
-        else{ 
+        else{
+            if (this.action == 2) {
+                //Debug.Log("-----------------------  RemoveWall waiting" );
+                this.waitTime += 1;
+                if(this.waitTime > this.openTime){
+                    this.currentLerptime = 0;
+                    this.action = 1;
+                    //Debug.Log("-----------------------  RemoveWall finish waiting" );
+                }
+            } 
             if (this.action == 1) {
                 wallToOpen.transform.position = Vector3.Lerp(start, end, 1 - perc);
                 if (this.verbose) Debug.Log("------------------------- RemoveWall Closing wall " + wallToOpen.transform.position);
