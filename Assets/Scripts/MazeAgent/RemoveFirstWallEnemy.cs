@@ -141,7 +141,7 @@ public class RemoveFirstWallEnemy : MonoBehaviour {
                 this.action = 1; 
                 this.currentLerptime = 0;
                 Debug.Log("RemoveWall Opening wall for Enemy finished" );
-                Debug.Break();
+                // Debug.Break();
             }
         }
         else{ 
