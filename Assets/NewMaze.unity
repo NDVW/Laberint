@@ -3327,7 +3327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803fdbf2afe6342bc932ad6b5bd6191c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 0}
+  material: {fileID: 2100000, guid: c0bb028252bdc814ba4808a57d71bf27, type: 2}
   FoundWall: 0
 --- !u!114 &249428193
 MonoBehaviour:
@@ -3340,7 +3340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6e9ad8ee3e6bd4dbc537e63ade7ca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 0}
+  material: {fileID: 2100000, guid: c0bb028252bdc814ba4808a57d71bf27, type: 2}
   FoundWall: 0
 --- !u!114 &249428194
 MonoBehaviour:
@@ -4420,6 +4420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ea9db67cb88c540bbd7983ddaaa45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typingSoundEffect: {fileID: 0}
 --- !u!114 &320656153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6589,6 +6590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ea9db67cb88c540bbd7983ddaaa45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typingSoundEffect: {fileID: 0}
 --- !u!114 &451269001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9556,6 +9558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ea9db67cb88c540bbd7983ddaaa45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typingSoundEffect: {fileID: 0}
 --- !u!82 &743613275
 AudioSource:
   m_ObjectHideFlags: 0
@@ -18741,6 +18744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ea9db67cb88c540bbd7983ddaaa45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typingSoundEffect: {fileID: 0}
 --- !u!114 &1401504844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26994,6 +26998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ea9db67cb88c540bbd7983ddaaa45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typingSoundEffect: {fileID: 0}
 --- !u!82 &1972923408
 AudioSource:
   m_ObjectHideFlags: 0
@@ -28225,6 +28230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ea9db67cb88c540bbd7983ddaaa45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typingSoundEffect: {fileID: 0}
 --- !u!82 &2071944412
 AudioSource:
   m_ObjectHideFlags: 0
