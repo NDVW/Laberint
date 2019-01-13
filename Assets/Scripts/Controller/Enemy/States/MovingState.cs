@@ -32,17 +32,21 @@ public class MovingState : FSMState<EnemyController>
             entity.SetPoint(entity.wallRemovedId.transform.position);
             entity.wallIsRemoved = false;
         }
-        info = entity.GetAnimatorStateInfo(0);
-        if (!entity.agent.pathPending && entity.agent.remainingDistance < 0.5f)
+        else
+        {
+
+            info = entity.GetAnimatorStateInfo(0);
+            if (!entity.agent.pathPending && entity.agent.remainingDistance < 0.5f)
                 entity.GotoNextPoint();
 
-        // Detect player's scent
-        GameObject nearestSmell = FindSmellPoints.FindSmell(
-        entity.GetPosition(), "playerScent", 30);
-        if (nearestSmell != null)
-        {
-            entity.FiniteStateMachine.ChangeState(
-                ChasingState.Instance(nearestSmell));
+            // Detect player's scent
+            GameObject nearestSmell = FindSmellPoints.FindSmell(
+            entity.GetPosition(), "playerScent", 30);
+            if (nearestSmell != null)
+            {
+                entity.FiniteStateMachine.ChangeState(
+                    ChasingState.Instance(nearestSmell));
+            }
         }
     }
 
