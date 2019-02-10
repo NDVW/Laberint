@@ -9,4 +9,5 @@ An Unity 3D maze game where the player needs to escape the maze while 3 differen
  Assistant Agent : An agent that the player can communicate via speech and ask for help to solve the riddles placed in different locations in the maze. Its also equipped with a chatbot that the player can talk to regarding anytopic.
 
 Tools : Unity3D
+
 API and libraries : IBM Watson Speech to Text, Cakechat (chatBot)
